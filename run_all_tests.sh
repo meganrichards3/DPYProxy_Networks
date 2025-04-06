@@ -3,10 +3,10 @@
 # Run this script from terminal by running "sh run_all_tests.sh"
 
 # Define Arguments 
-N=2 # number of times to call each website
+N=10 # number of times to call each website
 frag_size=20 # size of the fragment
-tcp_frag=true # whether to use TCP fragmentation
-record_frag=true # whether to use record fragmentation
+tcp_frag=True # whether to use TCP fragmentation
+record_frag=False # whether to use record fragmentation
 website_list_to_use="test" # list of websites to use (test, censored, popular)
 
 # Loop to call test.py N times with the specified parameters WITH dpyproxy 

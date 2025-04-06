@@ -375,6 +375,10 @@ if __name__ == "__main__":
     website_list_to_use = args.website_list_to_use
     sample = args.sample
 
+    if dpyproxy and not (tcp_frag or record_frag):
+        print("Warning: dpyproxy is enabled but no fragmentation options are selected. Setting TCP Fragmentation to True.")
+        tcp_frag = True
+
     # List of websites to analyze
     if website_list_to_use == "censored":
         websites = get_censored_websites()
