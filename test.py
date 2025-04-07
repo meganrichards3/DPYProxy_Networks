@@ -441,28 +441,31 @@ def filter_packets_by_ip(capture_file, website, verbose = False):
         if success:
             ip_address, _ = result
     
-        # Load all packets from the capture file
-        packets = pyshark.FileCapture(capture_file)
+            # Load all packets from the capture file
+            packets = pyshark.FileCapture(capture_file)
+            
+            # Filter packets by IP if provided
+            filtered_packets = []
+            
+            for packet in packets:
+                # Skip non-IP packets
+                if not hasattr(packet, 'ip'):
+                    continue
+                    
+                # Check if packet is to/from our target IP
+                if ip_address and (packet.ip.src == ip_address or packet.ip.dst == ip_address):
+                    filtered_packets.append(packet)
+            
+            # Count packets
+            packet_count = len(filtered_packets)
+            if verbose:
+                print(f"Found {packet_count} packets related to {website} ({ip_address})")
         
-        # Filter packets by IP if provided
-        filtered_packets = []
-        
-        for packet in packets:
-            # Skip non-IP packets
-            if not hasattr(packet, 'ip'):
-                continue
-                
-            # Check if packet is to/from our target IP
-            if ip_address and (packet.ip.src == ip_address or packet.ip.dst == ip_address):
-                filtered_packets.append(packet)
-        
-        # Count packets
-        packet_count = len(filtered_packets)
-        if verbose:
-            print(f"Found {packet_count} packets related to {website} ({ip_address})")
-        
-        packets.close()
-        return filtered_packets
+            packets.close()
+            return filtered_packets
+        else:
+            print(f"Failed to resolve IP address for {website}. No packets will be filtered.")
+            return []
     except Exception as e:
         print(f"Error processing packets: {e}")
         return []
@@ -500,6 +503,7 @@ def make_results_folders(dpyproxy, website, param_log_string = ""):
 
 
 def run_all_packet_analyses_and_save_to_csv(capture_file, result_folder, param_log_string, website, id, verbose=False): 
+        print("Starting packet analysis...")
         
         # Check if file exists before analyzing
         if os.path.exists(capture_file):
@@ -507,14 +511,20 @@ def run_all_packet_analyses_and_save_to_csv(capture_file, result_folder, param_l
             ## Read Packets
             all_packets = pyshark.FileCapture(capture_file)
             all_packets_list = list(all_packets) 
-            
-            website_packets = filter_packets_by_ip(capture_file, website, verbose)
-            website_packets_list = list(website_packets)  
+            try: 
+                website_packets = filter_packets_by_ip(capture_file, website, verbose)
+                website_packets_list = list(website_packets)  
 
-            subsets_to_run = {
-                "all": all_packets_list,
-                "website": website_packets_list,
-            }
+                subsets_to_run = {
+                    "all": all_packets_list,
+                    "website": website_packets_list,
+                }
+            except Exception as e:
+                print(f"Error filtering packets by IP: {e}")
+                subsets_to_run = {
+                    "all": all_packets_list,
+                }
+
             for subset_name, subset_packets in subsets_to_run.items():
                 if verbose:
                     print(f"Running analysis for {subset_name} packets.")
@@ -558,23 +568,23 @@ def run_all_packet_analyses_and_save_to_csv(capture_file, result_folder, param_l
             if verbose:
                 print(f"Error: Capture file {capture_file} was not created.")
         
-        
-        return metrics 
-
+        return  
+ 
+    
 def capture_website_traffic_and_write_to_files(website, interface="en0", dpyproxy=False, id = "", result_folder="results", verbose=False):
     """Capture network traffic while accessing a website."""
     # Create output filenames based on the website name
 
-    output_file = os.path.abspath(os.path.join(result_folder, "captures", f"{id}_output.txt"))
-    capture_file = os.path.abspath(os.path.join(result_folder, "captures", f"{id}_capture.pcap"))
-    if not os.path.exists(os.path.join(result_folder, "captures")):
-        os.makedirs(os.path.join(result_folder, "captures"), exist_ok=True)
-    if verbose:
-        print(f"Capture file: {capture_file}")
-        print(f"Output file: {output_file}")
-
     try:
-        
+        output_file = os.path.abspath(os.path.join(result_folder, "captures", f"{id}_output.txt"))
+        capture_file = os.path.abspath(os.path.join(result_folder, "captures", f"{id}_capture.pcap"))
+        if not os.path.exists(os.path.join(result_folder, "captures")):
+            os.makedirs(os.path.join(result_folder, "captures"), exist_ok=True)
+        if verbose:
+            print(f"Capture file: {capture_file}")
+            print(f"Output file: {output_file}")
+
+   
         # Create a function for capture to run in a separate thread
         def capture_packets():
             try:
@@ -597,16 +607,17 @@ def capture_website_traffic_and_write_to_files(website, interface="en0", dpyprox
         time.sleep(2)
 
         # Send the request with curl (following redirects with -L)
+       
         if dpyproxy:
             if website.startswith("https://"):
-                curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' {website}"
+                curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' {website}  --connect-timeout 15 --max-time 500"
             else:
-                curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' https://{website}"
+                curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' https://{website} --connect-timeout 15 --max-time 500"
         else: 
             if website.startswith("https://"):
-                curl_command = f"curl -L -o '{output_file}' {website}"
+                curl_command = f"curl -L -o '{output_file}' {website}  --connect-timeout 15 --max-time 500"
             else:
-                curl_command = f"curl -L -o '{output_file}' https://{website}"
+                curl_command = f"curl -L -o '{output_file}' https://{website}  --connect-timeout 15 --max-time 500"
         
         if verbose:
             print(f"Executing: {curl_command}")
@@ -618,7 +629,7 @@ def capture_website_traffic_and_write_to_files(website, interface="en0", dpyprox
     
     except Exception as e:
         print(f"Error processing {website}: {e}")
-        return False
+        return None
 
 
 ##################################### Handle Website Lists ################################
@@ -716,13 +727,23 @@ if __name__ == "__main__":
     else: 
         param_log_string = f"dpyproxy={args.dpyproxy}"
     
-    # Capture website traffic and write to files
+    # Capture website traffic and write to files with a timeout of 5 minutes
     for website in tqdm(websites, desc="Processing websites"):
-
+        time.sleep(3)
         print(f"\n{'='*50}\nProcessing {website}\n{'='*50}")
         id = str(uuid.uuid4())
         result_folder = make_results_folders(dpyproxy, website, param_log_string=param_log_string)
-        capture_file = capture_website_traffic_and_write_to_files(website = website, interface = interface,  id = id, dpyproxy = dpyproxy, result_folder = result_folder, verbose=args.verbose)
-        run_all_packet_analyses_and_save_to_csv(capture_file, result_folder = result_folder, param_log_string = param_log_string, website = website, id = id, verbose=args.verbose)
+
+        try:
+            capture_file = capture_website_traffic_and_write_to_files(website=website, interface=interface, id=id, dpyproxy=dpyproxy, result_folder=result_folder, verbose=args.verbose)
+            if capture_file is not None:
+                run_all_packet_analyses_and_save_to_csv(capture_file, result_folder=result_folder, param_log_string=param_log_string, website=website, id=id, verbose=args.verbose)
+            else:
+                print(f"Capture file for {website} was not created. Skipping analysis.")
+                continue
+        except Exception as e:
+            print(f"Error processing {website}: {e}")
+
+            continue
         
     print("\nAll websites processed!")

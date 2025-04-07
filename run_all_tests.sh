@@ -4,19 +4,19 @@
 # To run in the background, use "nohup sh run_all_tests.sh &"
 
 # Define Arguments 
-N=2 # number of times to call each website
-frag_size=10 # size of the fragment
-website_list_to_use="test" # list of websites to use (test, censored, popular)
+N=20 # number of times to call each website
+frag_size=20 # size of the fragment
+website_list_to_use="censored" # list of websites to use (test, censored, popular)
 
 # Loop to call test.py N times with the specified parameters WITH dpyproxy 
-# for ((i=1; i<=N; i++)); do
-#   echo "Running test iteration $i..."
-#   python3 test.py \
-#     --frag_size "$frag_size" \
-#     --tcp_frag \
-#     --dpyproxy \
-#     --website_list_to_use "$website_list_to_use" 
-# done
+for ((i=1; i<=N; i++)); do
+  echo "Running test iteration $i..."
+  python3 test.py \
+    --frag_size "$frag_size" \
+    --tcp_frag \
+    --dpyproxy \
+    --website_list_to_use "$website_list_to_use" 
+done
 
 # Loop to call test.py N times with the specified parameters WITHOUT dpyproxy 
 for ((i=1; i<=N; i++)); do
