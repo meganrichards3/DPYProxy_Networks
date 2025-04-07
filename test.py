@@ -9,7 +9,10 @@ import pandas as pd
 import uuid
 from tqdm import tqdm
 import random
+import socket
+import pyshark
 
+##################################### Packet Analysis Functions #####################################
 def calculate_packet_size_metrics(packets, prefix = "all",  id = "",  capture_file_path = "", print_out_packets = False, verbose = False): 
     """
     Calculate packet size metrics for the captured packets. This is used on all packets, and also on subsets (e.g. TCP packets alone)
@@ -344,87 +347,128 @@ def calculate_data_metrics(all_packets, verbose = False):
 
     return data_metrics
 
-
-
-def process_all_packets(capture_file_path, website, id, verbose=False, print_out_packets = False): 
-    if verbose:
-        print(f"Packet capture for {website} saved to {capture_file_path}")
+def run_per_layer_analysis(packets, id = None, capture_file_path = None, print_out_packets = False, verbose = False):
     metrics = {}
-    metrics["website"] = website
-    metrics["id"] = id
-    metrics["date"] = time.strftime("%Y-%m-%d %H:%M:%S")
+    
+    # Calculate the number of packets per layer
+    layer_counts = {}
+    for packet in packets:
+        for layer in packet.layers:
+            layer_name = layer.layer_name
+            if layer_name in layer_counts:
+                layer_counts[layer_name] += 1
+            else:
+                layer_counts[layer_name] = 1
+    if verbose:
+        print(f"Packets per layer: {layer_counts}")
+    metrics["layer_counts"] = str(layer_counts)
 
     try:
-        ## Analyze ALL packets 
-        filtered_packets = pyshark.FileCapture(capture_file_path)
-        packets = list(filtered_packets)  
-        try:
-            packet_size_metrics = calculate_packet_size_metrics(packets = packets,prefix = "all", id = id, capture_file_path= capture_file_path, print_out_packets = print_out_packets, verbose=verbose)
-            metrics.update(packet_size_metrics)
-        except Exception as e:
-            print(f"Error calculating packet size metrics: {e}")
-        try:
-            tcp_metrics = calculate_tcp_metrics(packets, verbose=verbose)
-            metrics.update(tcp_metrics)
-        except Exception as e:
-            print(f"Error calculating TCP metrics: {e}")
-        try:
-            udp_metrics = calculate_udp_metrics(packets, verbose=verbose)
-            metrics.update(udp_metrics)
-        except Exception as e:
-            print(f"Error calculating UDP metrics: {e}")
-        try: 
-            ip_metrics = calculate_ip_metrics(packets, verbose=verbose)
-            metrics.update(ip_metrics)
-        except Exception as e:
-            print(f"Error calculating IP metrics: {e}")
-        try: 
-            dns_metrics = calculate_dns_metrics(packets, verbose=verbose)
-            metrics.update(dns_metrics)
-        except Exception as e:
-            print(f"Error calculating DNS metrics: {e}")
-        try: 
-            data_metrics = calculate_data_metrics(packets, verbose=verbose)
-            metrics.update(data_metrics)
-        except Exception as e:
-            print(f"Error calculating DATA metrics: {e}")
-
-        # Calculate the number of packets per layer
-        layer_counts = {}
-        for packet in packets:
-            for layer in packet.layers:
-                layer_name = layer.layer_name
-                if layer_name in layer_counts:
-                    layer_counts[layer_name] += 1
-                else:
-                    layer_counts[layer_name] = 1
-        metrics["layer_counts"] = str(layer_counts)
-        if verbose:
-            print(f"Packets per layer: {layer_counts}")
-         
-        filtered_packets.close()
+        # All packet sizes
+        packet_size_metrics = calculate_packet_size_metrics(packets = packets,prefix = "all", id = id, capture_file_path= capture_file_path, print_out_packets = print_out_packets, verbose=verbose)
+        metrics.update(packet_size_metrics)
     except Exception as e:
-        if verbose:
-            print(f"Error analyzing capture file: {e}")
-    return metrics
+        print(f"Error calculating packet size metrics: {e}")
+    try:
+        # TCP layer packets
+        tcp_metrics = calculate_tcp_metrics(packets, verbose=verbose)
+        metrics.update(tcp_metrics)
+    except Exception as e:
+        print(f"Error calculating TCP metrics: {e}")
+    try:
+        # UDP layer packets
+        udp_metrics = calculate_udp_metrics(packets, verbose=verbose)
+        metrics.update(udp_metrics)
+    except Exception as e:
+        print(f"Error calculating UDP metrics: {e}")
+    try: 
+        # IP layer packets
+        ip_metrics = calculate_ip_metrics(packets, verbose=verbose)
+        metrics.update(ip_metrics)
+    except Exception as e:
+        print(f"Error calculating IP metrics: {e}")
+    try: 
+        # DNS layer packets
+        dns_metrics = calculate_dns_metrics(packets, verbose=verbose)
+        metrics.update(dns_metrics)
+    except Exception as e:
+        print(f"Error calculating DNS metrics: {e}")
+    try: 
+        # DATA layer packets
+        data_metrics = calculate_data_metrics(packets, verbose=verbose)
+        metrics.update(data_metrics)
+    except Exception as e:
+        print(f"Error calculating DATA metrics: {e}")
+    return metrics 
+
+##################################### Packet Filters ################################
+
+def get_website_ip(website):
+    """Get the IP address of a website using DNS resolution.
     
+    Args:
+        website (str): The domain name to resolve (e.g., 'google.com')
+        
+    Returns:
+        tuple: (success, ip_address or error_message)
+    """
+    try:
+        # Remove any http/https prefix if present
+        clean_website = website.replace('http://', '').replace('https://', '')
+        
+        # Get all IP addresses associated with the domain
+        ip_addresses = socket.gethostbyname_ex(clean_website)
+        
+        # The result is a tuple: (hostname, aliaslist, ipaddrlist)
+        primary_ip = ip_addresses[2][0]  # First IP in the list
+        all_ips = ip_addresses[2]        # All IPs as a list
+        
+        # Return the primary IP and all IPs
+        return True, (primary_ip, all_ips)
+    except socket.gaierror as e:
+        error_msg = f"Could not resolve {website}: {e}"
+        print(error_msg)
+        return False, error_msg
+    except Exception as e:
+        error_msg = f"Error resolving {website}: {e}"
+        print(error_msg)
+        return False, error_msg
 
-def make_results_folders(dpyproxy, website, param_log_string = ""): 
-     # Define folder structure for saving results
-    label = ""
-    if dpyproxy:
-        label = "dpyproxy"
-    else: 
-        label = "baseline"
+def filter_packets_by_ip(capture_file, website, verbose = False):
+        
+    try:
+        success, result = get_website_ip(website)
+        if success:
+            ip_address, _ = result
+    
+        # Load all packets from the capture file
+        packets = pyshark.FileCapture(capture_file)
+        
+        # Filter packets by IP if provided
+        filtered_packets = []
+        
+        for packet in packets:
+            # Skip non-IP packets
+            if not hasattr(packet, 'ip'):
+                continue
+                
+            # Check if packet is to/from our target IP
+            if ip_address and (packet.ip.src == ip_address or packet.ip.dst == ip_address):
+                filtered_packets.append(packet)
+        
+        # Count packets
+        packet_count = len(filtered_packets)
+        if verbose:
+            print(f"Found {packet_count} packets related to {website} ({ip_address})")
+        
+        packets.close()
+        return filtered_packets
+    except Exception as e:
+        print(f"Error processing packets: {e}")
+        return []
 
-    # Create result saving folder
-    website_base = website.replace("https://", "").replace("http://", "").replace("www", "").replace(".", "_").replace("/", "__")
-    print(f"Website base name: {website_base}")
-    folder_name = os.path.join(os.getcwd(), "results", f"{label}", param_log_string, website_base)
-    if not os.path.exists(folder_name):
-        os.makedirs(folder_name)
-    return folder_name
 
+##################################### Main Wrapper Functions ################################
 def set_up(record_frag=False, tcp_frag=False, frag_size=20):
 
     base_command = f"nohup python3 main.py --frag_size {frag_size}"
@@ -437,12 +481,89 @@ def set_up(record_frag=False, tcp_frag=False, frag_size=20):
     print(f"Running {base_command}")
     os.system(base_command)
     return 
-  
 
-def capture_website_traffic(website, interface="en0", dpyproxy=False, result_folder="results", verbose=False):
+def make_results_folders(dpyproxy, website, param_log_string = ""): 
+     # Define folder structure for saving results
+    label = ""
+    if dpyproxy:
+        label = "dpyproxy"
+    else: 
+        label = "baseline"
+
+    # Create result saving folder
+    website_base = website.replace("https://", "").replace("http://", "").replace("www", "").replace(".", "_").replace("/", "__")
+   
+    folder_name = os.path.join(os.getcwd(), "results", f"{label}", param_log_string, website_base)
+    if not os.path.exists(folder_name):
+        os.makedirs(folder_name)
+    return folder_name
+
+
+def run_all_packet_analyses_and_save_to_csv(capture_file, result_folder, param_log_string, website, id, verbose=False): 
+        
+        # Check if file exists before analyzing
+        if os.path.exists(capture_file):
+            
+            ## Read Packets
+            all_packets = pyshark.FileCapture(capture_file)
+            all_packets_list = list(all_packets) 
+            
+            website_packets = filter_packets_by_ip(capture_file, website, verbose)
+            website_packets_list = list(website_packets)  
+
+            subsets_to_run = {
+                "all": all_packets_list,
+                "website": website_packets_list,
+            }
+            for subset_name, subset_packets in subsets_to_run.items():
+                if verbose:
+                    print(f"Running analysis for {subset_name} packets.")
+             
+                metrics = {}
+                metrics["website"] = website
+                metrics["id"] = id
+                metrics["date"] = time.strftime("%Y-%m-%d %H:%M:%S")
+           
+                ## Run analysis and update metrics dictionary
+                all_packet_metrics = run_per_layer_analysis(subset_packets, id=id, capture_file_path=capture_file, print_out_packets=True, verbose=verbose)
+                metrics.update(all_packet_metrics)
+
+                for x in metrics:
+                    if verbose:
+                        print(f"{x}: {metrics[x]}")
+                
+                # Save metrics to a CSV file
+                metrics_file = os.path.join(result_folder, f"metrics_{subset_name}.csv")
+                
+                ## Add params + experiment id
+                param_dict = {key_value.split("=")[0]: key_value.split("=")[1] for key_value in param_log_string.split("__")}
+                for param in param_dict.keys():
+                    metrics[f"param_{param}"] = param_dict.get(param, None)
+                
+                metrics["id"] = id
+
+                if os.path.exists(metrics_file):
+                    # Append to the existing file (for multiple runs)
+                    metrics_df = pd.DataFrame(metrics, index=[0])
+                    metrics_df.to_csv(metrics_file, mode='a', header=False, index=False)
+                else:
+                    # Create a new file
+                    metrics_df = pd.DataFrame(metrics, index=[0])
+                    metrics_df.to_csv(metrics_file, index=False)
+            
+                if verbose:
+                    print(f"Packet analysis for subset {subset_name} completed.")
+                all_packets.close()
+        else:
+            if verbose:
+                print(f"Error: Capture file {capture_file} was not created.")
+        
+        
+        return metrics 
+
+def capture_website_traffic_and_write_to_files(website, interface="en0", dpyproxy=False, id = "", result_folder="results", verbose=False):
     """Capture network traffic while accessing a website."""
     # Create output filenames based on the website name
-    id = str(uuid.uuid4())
 
     output_file = os.path.abspath(os.path.join(result_folder, "captures", f"{id}_output.txt"))
     capture_file = os.path.abspath(os.path.join(result_folder, "captures", f"{id}_capture.pcap"))
@@ -491,46 +612,16 @@ def capture_website_traffic(website, interface="en0", dpyproxy=False, result_fol
             print(f"Executing: {curl_command}")
         subprocess.run(curl_command, shell=True, check=False)
 
-        time.sleep(5)  
-        
-        metrics = {}
-        # Check if file exists before analyzing
-        if os.path.exists(capture_file):
-            packet_metrics = process_all_packets(capture_file, website, id, verbose=verbose, print_out_packets = True)
-            if verbose:
-                print("Packet analysis completed.")
-            metrics.update(packet_metrics)
-        else:
-            if verbose:
-                print(f"Error: Capture file {capture_file} was not created.")
-        
-        for x in metrics:
-            if verbose:
-                print(f"{x}: {metrics[x]}")
-
-        # Save metrics to a CSV file
-        metrics_file = os.path.join(result_folder, "metrics.csv")
-        ## Add params + experiment id
-        param_dict = {key_value.split("=")[0]: key_value.split("=")[1] for key_value in param_log_string.split("__")}
-        for param in param_dict.keys():
-            metrics[f"param_{param}"] = param_dict.get(param, None)
-        
-        metrics["id"] = id
-
-        if os.path.exists(metrics_file):
-            # Append to the existing file (for multiple runs)
-            metrics_df = pd.DataFrame(metrics, index=[0])
-            metrics_df.to_csv(metrics_file, mode='a', header=False, index=False)
-        else:
-            # Create a new file
-            metrics_df = pd.DataFrame(metrics, index=[0])
-            metrics_df.to_csv(metrics_file, index=False)
-        return True
+        time.sleep(5)  # This is important to allow the capture to finish processing between curl calls! 
+    
+        return capture_file 
     
     except Exception as e:
         print(f"Error processing {website}: {e}")
         return False
 
+
+##################################### Handle Website Lists ################################
 def get_censored_websites(): 
     # Read the list of censored websites from a CSV file
     try:
@@ -553,32 +644,8 @@ def get_censored_websites():
     except Exception as e:
         print(f"Error reading censored websites: {e}")
         return []
-    
-if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description="Set up test parameters.")
-    parser.add_argument("--frag_size", type=int, default=20, help="Fragment size for the test.")
-    parser.add_argument("--tcp_frag", action="store_true", default=False, help="Enable TCP fragmentation.")
-    parser.add_argument("--record_frag", action="store_true", default=False, help="Enable recording of fragments.")
-    parser.add_argument("--dpyproxy", action="store_true", default=False, help="Use dpyproxy.")
-    parser.add_argument("--website_list_to_use", type=str, choices=["censored", "popular", "test"], default="test", help="Website list to use (censored, popular, or test).")
-    parser.add_argument("--sample", type=int, default=0, help="Number of samples to use, if randomly sampling from the list of webistes.")
-    parser.add_argument("--verbose", action="store_true", default=False, help="Enable verbose output (all the printouts).")
-    
-    args = parser.parse_args()
-
-    # Define variables from arguments 
-    dpyproxy = args.dpyproxy
-    tcp_frag = args.tcp_frag
-    record_frag = args.record_frag
-    frag_size = args.frag_size
-    website_list_to_use = args.website_list_to_use
-    sample = args.sample
-
-    if dpyproxy and not (tcp_frag or record_frag):
-        print("Warning: dpyproxy is enabled but no fragmentation options are selected. Setting TCP Fragmentation to True.")
-        tcp_frag = True
-
+def get_website_list(website_list_to_use, sample): 
     # List of websites to analyze
     if website_list_to_use == "censored":
         websites = get_censored_websites()
@@ -605,6 +672,36 @@ if __name__ == "__main__":
         print(f"Sample size {sample} exceeds the number of available websites. Using all websites.")
     else: 
         print(f"Using all {len(websites)} websites from the list.")
+    return websites 
+
+
+##################################### Main Function ################################
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser(description="Set up test parameters.")
+    parser.add_argument("--frag_size", type=int, default=20, help="Fragment size for the test.")
+    parser.add_argument("--tcp_frag", action="store_true", default=False, help="Enable TCP fragmentation.")
+    parser.add_argument("--record_frag", action="store_true", default=False, help="Enable recording of fragments.")
+    parser.add_argument("--dpyproxy", action="store_true", default=False, help="Use dpyproxy.")
+    parser.add_argument("--website_list_to_use", type=str, choices=["censored", "popular", "test"], default="test", help="Website list to use (censored, popular, or test).")
+    parser.add_argument("--sample", type=int, default=0, help="Number of samples to use, if randomly sampling from the list of webistes.")
+    parser.add_argument("--verbose", action="store_true", default=False, help="Enable verbose output (all the printouts).")
+    
+    args = parser.parse_args()
+
+    # Define variables from arguments 
+    dpyproxy = args.dpyproxy
+    tcp_frag = args.tcp_frag
+    record_frag = args.record_frag
+    frag_size = args.frag_size
+    website_list_to_use = args.website_list_to_use
+    sample = args.sample
+
+    if dpyproxy and not (tcp_frag or record_frag):
+        print("Warning: dpyproxy is enabled but no fragmentation options are selected. Setting TCP Fragmentation to True.")
+        tcp_frag = True
+
+    websites = get_website_list(website_list_to_use, sample)
     interface = "en0"  # Wifi 
 
     if dpyproxy: 
@@ -615,11 +712,13 @@ if __name__ == "__main__":
     else: 
         param_log_string = f"dpyproxy={args.dpyproxy}"
     
-    # Process each website
+    # Capture website traffic and write to files
     for website in tqdm(websites, desc="Processing websites"):
+
         print(f"\n{'='*50}\nProcessing {website}\n{'='*50}")
+        id = str(uuid.uuid4())
         result_folder = make_results_folders(dpyproxy, website, param_log_string=param_log_string)
-        # Run capture_website_traffic sequentially to avoid asyncio issues
-        capture_website_traffic(website, interface, dpyproxy, result_folder, verbose=args.verbose)
+        capture_file = capture_website_traffic_and_write_to_files(website = website, interface = interface,  id = id, dpyproxy = dpyproxy, result_folder = result_folder, verbose=args.verbose)
+        run_all_packet_analyses_and_save_to_csv(capture_file, result_folder = result_folder, param_log_string = param_log_string, website = website, id = id, verbose=args.verbose)
         
     print("\nAll websites processed!")
