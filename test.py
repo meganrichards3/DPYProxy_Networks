@@ -676,6 +676,10 @@ def get_website_list(website_list_to_use, sample):
 
 
 ##################################### Main Function ################################
+
+# Example usage:
+# python3 test.py --frag_size 20 --tcp_frag --dpyproxy --website_list_to_use test (TCP fragmentation, test website)
+# python3 test.py --website_list_to_use censored --sample 10 (Censored websites, sample 10 of them, don't use Dpyproxy)
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Set up test parameters.")
