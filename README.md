@@ -1,4 +1,11 @@
-# DPYProxy
+# Networks Project Evaluating DPYProxy
+The main functions are test.py and run_all_tests.py. I saved my environments as .yml and requirements.txt files which you can use with conda or pip. 
+
+
+
+
+# OLD DPYProxy ReadME 
+
 DPYProxy is a python proxy that implements DPI evasion mechanisms. Currently, TLS record fragmentation and TCP
 Fragmentation are implemented. All DPI evasion mechanisms can be enabled separately.
 
