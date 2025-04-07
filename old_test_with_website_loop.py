@@ -11,7 +11,18 @@ from tqdm import tqdm
 import random
 import socket
 import pyshark
+import sys
+import signal
+import psutil
+import asyncio
 
+### THIS IS NOT WORKING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+### TODO: figure out why metrics CSV is not saving when running multiple times and some of them fail. 
+
+# Set the threaded child watcher for subprocess support in threads
+asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy())
+asyncio.get_event_loop_policy().set_child_watcher(asyncio.ThreadedChildWatcher())
 ##################################### Packet Analysis Functions #####################################
 def calculate_packet_size_metrics(packets, prefix = "all",  id = "",  capture_file_path = "", print_out_packets = False, verbose = False): 
     """
@@ -414,7 +425,7 @@ def get_website_ip(website):
     """
     try:
         # Remove any http/https prefix if present
-        clean_website = website.replace('http://', '').replace('https://', '').strip("/")
+        clean_website = website.replace('http://', '').replace('https://', '')
         
         # Get all IP addresses associated with the domain
         ip_addresses = socket.gethostbyname_ex(clean_website)
@@ -426,11 +437,11 @@ def get_website_ip(website):
         # Return the primary IP and all IPs
         return True, (primary_ip, all_ips)
     except socket.gaierror as e:
-        error_msg = f"❌ Could not resolve {website}: {e}"
+        error_msg = f"Could not resolve {website}: {e}"
         print(error_msg)
         return False, error_msg
     except Exception as e:
-        error_msg = f"❌ Error resolving {website}: {e}"
+        error_msg = f"Error resolving {website}: {e}"
         print(error_msg)
         return False, error_msg
 
@@ -472,7 +483,7 @@ def filter_packets_by_ip(capture_file, website, verbose = False):
 
 
 ##################################### Main Wrapper Functions ################################
-def set_up(record_frag=False, tcp_frag=False, frag_size=20):
+def set_up_dpyproxy(record_frag=False, tcp_frag=False, frag_size=20):
 
     base_command = f"nohup python3 main.py --frag_size {frag_size}"
     if record_frag:
@@ -517,7 +528,7 @@ def run_all_packet_analyses_and_save_to_csv(capture_file, result_folder, param_l
 
                 subsets_to_run = {
                     "all": all_packets_list,
-                    "website_only": website_packets_list,
+                    "website": website_packets_list,
                 }
             except Exception as e:
                 print(f"Error filtering packets by IP: {e}")
@@ -575,6 +586,10 @@ def capture_website_traffic_and_write_to_files(website, interface="en0", dpyprox
     """Capture network traffic while accessing a website."""
     # Create output filenames based on the website name
 
+    # Ensure clean state before starting
+
+    cleanup_tshark_processes()
+
     try:
         output_file = os.path.abspath(os.path.join(result_folder, "captures", f"{id}_output.txt"))
         capture_file = os.path.abspath(os.path.join(result_folder, "captures", f"{id}_capture.pcap"))
@@ -584,51 +599,81 @@ def capture_website_traffic_and_write_to_files(website, interface="en0", dpyprox
             print(f"Capture file: {capture_file}")
             print(f"Output file: {output_file}")
 
-   
+        
         # Create a function for capture to run in a separate thread
+        # def capture_packets():
+        #     try:
+        #         capture = pyshark.LiveCapture(interface=interface, output_file=capture_file)
+        #         capture.sniff(timeout=15)  # Set a timeout of 10 seconds
+        #         capture.close()
+        #         return capture
+        #     except Exception as e:
+        #         print(f"Capture Packets Error: {e}")
+        #         return None
+        
         def capture_packets():
             try:
-                capture = pyshark.LiveCapture(interface=interface, output_file=capture_file)
-                capture.sniff(timeout=15)  # Set a timeout of 15 seconds
+                # Create a new event loop for the thread
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+
+                # Run the pyshark capture
+                capture = pyshark.LiveCapture(interface=interface, output_file=capture_file, debug=True)
+                capture.sniff(timeout=10)  # Set a timeout of 15 seconds
+                capture.close()
+
+                if verbose:
+                    print(f"Packet capture completed. File saved to {capture_file}")
                 return capture
             except Exception as e:
-                if verbose:
-                    print(f"Capture error: {e}")
-                return None
+                print(f"Capture Packets Error: {e}")
+            
+            finally:
+                # Ensure cleanup of tshark and dumpcap processes
+                cleanup_tshark_processes()
+            return None
         
         # Start capture in a thread 
         if verbose:
             print(f"Starting capture for {website}...")
+        
         capture_thread = threading.Thread(target=capture_packets)
         capture_thread.daemon = True
         capture_thread.start()
         
         # Wait a moment for capture to start
-        time.sleep(2)
+        time.sleep(5)
 
         # Send the request with curl (following redirects with -L)
-       
-        if dpyproxy:
-            if website.startswith("https://") or website.startswith("http://"):
-                curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' {website} --connect-timeout 10 --max-time 15"
+        if os.path.exists(capture_file):
+            if dpyproxy:
+                if website.startswith("https://") or website.startswith("http://"):
+                    curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' {website} --connect-timeout 5 --max-time 5"
+                else:
+                    curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' https://{website} --connect-timeout 5 --max-time 5"
             else:
-                curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' https://{website} --connect-timeout 10 --max-time 15"
+                if website.startswith("https://") or website.startswith("http://"):
+                    curl_command = f"curl -L -o '{output_file}' {website} --connect-timeout 5 --max-time 5"
+                else:
+                    curl_command = f"curl -L -o '{output_file}' https://{website} --connect-timeout 5 --max-time 5"
+            if verbose:
+                print(f"Executing: {curl_command}")
+            subprocess.run(curl_command, shell=True, check=False)
         else:
-            if website.startswith("https://") or website.startswith("http://"):
-                curl_command = f"curl -L -o '{output_file}' {website} --connect-timeout 10 --max-time 15"
-            else:
-                curl_command = f"curl -L -o '{output_file}' https://{website} --connect-timeout 10 --max-time 15"
-    
-        if verbose:
-            print(f"Executing: {curl_command}")
-        subprocess.run(curl_command, shell=True, check=False)
+            print(f"Capture file {capture_file} does not exist. Skipping curl command.")
+       
+        capture_thread.join(timeout=10)
 
-        time.sleep(5)  # This is important to allow the capture to finish processing between curl calls! 
-    
+        if capture_thread.is_alive():
+            print(f"Capture thread is still running.")
+            cleanup_tshark_processes()
+            
+        time.sleep(5)  # This is important to allow the capture to finish processing between curl calls?
+
         return capture_file 
     
     except Exception as e:
-        print(f"Error processing {website}: {e}")
+        print(f"Capture Website Traffic Error for {website}: {e}")
         return None
 
 
@@ -686,7 +731,85 @@ def get_website_list(website_list_to_use, sample):
     return websites 
 
 
+# Simplified but effective tshark cleanup function
+def cleanup_tshark_processes():
+    """Clean up tshark and dumpcap processes."""
+    print("Cleaning up tshark processes...")
+    try:
+        # Platform-specific cleanup
+        if sys.platform == 'win32':
+            os.system("taskkill /F /IM tshark.exe 2>NUL")
+            os.system("taskkill /F /IM dumpcap.exe 2>NUL")
+        else:
+            os.system("pkill -f tshark 2>/dev/null || true")
+            os.system("pkill -f dumpcap 2>/dev/null || true")
+            time.sleep(0.5)  # Allow processes to terminate
+            os.system("pkill -9 -f tshark 2>/dev/null || true")
+            os.system("pkill -9 -f dumpcap 2>/dev/null || true")
+
+        # Verify cleanup using psutil
+        for proc in psutil.process_iter(['pid', 'name']):
+            if proc.info['name'] in ['tshark', 'dumpcap']:
+                try:
+                    proc.terminate()
+                    proc.wait(timeout=3)
+                except psutil.NoSuchProcess:
+                    pass
+                except psutil.TimeoutExpired:
+                    proc.kill()
+
+        # Verify no processes remain
+        time.sleep(0.5)
+        if sys.platform == 'win32':
+            check_cmd = "tasklist | findstr tshark"
+        else:
+            check_cmd = "ps -ef | grep -E 'tshark|dumpcap' | grep -v grep"
+        
+        result = subprocess.run(check_cmd, shell=True, capture_output=True, text=True)
+        if result.stdout.strip():
+            print(f"⚠️ Warning: Some tshark or dumpcap processes may still be running:\n{result.stdout}")
+            return False
+        else:
+            print("✅ All tshark and dumpcap processes cleaned up")
+            return True
+    except Exception as e:
+        print(f"Cleanup Error: {e}")
+        return False
+    
 ##################################### Main Function ################################
+
+def process_website(website, dpyproxy, interface, param_log_string, verbose):
+    
+    print(f"\n{'='*50}\nProcessing {website}\n{'='*50}")
+    id = str(uuid.uuid4())
+    result_folder = make_results_folders(dpyproxy, website, param_log_string=param_log_string)
+
+    try:
+        capture_file = capture_website_traffic_and_write_to_files(
+            website=website,
+            interface=interface,
+            id=id,
+            dpyproxy=dpyproxy,
+            result_folder=result_folder,
+            verbose=verbose
+        )
+        if capture_file is not None:
+            run_all_packet_analyses_and_save_to_csv(
+                capture_file,
+                result_folder=result_folder,
+                param_log_string=param_log_string,
+                website=website,
+                id=id,
+                verbose=verbose
+            )
+        else:
+            print(f"Capture file for {website} was not created. Skipping analysis.")
+    except Exception as e:
+        print(f"Error processing {website}: {e}")
+
+
+
+### THIS IS NOT WORKING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 # Example usage:
 # python3 test.py --frag_size 20 --tcp_frag --dpyproxy --website_list_to_use test (TCP fragmentation, test website)
@@ -698,7 +821,7 @@ if __name__ == "__main__":
     parser.add_argument("--tcp_frag", action="store_true", default=False, help="Enable TCP fragmentation.")
     parser.add_argument("--record_frag", action="store_true", default=False, help="Enable recording of fragments.")
     parser.add_argument("--dpyproxy", action="store_true", default=False, help="Use dpyproxy.")
-    parser.add_argument("--website", type=str,  default="wikipedia.org", help="Website to use.")
+    parser.add_argument("--website_list_to_use", type=str, choices=["censored", "popular", "test"], default="test", help="Website list to use (censored, popular, or test).")
     parser.add_argument("--sample", type=int, default=0, help="Number of samples to use, if randomly sampling from the list of webistes.")
     parser.add_argument("--verbose", action="store_true", default=False, help="Enable verbose output (all the printouts).")
     
@@ -709,38 +832,31 @@ if __name__ == "__main__":
     tcp_frag = args.tcp_frag
     record_frag = args.record_frag
     frag_size = args.frag_size
-    website = args.website
+    website_list_to_use = args.website_list_to_use
     sample = args.sample
 
     if dpyproxy and not (tcp_frag or record_frag):
         print("Warning: dpyproxy is enabled but no fragmentation options are selected. Setting TCP Fragmentation to True.")
         tcp_frag = True
 
+    websites = get_website_list(website_list_to_use, sample)
     interface = "en0"  # Wifi 
 
     if dpyproxy: 
         # Set up dpyproxy
-        set_up(record_frag=record_frag, tcp_frag=tcp_frag, frag_size=frag_size)
-        param_log_string = f"frag_size={frag_size}__tcp_frag={tcp_frag}__record_frag={record_frag}"
+        set_up_dpyproxy(record_frag=record_frag, tcp_frag=tcp_frag, frag_size=frag_size)
+        param_log_string = f"frag_size={args.frag_size}__tcp_frag={args.tcp_frag}__record_frag={args.record_frag}"
         time.sleep(2)
     else: 
         param_log_string = f"dpyproxy={args.dpyproxy}"
-        
-    if dpyproxy:
-        print(f"\n{'='*50}\n\033[94m🟣 Processing {website} with dpyproxy\033[0m \n{'='*50}")
-    else:
-        print(f"\n{'='*50}\n\033[92m🟢 Processing {website} with baseline\033[0m \n{'='*50}")
-    id = str(uuid.uuid4())
-    result_folder = make_results_folders(dpyproxy, website, param_log_string=param_log_string)
+      
+    # Set the threaded child watcher for subprocess support in threads
+    asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy())
+    asyncio.get_event_loop_policy().set_child_watcher(asyncio.ThreadedChildWatcher())
 
-    try:
-        capture_file = capture_website_traffic_and_write_to_files(website=website, interface=interface, id=id, dpyproxy=dpyproxy, result_folder=result_folder, verbose=args.verbose)
-        if capture_file is not None:
-            run_all_packet_analyses_and_save_to_csv(capture_file, result_folder=result_folder, param_log_string=param_log_string, website=website, id=id, verbose=args.verbose)
-        else:
-            print(f"Capture file for {website} was not created. Skipping analysis.")
+    for website in websites:
+        process_website(website, dpyproxy, interface, param_log_string, args.verbose)
+
     
-    except Exception as e:
-        print(f"Error processing {website}: {e}")
-    
-    print("{website} processing complete.".format(website=website))
+    print("\nAll websites processed!")
+    print("\nAll websites processed!")
