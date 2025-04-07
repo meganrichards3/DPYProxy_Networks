@@ -10,88 +10,85 @@ import uuid
 from tqdm import tqdm
 import random
 
-
-def process_packets(capture_file_path, website, id, verbose=False): 
+def calculate_packet_size_metrics(packets, prefix = "all",  id = "",  capture_file_path = "", print_out_packets = False, verbose = False): 
+    """
+    Calculate packet size metrics for the captured packets. This is used on all packets, and also on subsets (e.g. TCP packets alone)
+    """
+    packet_size_metrics = {}
+    packet_count = len(packets)
+    packet_size_metrics[f"{prefix}_packet_count"] = packet_count
     if verbose:
-        print(f"Packet capture for {website} saved to {capture_file_path}")
-    metrics = {}
-    metrics["website"] = website
-    metrics["id"] = id
-    metrics["date"] = time.strftime("%Y-%m-%d %H:%M:%S")
-    try:
-        filtered_packets = pyshark.FileCapture(capture_file_path)
-        packets = list(filtered_packets)  # Force load all packets
-        packet_count = len(packets)
-        metrics["packet_count"] = packet_count
+            print(f"Captured {packet_count} packets for {prefix}.")
+    # Store packet sizes in a list
+    packet_sizes = [int(packet.length) for packet in packets if hasattr(packet, 'length')]
+    packet_size_metrics[f"{prefix}_packet_sizes"] = str(packet_sizes)
+
+    # Calculate total packet size
+    total_size = sum(packet_sizes)
+    packet_size_metrics[f"{prefix}_packet_total_size"] = total_size
+    if verbose:
+        print(f"Total size of captured packets: {total_size} bytes.")
+    if print_out_packets:
+        with open(os.path.join(os.path.dirname(capture_file_path), f"{id}_packets.txt"), "w") as packet_file:
+            for packet in packets:
+                packet_file.write(str(packet) + "\n")
+    
+    # Calculate packet size distribution
+    if packet_sizes:
+        min_size = min(packet_sizes)
+        max_size = max(packet_sizes)
+        average_size = total_size / len(packet_sizes)
+        packet_size_metrics[f"{prefix}_packet_min_size"] = min_size
+        packet_size_metrics[f"{prefix}_packet_max_size"] = max_size
+        packet_size_metrics[f"{prefix}_packet_average_size"] = average_size
         if verbose:
-            print(f"Captured {packet_count} packets for {website}.")
-        
-        # Store packet sizes in a list
-        packet_sizes = [int(packet.length) for packet in packets if hasattr(packet, 'length')]
-        metrics["packet_sizes"] = str(packet_sizes)
-        
-        # Calculate total packet size
-        total_size = sum(packet_sizes)
-        metrics["packet_total_size"] = total_size
+            print(f"Packet size distribution - Min: {min_size} bytes, Max: {max_size} bytes, Average: {average_size:.2f} bytes.")
+    else:
+        packet_size_metrics[f"{prefix}_packet_min_size"] = 0
+        packet_size_metrics[f"{prefix}_packet_max_size"] = 0
+        packet_size_metrics[f"{prefix}_packet_average_size"] = 0
         if verbose:
-            print(f"Total size of captured packets: {total_size} bytes.")
+            print("No packets with size information were captured.")
+
+    return packet_size_metrics
+
+def calculate_tcp_metrics(all_packets, verbose = False): 
+    """
+    Analyze TCP packets for retransmissions, duplicate ACKs, and RTT."""
+    tcp_metrics = {}
+    tcp_packets = [p for p in all_packets if hasattr(p, 'tcp')]
+    tcp_size_metrics = calculate_packet_size_metrics(packets = tcp_packets, prefix = "tcp", id = None, capture_file_path = None, verbose=False)
+    tcp_metrics.update(tcp_size_metrics)
         
-        # Calculate packet distribution
-        if packet_sizes:
-            min_size = min(packet_sizes)
-            max_size = max(packet_sizes)
-            average_size = total_size / len(packet_sizes)
-            metrics["packet_min_size"] = min_size
-            metrics["packet_max_size"] = max_size
-            metrics["packet_average_size"] = average_size
+    if tcp_packets:
+        # Look for retransmissions
+        retransmissions = [p for p in tcp_packets if hasattr(p.tcp, 'analysis_retransmission')]
+        # Look for duplicate ACKs (potential indicator of packet loss)
+        duplicate_acks = [p for p in tcp_packets if hasattr(p.tcp, 'analysis_duplicate_ack')]
+        # Look for fast retransmissions
+        fast_retrans = [p for p in tcp_packets if hasattr(p.tcp, 'analysis_fast_retransmission')]
+        
+        # Calculate packet loss metrics
+        total_tcp = len(tcp_packets)
+        retrans_count = len(retransmissions)
+        dup_ack_count = len(duplicate_acks)
+        fast_retrans_count = len(fast_retrans)
+        
+        # Calculate packet loss percentage
+        if total_tcp > 0:
+            retrans_percentage = (retrans_count / total_tcp) * 100
             if verbose:
-                print(f"Packet size distribution - Min: {min_size} bytes, Max: {max_size} bytes, Average: {average_size:.2f} bytes.")
-        else:
-            metrics["packet_min_size"] = 0
-            metrics["packet_max_size"] = 0
-            metrics["packet_average_size"] = 0
-            if verbose:
-                print("No packets with size information were captured.")
-        
-        tcp_packets = [p for p in packets if hasattr(p, 'tcp')]
-        
-        if tcp_packets:
-            # Look for retransmissions
-            retransmissions = [p for p in tcp_packets if hasattr(p.tcp, 'analysis_retransmission')]
-            # Look for duplicate ACKs (potential indicator of packet loss)
-            duplicate_acks = [p for p in tcp_packets if hasattr(p.tcp, 'analysis_duplicate_ack')]
-            # Look for fast retransmissions
-            fast_retrans = [p for p in tcp_packets if hasattr(p.tcp, 'analysis_fast_retransmission')]
+                print(f"TCP packets: {total_tcp}")
+                print(f"Retransmissions: {retrans_count} ({retrans_percentage:.2f}%)")
+                print(f"Duplicate ACKs: {dup_ack_count}")
+                print(f"Fast Retransmissions: {fast_retrans_count}")
             
-            # Calculate packet loss metrics
-            total_tcp = len(tcp_packets)
-            retrans_count = len(retransmissions)
-            dup_ack_count = len(duplicate_acks)
-            fast_retrans_count = len(fast_retrans)
-            
-            # Calculate packet loss percentage
-            if total_tcp > 0:
-                retrans_percentage = (retrans_count / total_tcp) * 100
-                if verbose:
-                    print(f"TCP packets: {total_tcp}")
-                    print(f"Retransmissions: {retrans_count} ({retrans_percentage:.2f}%)")
-                    print(f"Duplicate ACKs: {dup_ack_count}")
-                    print(f"Fast Retransmissions: {fast_retrans_count}")
-                
-                metrics["tcp_count"] = total_tcp
-                metrics["tcp_retransmissions"] = retrans_count
-                metrics["tcp_duplicate_acks"] = dup_ack_count
-                metrics["tcp_fast_retransmissions"] = fast_retrans_count
-                metrics["tcp_retransmission_percentage"] = retrans_percentage
-            else:
-                metrics["tcp_count"] = 0
-                metrics["tcp_retransmissions"] = 0
-                metrics["tcp_duplicate_acks"] = 0
-                metrics["tcp_fast_retransmissions"] = 0
-                metrics["tcp_retransmission_percentage"] = 0
-                if verbose:
-                    print("No TCP packets found for loss analysis.")
-            
+            tcp_metrics["tcp_count"] = total_tcp
+            tcp_metrics["tcp_retransmissions"] = retrans_count
+            tcp_metrics["tcp_duplicate_acks"] = dup_ack_count
+            tcp_metrics["tcp_fast_retransmissions"] = fast_retrans_count
+            tcp_metrics["tcp_retransmission_percentage"] = retrans_percentage
+
             # Calculate RTT (Round-Trip Time)
             rtt_values = []
             for packet in tcp_packets:
@@ -102,113 +99,316 @@ def process_packets(capture_file_path, website, id, verbose=False):
                 min_rtt = min(rtt_values)
                 max_rtt = max(rtt_values)
                 avg_rtt = sum(rtt_values) / len(rtt_values)
-                metrics["tcp_min_rtt"] = min_rtt
-                metrics["tcp_max_rtt"] = max_rtt
-                metrics["tcp_avg_rtt"] = avg_rtt
+                tcp_metrics["tcp_min_rtt"] = min_rtt
+                tcp_metrics["tcp_max_rtt"] = max_rtt
+                tcp_metrics["tcp_avg_rtt"] = avg_rtt
                 if verbose:
                     print(f"RTT - Min: {min_rtt:.6f}s, Max: {max_rtt:.6f}s, Average: {avg_rtt:.6f}s")
             else:
-                metrics["tcp_min_rtt"] = 0
-                metrics["tcp_max_rtt"] = 0
-                metrics["tcp_avg_rtt"] = 0
+                tcp_metrics["tcp_min_rtt"] = 0
+                tcp_metrics["tcp_max_rtt"] = 0
+                tcp_metrics["tcp_avg_rtt"] = 0
                 if verbose:
-                    print("No RTT information available in TCP packets.")
+                    print("No RTT information available in TCP packets.") 
         else:
-            metrics["tcp_count"] = 0
-            metrics["tcp_retransmissions"] = 0
-            metrics["tcp_duplicate_acks"] = 0
-            metrics["tcp_fast_retransmissions"] = 0
-            metrics["tcp_retransmission_percentage"] = 0
-            metrics["tcp_min_rtt"] = 0
-            metrics["tcp_max_rtt"] = 0
-            metrics["tcp_avg_rtt"] = 0
+            tcp_metrics["tcp_count"] = 0
+            tcp_metrics["tcp_retransmissions"] = 0
+            tcp_metrics["tcp_duplicate_acks"] = 0
+            tcp_metrics["tcp_fast_retransmissions"] = 0
+            tcp_metrics["tcp_retransmission_percentage"] = 0
+            tcp_metrics["tcp_min_rtt"] = 0
+            tcp_metrics["tcp_max_rtt"] = 0
+            tcp_metrics["tcp_avg_rtt"] = 0
             if verbose:
-                print("No TCP packets captured for loss analysis.")
+                print("No TCP packets found for loss analysis.")
+            
+    return tcp_metrics
 
+def calculate_udp_metrics(all_packets, verbose = False):
+    udp_metrics = {}
+    
+    udp_packets = [p for p in all_packets if hasattr(p, 'udp')]
+    udp_metrics["udp_count"] = len(udp_packets)
+    udp_size_metrics = calculate_packet_size_metrics(packets = udp_packets, prefix = "udp", id = None, capture_file_path = None, verbose=False)
+    udp_metrics.update(udp_size_metrics)
+    if udp_packets:
+        if verbose:
+            print(f"UDP packets: {len(udp_packets)}")
+
+        # UDP doesn't have built-in loss detection, but you can look for 
+        # sequence gaps if the protocol over UDP has sequence numbers
         # For UDP packets (if applicable)
-        udp_packets = [p for p in packets if hasattr(p, 'udp')]
-        metrics["udp_count"] = len(udp_packets)
-        if udp_packets:
+
+        # Try to detect UDP packet loss for common protocols
+        # 1. Look for RTP (Real-time Transport Protocol)
+        rtp_packets = [p for p in udp_packets if hasattr(p, 'rtp')]
+        udp_metrics["rtp_count"] = len(rtp_packets)
+
+        if rtp_packets and len(rtp_packets) > 1:
             if verbose:
-                print(f"UDP packets: {len(udp_packets)}")
-
-            # UDP doesn't have built-in loss detection, but you can look for 
-            # sequence gaps if the protocol over UDP has sequence numbers
-            # For UDP packets (if applicable)
-
-            # Try to detect UDP packet loss for common protocols
-            # 1. Look for RTP (Real-time Transport Protocol)
-            rtp_packets = [p for p in udp_packets if hasattr(p, 'rtp')]
-            metrics["rtp_count"] = len(rtp_packets)
-
-            if rtp_packets and len(rtp_packets) > 1:
-                if verbose:
-                    print(f"Found {len(rtp_packets)} RTP packets")
+                print(f"Found {len(rtp_packets)} RTP packets")
+            
+            # Extract sequence numbers
+            rtp_seq_nums = [int(p.rtp.seq) for p in rtp_packets if hasattr(p.rtp, 'seq')]
+            udp_metrics["rtp_sequence_numbers"] = rtp_seq_nums
+            
+            # Sort sequence numbers
+            rtp_seq_nums.sort()
+            
+            # Count gaps in sequence
+            if rtp_seq_nums:
+                expected_packets = rtp_seq_nums[-1] - rtp_seq_nums[0] + 1
+                missing_packets = expected_packets - len(rtp_seq_nums)
+                udp_metrics["rtp_missing_packets"] = missing_packets
                 
-                # Extract sequence numbers
-                rtp_seq_nums = [int(p.rtp.seq) for p in rtp_packets if hasattr(p.rtp, 'seq')]
-                metrics["rtp_sequence_numbers"] = rtp_seq_nums
-                
-                # Sort sequence numbers
-                rtp_seq_nums.sort()
-                
-                # Count gaps in sequence
-                if rtp_seq_nums:
-                    expected_packets = rtp_seq_nums[-1] - rtp_seq_nums[0] + 1
-                    missing_packets = expected_packets - len(rtp_seq_nums)
-                    metrics["rtp_missing_packets"] = missing_packets
+                if missing_packets > 0:
+                    loss_percentage = (missing_packets / expected_packets) * 100
+                    if verbose:
+                        print(f"Detected {missing_packets} missing RTP packets ({loss_percentage:.2f}% loss)")
+                    udp_metrics["rtp_missing_packets_percentage"] = loss_percentage
                     
-                    if missing_packets > 0:
-                        loss_percentage = (missing_packets / expected_packets) * 100
-                        if verbose:
-                            print(f"Detected {missing_packets} missing RTP packets ({loss_percentage:.2f}% loss)")
-                        metrics["rtp_missing_packets_percentage"] = loss_percentage
-                        
+                else:
+                    udp_metrics["rtp_missing_packets_percentage"] = 0
+                    if verbose:
+                        print("No RTP packet loss detected")
+        
+        # 2. Look for DNS queries and responses
+        dns_packets = [p for p in udp_packets if hasattr(p, 'dns')]
+        
+        if dns_packets:
+            udp_metrics["dns_count"] = len(dns_packets)
+            if verbose:
+                print(f"Found {len(dns_packets)} DNS packets")
+            
+            # Group by transaction ID
+            dns_transactions = {}
+            for p in dns_packets:
+                if hasattr(p.dns, 'id'):
+                    trans_id = p.dns.id
+                    if trans_id in dns_transactions:
+                        dns_transactions[trans_id].append(p)
                     else:
-                        metrics["rtp_missing_packets_percentage"] = 0
-                        if verbose:
-                            print("No RTP packet loss detected")
+                        dns_transactions[trans_id] = [p]
             
-            # 2. Look for DNS queries and responses
-            dns_packets = [p for p in udp_packets if hasattr(p, 'dns')]
+            # Look for incomplete transactions (potentially lost packets)
+            incomplete = [tid for tid, packets in dns_transactions.items() if len(packets) == 1]
             
-            if dns_packets:
-                metrics["dns_count"] = len(dns_packets)
+            if incomplete:
+                udp_metrics["dns_incomplete_transactions"] = len(incomplete)
                 if verbose:
-                    print(f"Found {len(dns_packets)} DNS packets")
-                
-                # Group by transaction ID
-                dns_transactions = {}
-                for p in dns_packets:
-                    if hasattr(p.dns, 'id'):
-                        trans_id = p.dns.id
-                        if trans_id in dns_transactions:
-                            dns_transactions[trans_id].append(p)
-                        else:
-                            dns_transactions[trans_id] = [p]
-                
-                # Look for incomplete transactions (potentially lost packets)
-                incomplete = [tid for tid, packets in dns_transactions.items() if len(packets) == 1]
-                
-                if incomplete:
-                    metrics["dns_incomplete_transactions"] = len(incomplete)
-                    if verbose:
-                        print(f"Found {len(incomplete)} DNS queries without responses (potential packet loss)")
-                else: 
-                    metrics["dns_incomplete_transactions"] = 0
-                    if verbose:
-                        print(f"No incomplete DNS transactions detected")
+                    print(f"Found {len(incomplete)} DNS queries without responses (potential packet loss)")
             else: 
-                metrics["dns_count"] = 0
-                metrics["dns_incomplete_transactions"] = 0
+                udp_metrics["dns_incomplete_transactions"] = 0
                 if verbose:
-                    print("No DNS packets captured.")
+                    print(f"No incomplete DNS transactions detected")
+        else: 
+            udp_metrics["dns_count"] = 0
+            udp_metrics["dns_incomplete_transactions"] = 0
+            if verbose:
+                print("No DNS packets captured.")
+    return udp_metrics
+
+def calculate_ip_metrics(all_packets, verbose = False):
+    """
+    Analyze IP packets for packet loss and other metrics.
+    """
+    ip_metrics = {}
+    ip_packets = [p for p in all_packets if hasattr(p, 'ip')]
+    ip_size_metrics = calculate_packet_size_metrics(packets = ip_packets, prefix = "ip", id = None, capture_file_path = None, verbose=False)
+    ip_metrics.update(ip_size_metrics)
+    
+    if ip_packets:
+        # Look for IP fragmentation
+        fragmented_packets = [p for p in ip_packets if hasattr(p.ip, 'fragment')]
+        fragmented_count = len(fragmented_packets)
+        
+        # Calculate packet loss percentage
+        total_ip = len(ip_packets)
+        if total_ip > 0:
+            fragmentation_percentage = (fragmented_count / total_ip) * 100
+            if verbose:
+                print(f"IP packets: {total_ip}")
+                print(f"Fragmented IP packets: {fragmented_count} ({fragmentation_percentage:.2f}%)")
+            
+            ip_metrics["ip_count"] = total_ip
+            ip_metrics["ip_fragmented"] = fragmented_count
+            ip_metrics["ip_fragmentation_percentage"] = fragmentation_percentage
+            
+        else:
+            ip_metrics["ip_count"] = 0
+            ip_metrics["ip_fragmented"] = 0
+            ip_metrics["ip_fragmentation_percentage"] = 0
+            if verbose:
+                print("No IP packets found for fragmentation analysis.")
+    return ip_metrics
+
+def calculate_dns_metrics(all_packets, verbose=False):
+    """
+    Analyze DNS packets for metrics such as query types, response codes, and incomplete transactions.
+    """
+    dns_metrics = {}
+    dns_packets = [p for p in all_packets if hasattr(p, 'dns')]
+
+    if dns_packets:
+        dns_metrics["dns_count"] = len(dns_packets)
+        if verbose:
+            print(f"DNS packets: {len(dns_packets)}")
+
+        # Analyze DNS query types
+        query_types = {}
+        response_codes = {}
+        incomplete_transactions = 0
+        transaction_ids = {}
+
+        for packet in dns_packets:
+            if hasattr(packet.dns, 'qry_type'):
+                qry_type = packet.dns.qry_type
+                query_types[qry_type] = query_types.get(qry_type, 0) + 1
+
+            if hasattr(packet.dns, 'flags_response') and packet.dns.flags_response == '1':
+                if hasattr(packet.dns, 'resp_code'):
+                    resp_code = packet.dns.resp_code
+                    response_codes[resp_code] = response_codes.get(resp_code, 0) + 1
+
+            if hasattr(packet.dns, 'id'):
+                trans_id = packet.dns.id
+                if trans_id in transaction_ids:
+                    transaction_ids[trans_id] += 1
+                else:
+                    transaction_ids[trans_id] = 1
+
+        # Count incomplete transactions
+        incomplete_transactions = sum(1 for count in transaction_ids.values() if count == 1)
+
+        dns_metrics["dns_query_types"] = str(query_types)
+        dns_metrics["dns_response_codes"] = str(response_codes)
+        dns_metrics["dns_incomplete_transactions"] = incomplete_transactions
+
+        if verbose:
+            print(f"DNS query types: {query_types}")
+            print(f"DNS response codes: {response_codes}")
+            print(f"Incomplete DNS transactions: {incomplete_transactions}")
+    else:
+        dns_metrics["dns_count"] = 0
+        dns_metrics["dns_query_types"] = "{}"
+        dns_metrics["dns_response_codes"] = "{}"
+        dns_metrics["dns_incomplete_transactions"] = 0
+        if verbose:
+            print("No DNS packets found.")
+
+    return dns_metrics
+
+def calculate_data_metrics(all_packets, verbose = False):
+    data_metrics = {}
+    data_packets = [p for p in all_packets if hasattr(p, 'data')]
+
+    if data_packets:
+        data_metrics["data_count"] = len(data_packets)
+        if verbose:
+            print(f"DATA packets: {len(data_packets)}")
+
+        # Analyze payload sizes
+        payload_sizes = []
+        for packet in data_packets:
+            if hasattr(packet.data, 'data_len'):
+                payload_sizes.append(int(packet.data.data_len))
+
+        if payload_sizes:
+            total_payload_size = sum(payload_sizes)
+            min_payload_size = min(payload_sizes)
+            max_payload_size = max(payload_sizes)
+            avg_payload_size = total_payload_size / len(payload_sizes)
+
+            data_metrics["data_total_payload_size"] = total_payload_size
+            data_metrics["data_min_payload_size"] = min_payload_size
+            data_metrics["data_max_payload_size"] = max_payload_size
+            data_metrics["data_avg_payload_size"] = avg_payload_size
+
+            if verbose:
+                print(f"DATA payload sizes - Total: {total_payload_size} bytes, Min: {min_payload_size} bytes, Max: {max_payload_size} bytes, Average: {avg_payload_size:.2f} bytes")
+        else:
+            data_metrics["data_total_payload_size"] = 0
+            data_metrics["data_min_payload_size"] = 0
+            data_metrics["data_max_payload_size"] = 0
+            data_metrics["data_avg_payload_size"] = 0
+            if verbose:
+                print("No payload size information available in DATA packets.")
+    else:
+        data_metrics["data_count"] = 0
+        data_metrics["data_total_payload_size"] = 0
+        data_metrics["data_min_payload_size"] = 0
+        data_metrics["data_max_payload_size"] = 0
+        data_metrics["data_avg_payload_size"] = 0
+        if verbose:
+            print("No DATA packets found.")
+
+    return data_metrics
+
+
+
+def process_all_packets(capture_file_path, website, id, verbose=False, print_out_packets = False): 
+    if verbose:
+        print(f"Packet capture for {website} saved to {capture_file_path}")
+    metrics = {}
+    metrics["website"] = website
+    metrics["id"] = id
+    metrics["date"] = time.strftime("%Y-%m-%d %H:%M:%S")
+
+    try:
+        ## Analyze ALL packets 
+        filtered_packets = pyshark.FileCapture(capture_file_path)
+        packets = list(filtered_packets)  
+        try:
+            packet_size_metrics = calculate_packet_size_metrics(packets = packets,prefix = "all", id = id, capture_file_path= capture_file_path, print_out_packets = print_out_packets, verbose=verbose)
+            metrics.update(packet_size_metrics)
+        except Exception as e:
+            print(f"Error calculating packet size metrics: {e}")
+        try:
+            tcp_metrics = calculate_tcp_metrics(packets, verbose=verbose)
+            metrics.update(tcp_metrics)
+        except Exception as e:
+            print(f"Error calculating TCP metrics: {e}")
+        try:
+            udp_metrics = calculate_udp_metrics(packets, verbose=verbose)
+            metrics.update(udp_metrics)
+        except Exception as e:
+            print(f"Error calculating UDP metrics: {e}")
+        try: 
+            ip_metrics = calculate_ip_metrics(packets, verbose=verbose)
+            metrics.update(ip_metrics)
+        except Exception as e:
+            print(f"Error calculating IP metrics: {e}")
+        try: 
+            dns_metrics = calculate_dns_metrics(packets, verbose=verbose)
+            metrics.update(dns_metrics)
+        except Exception as e:
+            print(f"Error calculating DNS metrics: {e}")
+        try: 
+            data_metrics = calculate_data_metrics(packets, verbose=verbose)
+            metrics.update(data_metrics)
+        except Exception as e:
+            print(f"Error calculating DATA metrics: {e}")
+
+        # Calculate the number of packets per layer
+        layer_counts = {}
+        for packet in packets:
+            for layer in packet.layers:
+                layer_name = layer.layer_name
+                if layer_name in layer_counts:
+                    layer_counts[layer_name] += 1
+                else:
+                    layer_counts[layer_name] = 1
+        metrics["layer_counts"] = str(layer_counts)
+        if verbose:
+            print(f"Packets per layer: {layer_counts}")
+         
         filtered_packets.close()
     except Exception as e:
         if verbose:
             print(f"Error analyzing capture file: {e}")
     return metrics
     
+
 def make_results_folders(dpyproxy, website, param_log_string = ""): 
      # Define folder structure for saving results
     label = ""
@@ -296,7 +496,7 @@ def capture_website_traffic(website, interface="en0", dpyproxy=False, result_fol
         metrics = {}
         # Check if file exists before analyzing
         if os.path.exists(capture_file):
-            packet_metrics = process_packets(capture_file, website, id, verbose=verbose)
+            packet_metrics = process_all_packets(capture_file, website, id, verbose=verbose, print_out_packets = True)
             if verbose:
                 print("Packet analysis completed.")
             metrics.update(packet_metrics)
