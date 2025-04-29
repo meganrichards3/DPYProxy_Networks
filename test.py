@@ -12,6 +12,8 @@ import random
 import socket
 import pyshark
 
+
+
 ##################################### Packet Analysis Functions #####################################
 def calculate_packet_size_metrics(packets, prefix = "all",  id = "",  capture_file_path = "", print_out_packets = False, verbose = False): 
     """
@@ -472,31 +474,32 @@ def filter_packets_by_ip(capture_file, website, verbose = False):
 
 
 ##################################### Main Wrapper Functions ################################
-def set_up(record_frag=False, tcp_frag=False, frag_size=20):
+def set_up(record_frag=False, tcp_frag=False, frag_size=20, setting = "baseline"):
 
-    base_command = f"nohup python3 main.py --frag_size {frag_size}"
-    if record_frag:
-        base_command += " --record_frag"
-    if tcp_frag:
-        base_command += " --tcp_frag"
+    if setting == "proxy_baseline":
+        print(f"Setting up proxy baseline with no fragmentation.")
+        base_command = f"nohup python3 main.py --no-record_frag --no-tcp_frag"
+    
+    else: 
+        base_command = f"nohup python3 main.py --frag_size {frag_size}"
+        if record_frag:
+            base_command += " --record_frag"
+        if tcp_frag:
+            base_command += " --tcp_frag"
 
     base_command += " --port 4433 &"
     print(f"Running {base_command}")
     os.system(base_command)
     return 
 
-def make_results_folders(dpyproxy, website, param_log_string = ""): 
+def make_results_folders(setting, website, param_log_string = ""): 
      # Define folder structure for saving results
-    label = ""
-    if dpyproxy:
-        label = "dpyproxy"
-    else: 
-        label = "baseline"
+    label = setting
 
     # Create result saving folder
     website_base = website.replace("https://", "").replace("http://", "").replace("www", "").replace(".", "_").replace("/", "__")
    
-    folder_name = os.path.join(os.getcwd(), "results", f"{label}", param_log_string, website_base)
+    folder_name = os.path.join(os.getcwd(), "results_new", f"{label}", param_log_string, website_base)
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
     return folder_name
@@ -546,9 +549,13 @@ def run_all_packet_analyses_and_save_to_csv(capture_file, result_folder, param_l
                 metrics_file = os.path.join(result_folder, f"metrics_{subset_name}.csv")
                 
                 ## Add params + experiment id
-                param_dict = {key_value.split("=")[0]: key_value.split("=")[1] for key_value in param_log_string.split("__")}
-                for param in param_dict.keys():
-                    metrics[f"param_{param}"] = param_dict.get(param, None)
+                print(param_log_string)
+                if "__" in param_log_string:
+                    param_dict = {key_value.split("=")[0]: key_value.split("=")[1] for key_value in param_log_string.split("__")}
+                    for param in param_dict.keys():
+                        metrics[f"param_{param}"] = param_dict.get(param, None)
+                else: 
+                    param_dict = {"param": param_log_string}
                 
                 metrics["id"] = id
 
@@ -571,7 +578,7 @@ def run_all_packet_analyses_and_save_to_csv(capture_file, result_folder, param_l
         return  
  
     
-def capture_website_traffic_and_write_to_files(website, interface="en0", dpyproxy=False, id = "", result_folder="results", verbose=False):
+def capture_website_traffic_and_write_to_files(website, interface="en0", setting = "basline", id = "", result_folder="results", verbose=False):
     """Capture network traffic while accessing a website."""
     # Create output filenames based on the website name
 
@@ -584,7 +591,6 @@ def capture_website_traffic_and_write_to_files(website, interface="en0", dpyprox
             print(f"Capture file: {capture_file}")
             print(f"Output file: {output_file}")
 
-   
         # Create a function for capture to run in a separate thread
         def capture_packets():
             try:
@@ -607,8 +613,8 @@ def capture_website_traffic_and_write_to_files(website, interface="en0", dpyprox
         time.sleep(2)
 
         # Send the request with curl (following redirects with -L)
-       
-        if dpyproxy:
+        
+        if "proxy" in setting:
             if website.startswith("https://") or website.startswith("http://"):
                 curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' {website} --connect-timeout 10 --max-time 15"
             else:
@@ -691,13 +697,17 @@ def get_website_list(website_list_to_use, sample):
 # Example usage:
 # python3 test.py --frag_size 20 --tcp_frag --dpyproxy --website_list_to_use test (TCP fragmentation, test website)
 # python3 test.py --website_list_to_use censored --sample 10 (Censored websites, sample 10 of them, don't use Dpyproxy)
+
+### Changes for Mininet: 
+# Change inference? 
+# Change curl command run from h1 or h2 
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Set up test parameters.")
     parser.add_argument("--frag_size", type=int, default=20, help="Fragment size for the test.")
     parser.add_argument("--tcp_frag", action="store_true", default=False, help="Enable TCP fragmentation.")
     parser.add_argument("--record_frag", action="store_true", default=False, help="Enable recording of fragments.")
-    parser.add_argument("--dpyproxy", action="store_true", default=False, help="Use dpyproxy.")
+    parser.add_argument("--setting", type=str, choices=["dpyproxy", "baseline", "proxy_baseline"], default="baseline", help="Choose the setting to use.")
     parser.add_argument("--website", type=str,  default="wikipedia.org", help="Website to use.")
     parser.add_argument("--sample", type=int, default=0, help="Number of samples to use, if randomly sampling from the list of webistes.")
     parser.add_argument("--verbose", action="store_true", default=False, help="Enable verbose output (all the printouts).")
@@ -705,36 +715,43 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Define variables from arguments 
-    dpyproxy = args.dpyproxy
+    setting = args.setting
     tcp_frag = args.tcp_frag
     record_frag = args.record_frag
     frag_size = args.frag_size
     website = args.website
     sample = args.sample
 
-    if dpyproxy and not (tcp_frag or record_frag):
-        print("Warning: dpyproxy is enabled but no fragmentation options are selected. Setting TCP Fragmentation to True.")
+    if setting == "dpyproxy" and not (tcp_frag or record_frag):
+        print(f"Warning: setting {setting} indicates that you want to run dpyproxy, but no fragmentation options are selected. Setting TCP Fragmentation to True.")
         tcp_frag = True
 
     interface = "en0"  # Wifi 
 
-    if dpyproxy: 
-        # Set up dpyproxy
+    if setting == "dpyproxy": 
+        # Set up dpyproxy with actual arguments 
         set_up(record_frag=record_frag, tcp_frag=tcp_frag, frag_size=frag_size)
         param_log_string = f"frag_size={frag_size}__tcp_frag={tcp_frag}__record_frag={record_frag}"
-        time.sleep(2)
+        time.sleep(5)
+    elif setting == "proxy_baseline": 
+        set_up(record_frag=False, tcp_frag=False, frag_size=0)
+        param_log_string = f"proxy_baseline"
+        time.sleep(5)
     else: 
-        param_log_string = f"dpyproxy={args.dpyproxy}"
+        param_log_string = f"dpyproxy=False"
         
-    if dpyproxy:
-        print(f"\n{'='*50}\n\033[94m🟣 Processing {website} with dpyproxy\033[0m \n{'='*50}")
+    if setting == "dpyproxy":
+        print(f"\n{'='*50}\n\033[94m🟣 Processing {website} with dpyproxy enabled ('dpyproxy') \033[0m \n{'='*50}")
+    elif setting == "proxy_baseline":
+        print(f"\n{'='*50}\n\033[93m🟠 Processing {website} with proxy but no fragementation ('proxy_baseline') \033[0m \n{'='*50}")
     else:
-        print(f"\n{'='*50}\n\033[92m🟢 Processing {website} with baseline\033[0m \n{'='*50}")
+        print(f"\n{'='*50}\n\033[92m🟢 Processing {website} with no proxy ('baseline')\033[0m \n{'='*50}")
     id = str(uuid.uuid4())
-    result_folder = make_results_folders(dpyproxy, website, param_log_string=param_log_string)
+
+    result_folder = make_results_folders(setting, website, param_log_string=param_log_string)
 
     try:
-        capture_file = capture_website_traffic_and_write_to_files(website=website, interface=interface, id=id, dpyproxy=dpyproxy, result_folder=result_folder, verbose=args.verbose)
+        capture_file = capture_website_traffic_and_write_to_files(website=website, interface=interface, id=id, setting=setting, result_folder=result_folder, verbose=args.verbose)
         if capture_file is not None:
             run_all_packet_analyses_and_save_to_csv(capture_file, result_folder=result_folder, param_log_string=param_log_string, website=website, id=id, verbose=args.verbose)
         else:
