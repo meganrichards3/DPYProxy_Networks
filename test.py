@@ -594,7 +594,8 @@ def capture_website_traffic_and_write_to_files(website, interface="en0", setting
         def capture_packets():
             try:
                 capture = pyshark.LiveCapture(interface=interface, output_file=capture_file)
-                capture.sniff(timeout=15)  # Set a timeout of 15 seconds
+                capture.sniff(timeout=30)  # Set a timeout of 30 seconds
+                capture.close()
                 return capture
             except Exception as e:
                 if verbose:
@@ -607,22 +608,21 @@ def capture_website_traffic_and_write_to_files(website, interface="en0", setting
         capture_thread = threading.Thread(target=capture_packets)
         capture_thread.daemon = True
         capture_thread.start()
+        capture_thread.join(timeout=5)  # Wait for the capture thread to start
+        time.sleep(5)
         
-        # Wait a moment for capture to start
-        time.sleep(2)
-
         # Send the request with curl (following redirects with -L)
         
         if "proxy" in setting:
             if website.startswith("https://") or website.startswith("http://"):
-                curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' {website} --connect-timeout 10 --max-time 15"
+                curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' {website} --connect-timeout 10 --max-time 15"
             else:
-                curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' https://{website} --connect-timeout 10 --max-time 15"
+                curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' https://{website} --connect-timeout 10 --max-time 15"
         else:
             if website.startswith("https://") or website.startswith("http://"):
-                curl_command = f"curl -L -o '{output_file}' {website} --connect-timeout 10 --max-time 15"
+                curl_command = f"curl -L -o '{output_file}' -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' {website} --connect-timeout 10 --max-time 15"
             else:
-                curl_command = f"curl -L -o '{output_file}' https://{website} --connect-timeout 10 --max-time 15"
+                curl_command = f"curl -L -o '{output_file}' -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' https://{website} --connect-timeout 10 --max-time 15"
     
         if verbose:
             print(f"Executing: {curl_command}")
