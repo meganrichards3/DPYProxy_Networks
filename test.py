@@ -10,7 +10,6 @@ import uuid
 from tqdm import tqdm
 import random
 import socket
-import pyshark
 
 
 
@@ -755,9 +754,9 @@ if __name__ == "__main__":
         if capture_file is not None:
             run_all_packet_analyses_and_save_to_csv(capture_file, result_folder=result_folder, param_log_string=param_log_string, website=website, id=id, verbose=args.verbose)
         else:
-            print(f"Capture file for {website} was not created. Skipping analysis.")
+            print(f"Capture file for {website} was not created. Skipping analysis.", flush = True)
     
     except Exception as e:
-        print(f"Error processing {website}: {e}")
+        print(f"Error processing {website}: {e}", flush = True)
     
     print("{website} processing complete.".format(website=website))
