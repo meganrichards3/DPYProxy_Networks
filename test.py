@@ -505,7 +505,7 @@ def make_results_folders(setting, website, param_log_string = ""):
 
 
 def run_all_packet_analyses_and_save_to_csv(capture_file, result_folder, param_log_string, website, id, verbose=False): 
-        print("Starting packet analysis...")
+        print(f"Starting packet analysis for file {capture_file}...")
         
         # Check if file exists before analyzing
         if os.path.exists(capture_file):
@@ -548,7 +548,6 @@ def run_all_packet_analyses_and_save_to_csv(capture_file, result_folder, param_l
                 metrics_file = os.path.join(result_folder, f"metrics_{subset_name}.csv")
                 
                 ## Add params + experiment id
-                print(param_log_string)
                 if "__" in param_log_string:
                     param_dict = {key_value.split("=")[0]: key_value.split("=")[1] for key_value in param_log_string.split("__")}
                     for param in param_dict.keys():
@@ -594,7 +593,7 @@ def capture_website_traffic_and_write_to_files(website, interface="en0", setting
         def capture_packets():
             try:
                 capture = pyshark.LiveCapture(interface=interface, output_file=capture_file)
-                capture.sniff(timeout=30)  # Set a timeout of 30 seconds
+                capture.sniff(timeout=40)  # Set a timeout of 30 seconds
                 capture.close()
                 return capture
             except Exception as e:
@@ -608,6 +607,7 @@ def capture_website_traffic_and_write_to_files(website, interface="en0", setting
         capture_thread = threading.Thread(target=capture_packets)
         capture_thread.daemon = True
         capture_thread.start()
+        print(f"Waiting 5 seconds for capture thread to start...", flush = True)
         capture_thread.join(timeout=5)  # Wait for the capture thread to start
         time.sleep(5)
         
@@ -615,14 +615,14 @@ def capture_website_traffic_and_write_to_files(website, interface="en0", setting
         
         if "proxy" in setting:
             if website.startswith("https://") or website.startswith("http://"):
-                curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' {website} --connect-timeout 10 --max-time 15"
+                curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' {website} --connect-timeout 10 --max-time 30"
             else:
-                curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' https://{website} --connect-timeout 10 --max-time 15"
+                curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' https://{website} --connect-timeout 10 --max-time 30"
         else:
             if website.startswith("https://") or website.startswith("http://"):
-                curl_command = f"curl -L -o '{output_file}' -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' {website} --connect-timeout 10 --max-time 15"
+                curl_command = f"curl -L -o '{output_file}' -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' {website} --connect-timeout 10 --max-time 30"
             else:
-                curl_command = f"curl -L -o '{output_file}' -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' https://{website} --connect-timeout 10 --max-time 15"
+                curl_command = f"curl -L -o '{output_file}' -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' https://{website} --connect-timeout 10 --max-time 30"
     
         if verbose:
             print(f"Executing: {curl_command}")
@@ -759,4 +759,4 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Error processing {website}: {e}", flush = True)
     
-    print("{website} processing complete.".format(website=website))
+    print("Ending thread for prompting and analyzing {website} .".format(website=website))
