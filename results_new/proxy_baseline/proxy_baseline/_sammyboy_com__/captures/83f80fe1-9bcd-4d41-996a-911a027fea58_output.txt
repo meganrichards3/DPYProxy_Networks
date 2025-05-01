@@ -1,0 +1,3387 @@
+<!DOCTYPE html>
+<html id="XF" lang="en-US" dir="LTR"
+	data-xf="2.3"
+	data-app="public"
+	
+	
+	data-template="forum_list"
+	data-container-key=""
+	data-content-key=""
+	data-logged-in="false"
+	data-cookie-prefix="xf_"
+	data-csrf="1746069589,fcc9cb365350bb6cf6bded295c829329"
+	class="has-no-js template-forum_list"
+	>
+<head>
+	
+	
+	
+
+	<meta charset="utf-8" />
+	<title>Sam&#039;s Alfresco Coffee</title>
+	<link rel="manifest" href="/webmanifest.php">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+	
+		<meta name="theme-color" content="#f0fbfd" />
+	
+
+	<meta name="apple-mobile-web-app-title" content="SBF">
+	
+		<link rel="apple-touch-icon" href="/styles/default/xenforo/sambigwink.gif" />
+	
+
+	
+		
+		<meta name="description" content="Sammyboy Alfresco Coffee Shop." />
+		<meta property="og:description" content="Sammyboy Alfresco Coffee Shop." />
+		<meta property="twitter:description" content="Sammyboy Alfresco Coffee Shop." />
+	
+	
+		<link rel="canonical" href="https://www.sammyboy.com/" />
+	
+		<link rel="alternate" type="application/rss+xml" title="RSS feed for Sam&#039;s Alfresco Coffee" href="/forums/-/index.rss" />
+	
+
+	
+		
+	
+	
+	<meta property="og:site_name" content="Sam&#039;s Alfresco Coffee" />
+
+
+	
+	
+		
+	
+	
+	<meta property="og:type" content="website" />
+
+
+	
+	
+		
+	
+	
+	
+		<meta property="og:title" content="Sam&#039;s Alfresco Coffee" />
+		<meta property="twitter:title" content="Sam&#039;s Alfresco Coffee" />
+	
+
+
+	
+	
+	
+		
+	
+	
+	<meta property="og:url" content="https://www.sammyboy.com/" />
+
+
+	
+	
+		
+	
+	
+	
+		<meta property="og:image" content="https://www.sammyboy.com/styles/default/xenforo/sambigwink.gif" />
+		<meta property="twitter:image" content="https://www.sammyboy.com/styles/default/xenforo/sambigwink.gif" />
+		<meta property="twitter:card" content="summary" />
+	
+
+
+	
+
+	
+	
+	
+	
+
+	<link rel="stylesheet" href="/css.php?css=public%3Anormalize.css%2Cpublic%3Afa.css%2Cpublic%3Acore.less%2Cpublic%3Aapp.less&amp;s=7&amp;l=1&amp;d=1744068201&amp;k=c75e03a103437da70b0d7018614c5337d90c212c" />
+
+	<link rel="stylesheet" href="/css.php?css=public%3Alightbox.less%2Cpublic%3Anode_list.less%2Cpublic%3Anotices.less%2Cpublic%3Ashare_controls.less%2Cpublic%3Aextra.less&amp;s=7&amp;l=1&amp;d=1744068201&amp;k=cb812f158e7f0e02c375196c2fe2e2a710a17b40" />
+
+
+	
+		<script src="/js/xf/preamble.min.js?_v=039581c8"></script>
+	
+
+	
+	<script src="/js/vendor/vendor-compiled.js?_v=039581c8" defer></script>
+	<script src="/js/xf/core-compiled.js?_v=039581c8" defer></script>
+
+	<script>
+		XF.ready(() =>
+		{
+			XF.extendObject(true, XF.config, {
+				// 
+				userId: 0,
+				enablePush: false,
+				pushAppServerKey: '',
+				url: {
+					fullBase: 'https://www.sammyboy.com/',
+					basePath: '/',
+					css: '/css.php?css=__SENTINEL__&s=7&l=1&d=1744068201',
+					js: '/js/__SENTINEL__?_v=039581c8',
+					icon: '/data/local/icons/__VARIANT__.svg?v=1744068219#__NAME__',
+					iconInline: '/styles/fa/__VARIANT__/__NAME__.svg?v=5.15.3',
+					keepAlive: '/login/keep-alive'
+				},
+				cookie: {
+					path: '/',
+					domain: '',
+					prefix: 'xf_',
+					secure: true,
+					consentMode: 'disabled',
+					consented: ["optional","_third_party"]
+				},
+				cacheKey: 'f3ed7234243583f554e27d349fe769c5',
+				csrf: '1746069589,fcc9cb365350bb6cf6bded295c829329',
+				js: {"\/js\/xf\/lightbox-compiled.js?_v=039581c8":true},
+				fullJs: false,
+				css: {"public:lightbox.less":true,"public:node_list.less":true,"public:notices.less":true,"public:share_controls.less":true,"public:extra.less":true},
+				time: {
+					now: 1746069589,
+					today: 1746028800,
+					todayDow: 4,
+					tomorrow: 1746115200,
+					yesterday: 1745942400,
+					week: 1745510400,
+					month: 1746028800,
+					year: 1735660800
+				},
+				style: {
+					light: '',
+					dark: '',
+					defaultColorScheme: 'light'
+				},
+				borderSizeFeature: '3px',
+				fontAwesomeWeight: 'r',
+				enableRtnProtect: true,
+				
+				enableFormSubmitSticky: true,
+				imageOptimization: '0',
+				imageOptimizationQuality: 0.85,
+				uploadMaxFilesize: 31457280,
+				uploadMaxWidth: 0,
+				uploadMaxHeight: 0,
+				allowedVideoExtensions: ["m4v","mov","mp4","mp4v","mpeg","mpg","ogv","webm"],
+				allowedAudioExtensions: ["mp3","opus","ogg","wav"],
+				shortcodeToEmoji: true,
+				visitorCounts: {
+					conversations_unread: '0',
+					alerts_unviewed: '0',
+					total_unread: '0',
+					title_count: true,
+					icon_indicator: true
+				},
+				jsMt: {"xf\/action.js":"31ee8402","xf\/embed.js":"31ee8402","xf\/form.js":"31ee8402","xf\/structure.js":"31ee8402","xf\/tooltip.js":"31ee8402"},
+				jsState: {},
+				publicMetadataLogoUrl: 'https://www.sammyboy.com/styles/default/xenforo/sambigwink.gif',
+				publicPushBadgeUrl: 'https://www.sammyboy.com/styles/default/xenforo/bell.png'
+			})
+
+			XF.extendObject(XF.phrases, {
+				// 
+				date_x_at_time_y:     "{date} at {time}",
+				day_x_at_time_y:      "{day} at {time}",
+				yesterday_at_x:       "Yesterday at {time}",
+				x_minutes_ago:        "{minutes} minutes ago",
+				one_minute_ago:       "1 minute ago",
+				a_moment_ago:         "A moment ago",
+				today_at_x:           "Today at {time}",
+				in_a_moment:          "In a moment",
+				in_a_minute:          "In a minute",
+				in_x_minutes:         "In {minutes} minutes",
+				later_today_at_x:     "Later today at {time}",
+				tomorrow_at_x:        "Tomorrow at {time}",
+				short_date_x_minutes: "{minutes}m",
+				short_date_x_hours:   "{hours}h",
+				short_date_x_days:    "{days}d",
+
+				day0: "Sunday",
+				day1: "Monday",
+				day2: "Tuesday",
+				day3: "Wednesday",
+				day4: "Thursday",
+				day5: "Friday",
+				day6: "Saturday",
+
+				dayShort0: "Sun",
+				dayShort1: "Mon",
+				dayShort2: "Tue",
+				dayShort3: "Wed",
+				dayShort4: "Thu",
+				dayShort5: "Fri",
+				dayShort6: "Sat",
+
+				month0: "January",
+				month1: "February",
+				month2: "March",
+				month3: "April",
+				month4: "May",
+				month5: "June",
+				month6: "July",
+				month7: "August",
+				month8: "September",
+				month9: "October",
+				month10: "November",
+				month11: "December",
+
+				active_user_changed_reload_page: "The active user has changed. Reload the page for the latest version.",
+				server_did_not_respond_in_time_try_again: "The server did not respond in time. Please try again.",
+				oops_we_ran_into_some_problems: "Oops! We ran into some problems.",
+				oops_we_ran_into_some_problems_more_details_console: "Oops! We ran into some problems. Please try again later. More error details may be in the browser console.",
+				file_too_large_to_upload: "The file is too large to be uploaded.",
+				uploaded_file_is_too_large_for_server_to_process: "The uploaded file is too large for the server to process.",
+				files_being_uploaded_are_you_sure: "Files are still being uploaded. Are you sure you want to submit this form?",
+				attach: "Attach files",
+				rich_text_box: "Rich text box",
+				close: "Close",
+				link_copied_to_clipboard: "Link copied to clipboard.",
+				text_copied_to_clipboard: "Text copied to clipboard.",
+				loading: "Loading…",
+				you_have_exceeded_maximum_number_of_selectable_items: "You have exceeded the maximum number of selectable items.",
+
+				processing: "Processing",
+				'processing...': "Processing…",
+
+				showing_x_of_y_items: "Showing {count} of {total} items",
+				showing_all_items: "Showing all items",
+				no_items_to_display: "No items to display",
+
+				number_button_up: "Increase",
+				number_button_down: "Decrease",
+
+				push_enable_notification_title: "Push notifications enabled successfully at Sam\'s Alfresco Coffee",
+				push_enable_notification_body: "Thank you for enabling push notifications!",
+
+				pull_down_to_refresh: "Pull down to refresh",
+				release_to_refresh: "Release to refresh",
+				refreshing: "Refreshing…"
+			})
+		})
+	</script>
+
+	<script src="/js/xf/lightbox-compiled.js?_v=039581c8" defer></script>
+
+
+
+	
+
+	
+</head>
+<body data-template="forum_list">
+
+<div class="p-pageWrapper" id="top">
+
+	
+
+	<header class="p-header" id="header">
+		<div class="p-header-inner">
+			<div class="p-header-content">
+				<div class="p-header-logo p-header-logo--image">
+					<a href="/">
+						
+
+	
+
+	
+		
+		
+
+		
+	
+
+	
+
+	<picture data-variations="{&quot;default&quot;:{&quot;1&quot;:&quot;\/styles\/default\/xenforo\/sammyboybannerclimate.png&quot;,&quot;2&quot;:&quot;\/data\/assets\/logo\/sammyboybannerclimate3.png&quot;}}">
+		
+		
+		
+
+		
+
+		<img src="/styles/default/xenforo/sammyboybannerclimate.png" srcset="/data/assets/logo/sammyboybannerclimate3.png 2x" width="" height="" alt="Sam&#039;s Alfresco Coffee"  />
+	</picture>
+
+
+					</a>
+				</div>
+
+				
+			</div>
+		</div>
+	</header>
+
+	
+	
+
+	
+		<div class="p-navSticky p-navSticky--primary" data-xf-init="sticky-header">
+			
+		<nav class="p-nav">
+			<div class="p-nav-inner">
+				<button type="button" class="button button--plain p-nav-menuTrigger" data-xf-click="off-canvas" data-menu=".js-headerOffCanvasMenu" tabindex="0" aria-label="Menu"><span class="button-text">
+					<i aria-hidden="true"></i>
+				</span></button>
+
+				<div class="p-nav-smallLogo">
+					<a href="/">
+						
+
+	
+
+	
+		
+		
+
+		
+	
+
+	
+
+	<picture data-variations="{&quot;default&quot;:{&quot;1&quot;:&quot;\/styles\/default\/xenforo\/sammyboybannerclimate.png&quot;,&quot;2&quot;:null}}">
+		
+		
+		
+
+		
+
+		<img src="/styles/default/xenforo/sammyboybannerclimate.png"  width="" height="" alt="Sam&#039;s Alfresco Coffee"  />
+	</picture>
+
+
+					</a>
+				</div>
+
+				<div class="p-nav-scroller hScroller" data-xf-init="h-scroller" data-auto-scroll=".p-navEl.is-selected">
+					<div class="hScroller-scroll">
+						<ul class="p-nav-list js-offCanvasNavSource">
+							
+								<li>
+									
+	<div class="p-navEl is-selected" data-has-children="true">
+	
+
+		
+	
+	<a href="/"
+	class="p-navEl-link p-navEl-link--splitMenu "
+	
+	
+	data-nav-id="forums">Forums</a>
+
+
+		<a data-xf-key="1"
+			data-xf-click="menu"
+			data-menu-pos-ref="< .p-navEl"
+			class="p-navEl-splitTrigger"
+			role="button"
+			tabindex="0"
+			aria-label="Toggle expanded"
+			aria-expanded="false"
+			aria-haspopup="true"></a>
+
+		
+	
+		<div class="menu menu--structural" data-menu="menu" aria-hidden="true">
+			<div class="menu-content">
+				
+					
+	
+	
+	<a href="/whats-new/posts/"
+	class="menu-linkRow u-indentDepth0 js-offCanvasCopy "
+	
+	
+	data-nav-id="newPosts">New posts</a>
+
+	
+
+				
+					
+	
+	
+	<a href="/search/?type=post"
+	class="menu-linkRow u-indentDepth0 js-offCanvasCopy "
+	
+	
+	data-nav-id="searchForums">Search forums</a>
+
+	
+
+				
+			</div>
+		</div>
+	
+	</div>
+
+								</li>
+							
+								<li>
+									
+	<div class="p-navEl " data-has-children="true">
+	
+
+		
+	
+	<a href="/whats-new/"
+	class="p-navEl-link p-navEl-link--splitMenu "
+	
+	
+	data-nav-id="whatsNew">What's new</a>
+
+
+		<a data-xf-key="2"
+			data-xf-click="menu"
+			data-menu-pos-ref="< .p-navEl"
+			class="p-navEl-splitTrigger"
+			role="button"
+			tabindex="0"
+			aria-label="Toggle expanded"
+			aria-expanded="false"
+			aria-haspopup="true"></a>
+
+		
+	
+		<div class="menu menu--structural" data-menu="menu" aria-hidden="true">
+			<div class="menu-content">
+				
+					
+	
+	
+	<a href="/featured/"
+	class="menu-linkRow u-indentDepth0 js-offCanvasCopy "
+	
+	
+	data-nav-id="featured">Featured content</a>
+
+	
+
+				
+					
+	
+	
+	<a href="/whats-new/posts/"
+	class="menu-linkRow u-indentDepth0 js-offCanvasCopy "
+	 rel="nofollow"
+	
+	data-nav-id="whatsNewPosts">New posts</a>
+
+	
+
+				
+					
+	
+	
+	<a href="/whats-new/profile-posts/"
+	class="menu-linkRow u-indentDepth0 js-offCanvasCopy "
+	 rel="nofollow"
+	
+	data-nav-id="whatsNewProfilePosts">New profile posts</a>
+
+	
+
+				
+					
+	
+	
+	<a href="/whats-new/latest-activity"
+	class="menu-linkRow u-indentDepth0 js-offCanvasCopy "
+	 rel="nofollow"
+	
+	data-nav-id="latestActivity">Latest activity</a>
+
+	
+
+				
+			</div>
+		</div>
+	
+	</div>
+
+								</li>
+							
+								<li>
+									
+	<div class="p-navEl " data-has-children="true">
+	
+
+		
+	
+	<a href="/members/"
+	class="p-navEl-link p-navEl-link--splitMenu "
+	
+	
+	data-nav-id="members">Members</a>
+
+
+		<a data-xf-key="3"
+			data-xf-click="menu"
+			data-menu-pos-ref="< .p-navEl"
+			class="p-navEl-splitTrigger"
+			role="button"
+			tabindex="0"
+			aria-label="Toggle expanded"
+			aria-expanded="false"
+			aria-haspopup="true"></a>
+
+		
+	
+		<div class="menu menu--structural" data-menu="menu" aria-hidden="true">
+			<div class="menu-content">
+				
+					
+	
+	
+	<a href="/online/"
+	class="menu-linkRow u-indentDepth0 js-offCanvasCopy "
+	
+	
+	data-nav-id="currentVisitors">Current visitors</a>
+
+	
+
+				
+					
+	
+	
+	<a href="/whats-new/profile-posts/"
+	class="menu-linkRow u-indentDepth0 js-offCanvasCopy "
+	 rel="nofollow"
+	
+	data-nav-id="newProfilePosts">New profile posts</a>
+
+	
+
+				
+					
+	
+	
+	<a href="/search/?type=profile_post"
+	class="menu-linkRow u-indentDepth0 js-offCanvasCopy "
+	
+	
+	data-nav-id="searchProfilePosts">Search profile posts</a>
+
+	
+
+				
+			</div>
+		</div>
+	
+	</div>
+
+								</li>
+							
+						</ul>
+					</div>
+				</div>
+
+				<div class="p-nav-opposite">
+					<div class="p-navgroup p-account p-navgroup--guest">
+						
+							<a href="/login/" class="p-navgroup-link p-navgroup-link--textual p-navgroup-link--logIn"
+								data-xf-click="overlay" data-follow-redirects="on">
+								<span class="p-navgroup-linkText">Log in</span>
+							</a>
+							
+								<a href="/register/" class="p-navgroup-link p-navgroup-link--textual p-navgroup-link--register"
+									data-xf-click="overlay" data-follow-redirects="on">
+									<span class="p-navgroup-linkText">Register</span>
+								</a>
+							
+						
+					</div>
+
+					<div class="p-navgroup p-discovery">
+						<a href="/whats-new/"
+							class="p-navgroup-link p-navgroup-link--iconic p-navgroup-link--whatsnew"
+							aria-label="What&#039;s new"
+							title="What&#039;s new">
+							<i aria-hidden="true"></i>
+							<span class="p-navgroup-linkText">What's new</span>
+						</a>
+
+						
+							<a href="/search/"
+								class="p-navgroup-link p-navgroup-link--iconic p-navgroup-link--search"
+								data-xf-click="menu"
+								data-xf-key="/"
+								aria-label="Search"
+								aria-expanded="false"
+								aria-haspopup="true"
+								title="Search">
+								<i aria-hidden="true"></i>
+								<span class="p-navgroup-linkText">Search</span>
+							</a>
+							<div class="menu menu--structural menu--wide" data-menu="menu" aria-hidden="true">
+								<form action="/search/search" method="post"
+									class="menu-content"
+									data-xf-init="quick-search">
+
+									<h3 class="menu-header">Search</h3>
+									
+									<div class="menu-row">
+										
+											<input type="text" class="input" name="keywords" data-acurl="/search/auto-complete" placeholder="Search…" aria-label="Search" data-menu-autofocus="true" />
+										
+									</div>
+
+									
+									<div class="menu-row">
+										<label class="iconic"><input type="checkbox"  name="c[title_only]" value="1" /><i aria-hidden="true"></i><span class="iconic-label">Search titles only
+
+													
+													<span tabindex="0" role="button"
+														data-xf-init="tooltip" data-trigger="hover focus click" title="Tags will also be searched in content where tags are supported">
+
+														<i class="fa--xf far fa-question-circle  u-muted u-smaller"><svg xmlns="http://www.w3.org/2000/svg" role="img" ><title>Note</title><use href="/data/local/icons/regular.svg?v=1744068219#question-circle"></use></svg></i>
+													</span></span></label>
+
+									</div>
+									
+									<div class="menu-row">
+										<div class="inputGroup">
+											<span class="inputGroup-text" id="ctrl_search_menu_by_member">By:</span>
+											<input type="text" class="input" name="c[users]" data-xf-init="auto-complete" placeholder="Member" aria-labelledby="ctrl_search_menu_by_member" />
+										</div>
+									</div>
+									<div class="menu-footer">
+									<span class="menu-footer-controls">
+										<button type="submit" class="button button--icon button--icon--search button--primary"><i class="fa--xf far fa-search "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#search"></use></svg></i><span class="button-text">Search</span></button>
+										<button type="submit" class="button " name="from_search_menu"><span class="button-text">Advanced search…</span></button>
+									</span>
+									</div>
+
+									<input type="hidden" name="_xfToken" value="1746069589,fcc9cb365350bb6cf6bded295c829329" />
+								</form>
+							</div>
+						
+					</div>
+				</div>
+			</div>
+		</nav>
+	
+		</div>
+		
+		
+			<div class="p-sectionLinks">
+				<div class="p-sectionLinks-inner hScroller" data-xf-init="h-scroller">
+					<div class="hScroller-scroll">
+						<ul class="p-sectionLinks-list">
+							
+								<li>
+									
+	<div class="p-navEl " >
+	
+
+		
+	
+	<a href="/whats-new/posts/"
+	class="p-navEl-link "
+	
+	data-xf-key="alt+1"
+	data-nav-id="newPosts">New posts</a>
+
+
+		
+
+		
+	
+	</div>
+
+								</li>
+							
+								<li>
+									
+	<div class="p-navEl " >
+	
+
+		
+	
+	<a href="/search/?type=post"
+	class="p-navEl-link "
+	
+	data-xf-key="alt+2"
+	data-nav-id="searchForums">Search forums</a>
+
+
+		
+
+		
+	
+	</div>
+
+								</li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+	
+		
+
+	<div class="offCanvasMenu offCanvasMenu--nav js-headerOffCanvasMenu" data-menu="menu" aria-hidden="true" data-ocm-builder="navigation">
+		<div class="offCanvasMenu-backdrop" data-menu-close="true"></div>
+		<div class="offCanvasMenu-content">
+			<div class="offCanvasMenu-header">
+				Menu
+				<a class="offCanvasMenu-closer" data-menu-close="true" role="button" tabindex="0" aria-label="Close"></a>
+			</div>
+			
+				<div class="p-offCanvasRegisterLink">
+					<div class="offCanvasMenu-linkHolder">
+						<a href="/login/" class="offCanvasMenu-link" data-xf-click="overlay" data-menu-close="true">
+							Log in
+						</a>
+					</div>
+					<hr class="offCanvasMenu-separator" />
+					
+						<div class="offCanvasMenu-linkHolder">
+							<a href="/register/" class="offCanvasMenu-link" data-xf-click="overlay" data-menu-close="true">
+								Register
+							</a>
+						</div>
+						<hr class="offCanvasMenu-separator" />
+					
+				</div>
+			
+			<div class="js-offCanvasNavTarget"></div>
+			<div class="offCanvasMenu-installBanner js-installPromptContainer" style="display: none;" data-xf-init="install-prompt">
+				<div class="offCanvasMenu-installBanner-header">Install the app</div>
+				<button type="button" class="button js-installPromptButton"><span class="button-text">Install</span></button>
+				<template class="js-installTemplateIOS">
+					<div class="js-installTemplateContent">
+						<div class="overlay-title">How to install the app on iOS</div>
+						<div class="block-body">
+							<div class="block-row">
+								<p>
+									Follow along with the video below to see how to install our site as a web app on your home screen.
+								</p>
+								<p style="text-align: center">
+									<video src="/styles/default/xenforo/add_to_home.mp4"
+										width="280" height="480" autoplay loop muted playsinline></video>
+								</p>
+								<p>
+									<small><strong>Note:</strong> This feature may not be available in some browsers.</small>
+								</p>
+							</div>
+						</div>
+					</div>
+				</template>
+			</div>
+		</div>
+	</div>
+
+	<div class="p-body">
+		<div class="p-body-inner">
+			<!--XF:EXTRA_OUTPUT-->
+
+			
+				
+	
+		
+		
+
+		<ul class="notices notices--block  js-notices"
+			data-xf-init="notices"
+			data-type="block"
+			data-scroll-interval="6">
+
+			
+				
+	<li class="notice js-notice notice--accent notice--hidenarrow"
+		data-notice-id="1"
+		data-delay-duration="0"
+		data-display-duration="0"
+		data-auto-dismiss=""
+		data-visibility="narrow">
+
+		
+		<div class="notice-content">
+			
+			<font size="2">IP addresses are NOT logged in this forum so there's no point asking. Please note that this forum is full of homophobes, racists, lunatics, schizophrenics & absolute nut jobs with a smattering of geniuses, Chinese chauvinists, Moderate Muslims and last but not least a couple of "know-it-alls" constantly sprouting their dubious wisdom. If you believe that content generated by unsavory characters might cause you offense PLEASE LEAVE NOW! Sammyboy Admin and Staff are not responsible for your hurt feelings should you choose to read any of the content here.</p> The <span style="color: #ffffff;"><span style="background-color: #fc10ff;"><strong>OTHER</strong></span></span> forum is <span style="background-color: #ffff00;"><a title="A WORLD OF ADVENTURE" target="_blank" href="https://qrs.ly/tmbctoz"><strong>HERE</strong></a></span> so please stop asking.</font>
+		</div>
+	</li>
+
+			
+		</ul>
+	
+
+			
+
+			
+
+			
+			
+	
+
+			
+
+			
+	<noscript class="js-jsWarning"><div class="blockMessage blockMessage--important blockMessage--iconic u-noJsOnly">JavaScript is disabled. For a better experience, please enable JavaScript in your browser before proceeding.</div></noscript>
+
+			
+	<div class="blockMessage blockMessage--important blockMessage--iconic js-browserWarning" style="display: none">You are using an out of date browser. It  may not display this or other websites correctly.<br />You should upgrade or use an <a href="https://www.google.com/chrome/" target="_blank" rel="noopener">alternative browser</a>.</div>
+
+
+			
+				<div class="p-body-header">
+					
+						
+							<div class="p-title ">
+								
+									
+										<h1 class="p-title-value">Sam&#039;s Alfresco Coffee</h1>
+									
+									
+										<div class="p-title-pageAction">
+	
+		<a href="/whats-new/posts/" class="button button--icon button--icon--bolt "><i class="fa--xf far fa-bolt "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#bolt"></use></svg></i><span class="button-text">
+			New posts
+		</span></a>
+	
+	
+</div>
+									
+								
+							</div>
+						
+
+						
+					
+				</div>
+			
+
+			<div class="p-body-main p-body-main--withSidebar ">
+				
+				<div class="p-body-contentCol"></div>
+				
+					<div class="p-body-sidebarCol"></div>
+				
+
+				
+
+				<div class="p-body-content">
+					
+					<div class="p-body-pageContent">
+
+
+
+
+
+	
+
+
+
+
+	
+	
+	
+		
+	
+	
+	
+
+
+	
+	
+	
+	
+		
+	
+	
+	
+
+
+	
+	
+
+
+
+
+
+
+
+
+
+	
+	
+		
+	
+	
+	
+		
+	<div class="block block--category block--category1">
+		<span class="u-anchorTarget" id="welcome-to-sams-alfresco-coffee-shop.1"></span>
+		<div class="block-container">
+			<h2 class="block-header">
+				<a href="/#welcome-to-sams-alfresco-coffee-shop.1">Welcome to Sam&#039;s Alfresco Coffee Shop</a>
+				
+			</h2>
+			<div class="block-body">
+				
+	
+	
+		
+	
+	
+	
+		
+	
+
+	<div class="node node--id17 node--depth2 node--forum node--unread">
+		<div class="node-body">
+			<span class="node-icon" aria-hidden="true">
+				<i class="fa--xf far fa-comments "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#comments"></use></svg></i>
+			</span>
+			<div class="node-main js-nodeMain">
+				
+
+				
+				<h3 class="node-title">
+					<a href="/forums/a-singaporeans-guide-to-living-in-jb.17/" data-xf-init="element-tooltip" data-shortcut="node-description">A Singaporean&#039;s guide to Living In JB</a>
+				</h3>
+				
+					<div class="node-description node-description--tooltip js-nodeDescTooltip"><p><a
+href="https://www.facebook.com/Whatsapp60175575525/?modal=admin_todo_tour"><img
+style="border: 0px solid ; width: 200px; height: 60px;"
+src="https://sammyboy.com/graphics/jbcab2.png" alt="SGJB Cab"
+align="right"></a>Sick of living in pigeon hole and having
+to fight for space like a caged rat? Tired of living under the tyranny
+of a "benign" Dictatorship? Well you don't have to put up with it any
+longer. This section is sponsored by SGJB Cabs.</p></div>
+				
+
+				<div class="node-meta">
+					
+						<div class="node-statsMeta">
+							<dl class="pairs pairs--inline">
+								<dt>Threads</dt>
+								<dd>556</dd>
+							</dl>
+							<dl class="pairs pairs--inline">
+								<dt>Messages</dt>
+								<dd>110.2K</dd>
+							</dl>
+						</div>
+					
+
+					
+						
+	
+	
+
+					
+				</div>
+
+				
+
+				
+			</div>
+
+			
+				<div class="node-stats">
+					<dl class="pairs pairs--rows">
+						<dt>Threads</dt>
+						<dd>556</dd>
+					</dl>
+					<dl class="pairs pairs--rows">
+						<dt>Messages</dt>
+						<dd>110.2K</dd>
+					</dl>
+				</div>
+			
+
+			<div class="node-extra">
+				
+					<div class="node-extra-icon">
+						
+							<a href="/members/kezgtree.85086/" class="avatar avatar--xs" data-user-id="85086" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/85/85086.jpg?1506455034"  alt="kezgtree" class="avatar-u85086-s" width="48" height="48" loading="lazy" /> 
+		</a>
+						
+					</div>
+					<div class="node-extra-row">
+						
+							<a href="/threads/renovation-to-your-homes.111952/post-4230332" class="node-extra-title" title="Renovation to your homes">Renovation to your homes</a>
+						
+					</div>
+					<div class="node-extra-row">
+						<ul class="listInline listInline--bullet">
+							<li><time  class="node-extra-date u-dt" dir="auto" datetime="2025-04-21T00:29:35+0800" data-timestamp="1745166575" data-date="Apr 21, 2025" data-time="12:29 AM" data-short="10d" title="Apr 21, 2025 at 12:29 AM">Apr 21, 2025</time></li>
+							
+								<li class="node-extra-user"><a href="/members/kezgtree.85086/" class="username " dir="auto" data-user-id="85086" data-xf-init="member-tooltip">kezgtree</a></li>
+							
+						</ul>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+	
+
+
+	
+
+	
+		
+	
+	
+	
+		
+	
+
+	<div class="node node--id3 node--depth2 node--forum node--unread">
+		<div class="node-body">
+			<span class="node-icon" aria-hidden="true">
+				<i class="fa--xf far fa-comments "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#comments"></use></svg></i>
+			</span>
+			<div class="node-main js-nodeMain">
+				
+
+				
+				<h3 class="node-title">
+					<a href="/forums/the-political-serious-zone-no-rep-deductions.3/" data-xf-init="element-tooltip" data-shortcut="node-description">The Political / Serious Zone [no rep deductions]</a>
+				</h3>
+				
+					<div class="node-description node-description--tooltip js-nodeDescTooltip"><img vspace="0" hspace="0" border="0" align="right" src="https://sammyboy.com/graphics/sgpolitics.gif" />
+A cosy peaceful corner set aside for those of you who would like to discuss issues without being harassed by rude hecklers, stalkers, trolls and retards.</div>
+				
+
+				<div class="node-meta">
+					
+						<div class="node-statsMeta">
+							<dl class="pairs pairs--inline">
+								<dt>Threads</dt>
+								<dd>14.6K</dd>
+							</dl>
+							<dl class="pairs pairs--inline">
+								<dt>Messages</dt>
+								<dd>184.9K</dd>
+							</dl>
+						</div>
+					
+
+					
+						
+	
+	
+
+					
+				</div>
+
+				
+
+				
+			</div>
+
+			
+				<div class="node-stats">
+					<dl class="pairs pairs--rows">
+						<dt>Threads</dt>
+						<dd>14.6K</dd>
+					</dl>
+					<dl class="pairs pairs--rows">
+						<dt>Messages</dt>
+						<dd>184.9K</dd>
+					</dl>
+				</div>
+			
+
+			<div class="node-extra">
+				
+					<div class="node-extra-icon">
+						
+							<a href="/members/littlereddot.1776/" class="avatar avatar--xs" data-user-id="1776" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/1/1776.jpg?1592530549" srcset="/data/avatars/m/1/1776.jpg?1592530549 2x" alt="LITTLEREDDOT" class="avatar-u1776-s" width="48" height="48" loading="lazy" /> 
+		</a>
+						
+					</div>
+					<div class="node-extra-row">
+						
+							<a href="/threads/when-the-pap-threatens-scares-the-citizens.288875/post-4239021" class="node-extra-title" title="When the PAP threatens / scares the citizens">When the PAP threatens / scares the citizens</a>
+						
+					</div>
+					<div class="node-extra-row">
+						<ul class="listInline listInline--bullet">
+							<li><time  class="node-extra-date u-dt" dir="auto" datetime="2025-05-01T10:54:06+0800" data-timestamp="1746068046" data-date="May 1, 2025" data-time="10:54 AM" data-short="25m" title="May 1, 2025 at 10:54 AM">25 minutes ago</time></li>
+							
+								<li class="node-extra-user"><a href="/members/littlereddot.1776/" class="username " dir="auto" data-user-id="1776" data-xf-init="member-tooltip">LITTLEREDDOT</a></li>
+							
+						</ul>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+	
+
+
+	
+
+	
+		
+	
+	
+	
+		
+	
+
+	<div class="node node--id5 node--depth2 node--forum node--read">
+		<div class="node-body">
+			<span class="node-icon" aria-hidden="true">
+				<i class="fa--xf far fa-comments "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#comments"></use></svg></i>
+			</span>
+			<div class="node-main js-nodeMain">
+				
+
+				
+				<h3 class="node-title">
+					<a href="/forums/emigration-matters-no-rep-deductions.5/" data-xf-init="element-tooltip" data-shortcut="node-description">Emigration Matters [no rep deductions]</a>
+				</h3>
+				
+					<div class="node-description node-description--tooltip js-nodeDescTooltip"><img vspace="0" hspace="0" border="0" align="right" src="graphics/emigration.gif" />
+The cowards never started and the weak died along the way.</div>
+				
+
+				<div class="node-meta">
+					
+						<div class="node-statsMeta">
+							<dl class="pairs pairs--inline">
+								<dt>Threads</dt>
+								<dd>924</dd>
+							</dl>
+							<dl class="pairs pairs--inline">
+								<dt>Messages</dt>
+								<dd>21.3K</dd>
+							</dl>
+						</div>
+					
+
+					
+						
+	
+	
+
+					
+				</div>
+
+				
+
+				
+			</div>
+
+			
+				<div class="node-stats">
+					<dl class="pairs pairs--rows">
+						<dt>Threads</dt>
+						<dd>924</dd>
+					</dl>
+					<dl class="pairs pairs--rows">
+						<dt>Messages</dt>
+						<dd>21.3K</dd>
+					</dl>
+				</div>
+			
+
+			<div class="node-extra">
+				
+					<div class="node-extra-icon">
+						
+							<a href="/members/hitesh.32798/" class="avatar avatar--xs" data-user-id="32798" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/32/32798.jpg?1740341133" srcset="/data/avatars/m/32/32798.jpg?1740341133 2x" alt="Hitesh" class="avatar-u32798-s" width="48" height="48" loading="lazy" /> 
+		</a>
+						
+					</div>
+					<div class="node-extra-row">
+						
+							<a href="/threads/are-the-young-singaporeans-moving-to-india-mumbai-for-a-peace-of-life.381221/post-4196115" class="node-extra-title" title="Are the young Singaporeans moving to India/ Mumbai for a peace of life">Are the young Singaporeans moving to India/ Mumbai for a peace of life</a>
+						
+					</div>
+					<div class="node-extra-row">
+						<ul class="listInline listInline--bullet">
+							<li><time  class="node-extra-date u-dt" dir="auto" datetime="2025-02-22T14:30:24+0800" data-timestamp="1740205824" data-date="Feb 22, 2025" data-time="2:30 PM" data-short="Feb 22" title="Feb 22, 2025 at 2:30 PM">Feb 22, 2025</time></li>
+							
+								<li class="node-extra-user"><a href="/members/hitesh.32798/" class="username " dir="auto" data-user-id="32798" data-xf-init="member-tooltip">Hitesh</a></li>
+							
+						</ul>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+	
+
+
+	
+
+	
+		
+	
+	
+	
+		
+	
+
+	<div class="node node--id19 node--depth2 node--forum node--unread">
+		<div class="node-body">
+			<span class="node-icon" aria-hidden="true">
+				<i class="fa--xf far fa-comments "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#comments"></use></svg></i>
+			</span>
+			<div class="node-main js-nodeMain">
+				
+
+				
+				<h3 class="node-title">
+					<a href="/forums/travel-and-holiday-advice.19/" data-xf-init="element-tooltip" data-shortcut="node-description">Travel and Holiday Advice</a>
+				</h3>
+				
+					<div class="node-description node-description--tooltip js-nodeDescTooltip"><!--<br><a href="http://www.uwin118.com" target="_blank"><img src="https://sammyboy.com/graphics/uwin118_new3.png" width="270" height="80" border="0" align="left"></a><-->The best Travel Bang for your Buck</div>
+				
+
+				<div class="node-meta">
+					
+						<div class="node-statsMeta">
+							<dl class="pairs pairs--inline">
+								<dt>Threads</dt>
+								<dd>279</dd>
+							</dl>
+							<dl class="pairs pairs--inline">
+								<dt>Messages</dt>
+								<dd>3.9K</dd>
+							</dl>
+						</div>
+					
+
+					
+						
+	
+	
+
+					
+				</div>
+
+				
+
+				
+			</div>
+
+			
+				<div class="node-stats">
+					<dl class="pairs pairs--rows">
+						<dt>Threads</dt>
+						<dd>279</dd>
+					</dl>
+					<dl class="pairs pairs--rows">
+						<dt>Messages</dt>
+						<dd>3.9K</dd>
+					</dl>
+				</div>
+			
+
+			<div class="node-extra">
+				
+					<div class="node-extra-icon">
+						
+							<a href="/members/liamricci.177545/" class="avatar avatar--xs avatar--default avatar--default--dynamic" data-user-id="177545" data-xf-init="member-tooltip" style="background-color: #3d1f7a; color: #9470db">
+			<span class="avatar-u177545-s" role="img" aria-label="liamricci">L</span> 
+		</a>
+						
+					</div>
+					<div class="node-extra-row">
+						
+							<a href="/threads/avoid-melaka-please.375359/post-4224944" class="node-extra-title" title="Avoid Melaka please">Avoid Melaka please</a>
+						
+					</div>
+					<div class="node-extra-row">
+						<ul class="listInline listInline--bullet">
+							<li><time  class="node-extra-date u-dt" dir="auto" datetime="2025-04-13T04:57:55+0800" data-timestamp="1744491475" data-date="Apr 13, 2025" data-time="4:57 AM" data-short="18d" title="Apr 13, 2025 at 4:57 AM">Apr 13, 2025</time></li>
+							
+								<li class="node-extra-user"><a href="/members/liamricci.177545/" class="username " dir="auto" data-user-id="177545" data-xf-init="member-tooltip">liamricci</a></li>
+							
+						</ul>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+	
+
+
+	
+
+	
+		
+	
+	
+	
+		
+	
+
+	<div class="node node--id2 node--depth2 node--forum node--unread">
+		<div class="node-body">
+			<span class="node-icon" aria-hidden="true">
+				<i class="fa--xf far fa-comments "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#comments"></use></svg></i>
+			</span>
+			<div class="node-main js-nodeMain">
+				
+
+				
+				<h3 class="node-title">
+					<a href="/forums/the-courtyard-caf%C3%A9.2/" data-xf-init="element-tooltip" data-shortcut="node-description">The Courtyard Café</a>
+				</h3>
+				
+					<div class="node-description node-description--tooltip js-nodeDescTooltip"><a href="https://qrs.ly/tmbctoz"><img
+style="border: 0px solid ; width: 240px; height: 60px;"
+alt="A world of fun and adventure"
+src="https://sammyboyforum.biz/bannergraphics/samsotherforum.png"></a></div>
+				
+
+				<div class="node-meta">
+					
+						<div class="node-statsMeta">
+							<dl class="pairs pairs--inline">
+								<dt>Threads</dt>
+								<dd>275.2K</dd>
+							</dl>
+							<dl class="pairs pairs--inline">
+								<dt>Messages</dt>
+								<dd>3.5M</dd>
+							</dl>
+						</div>
+					
+
+					
+						
+	
+	
+
+					
+				</div>
+
+				
+
+				
+			</div>
+
+			
+				<div class="node-stats">
+					<dl class="pairs pairs--rows">
+						<dt>Threads</dt>
+						<dd>275.2K</dd>
+					</dl>
+					<dl class="pairs pairs--rows">
+						<dt>Messages</dt>
+						<dd>3.5M</dd>
+					</dl>
+				</div>
+			
+
+			<div class="node-extra">
+				
+					<div class="node-extra-icon">
+						
+							<a href="/members/8-d.12725/" class="avatar avatar--xs" data-user-id="12725" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/12/12725.jpg?1506454994"  alt="8::::::D" class="avatar-u12725-s" width="48" height="48" loading="lazy" /> 
+		</a>
+						
+					</div>
+					<div class="node-extra-row">
+						
+							<a href="/threads/sg-video-ongyk-say-women-say-he-look-like-chow-yun-fat.385796/post-4239040" class="node-extra-title" title="[Sg video] - OngYK say women say he look like Chow Yun Fat">[Sg video] - OngYK say women say he look like Chow Yun Fat</a>
+						
+					</div>
+					<div class="node-extra-row">
+						<ul class="listInline listInline--bullet">
+							<li><time  class="node-extra-date u-dt" dir="auto" datetime="2025-05-01T11:19:01+0800" data-timestamp="1746069541" data-date="May 1, 2025" data-time="11:19 AM" data-short="0m" title="May 1, 2025 at 11:19 AM">A moment ago</time></li>
+							
+								<li class="node-extra-user"><a href="/members/8-d.12725/" class="username " dir="auto" data-user-id="12725" data-xf-init="member-tooltip">8::::::D</a></li>
+							
+						</ul>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+	
+
+
+	
+
+	
+		
+	
+	
+	
+		
+	
+
+	<div class="node node--id4 node--depth2 node--forum node--unread">
+		<div class="node-body">
+			<span class="node-icon" aria-hidden="true">
+				<i class="fa--xf far fa-comments "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#comments"></use></svg></i>
+			</span>
+			<div class="node-main js-nodeMain">
+				
+
+				
+				<h3 class="node-title">
+					<a href="/forums/sports-games-hobbies.4/" data-xf-init="element-tooltip" data-shortcut="node-description">Sports/Games/Hobbies</a>
+				</h3>
+				
+					<div class="node-description node-description--tooltip js-nodeDescTooltip"><!--<br><a href="https://sammyboy.com/private.php?do=newpm&u=14774"><img border="0" align="left" src="http://www.sammyboyforum.com/bannergraphics/burningice.jpg" alt="Burning Icez" /></a><!--<img border="0" align="right" alt="gambing, sports, hobbies" src="https://sammyboy.com/graphics/gamblesoccer.gif" /><--></div>
+				
+
+				<div class="node-meta">
+					
+						<div class="node-statsMeta">
+							<dl class="pairs pairs--inline">
+								<dt>Threads</dt>
+								<dd>1.8K</dd>
+							</dl>
+							<dl class="pairs pairs--inline">
+								<dt>Messages</dt>
+								<dd>79.4K</dd>
+							</dl>
+						</div>
+					
+
+					
+						
+	
+	
+
+					
+				</div>
+
+				
+
+				
+			</div>
+
+			
+				<div class="node-stats">
+					<dl class="pairs pairs--rows">
+						<dt>Threads</dt>
+						<dd>1.8K</dd>
+					</dl>
+					<dl class="pairs pairs--rows">
+						<dt>Messages</dt>
+						<dd>79.4K</dd>
+					</dl>
+				</div>
+			
+
+			<div class="node-extra">
+				
+					<div class="node-extra-icon">
+						
+							<a href="/members/horlee.106228/" class="avatar avatar--xs avatar--default avatar--default--dynamic" data-user-id="106228" data-xf-init="member-tooltip" style="background-color: #2966a3; color: #99bfe6">
+			<span class="avatar-u106228-s" role="img" aria-label="HorLee">H</span> 
+		</a>
+						
+					</div>
+					<div class="node-extra-row">
+						
+							<a href="/threads/luxor-cafe-jockey-joao-moreira-looks-to-deliver-first-kentucky-derby-sat-3-may-2025-victory-to-japan.385794/post-4238996" class="node-extra-title" title="Luxor Cafe  Jockey Joao Moreira looks to deliver first Kentucky Derby ( Sat 3 May 2025 ) victory to Japan">Luxor Cafe  Jockey Joao Moreira looks to deliver first Kentucky Derby ( Sat 3 May 2025 ) victory to Japan</a>
+						
+					</div>
+					<div class="node-extra-row">
+						<ul class="listInline listInline--bullet">
+							<li><time  class="node-extra-date u-dt" dir="auto" datetime="2025-05-01T10:11:21+0800" data-timestamp="1746065481" data-date="May 1, 2025" data-time="10:11 AM" data-short="1h" title="May 1, 2025 at 10:11 AM">Today at 10:11 AM</time></li>
+							
+								<li class="node-extra-user"><a href="/members/horlee.106228/" class="username " dir="auto" data-user-id="106228" data-xf-init="member-tooltip">HorLee</a></li>
+							
+						</ul>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+	
+
+
+	
+
+	
+		
+	
+	
+	
+		
+	
+
+	<div class="node node--id13 node--depth2 node--forum node--read">
+		<div class="node-body">
+			<span class="node-icon" aria-hidden="true">
+				<i class="fa--xf far fa-comments "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#comments"></use></svg></i>
+			</span>
+			<div class="node-main js-nodeMain">
+				
+
+				
+				<h3 class="node-title">
+					<a href="/forums/international-news.13/" data-xf-init="element-tooltip" data-shortcut="node-description">International News</a>
+				</h3>
+				
+					<div class="node-description node-description--tooltip js-nodeDescTooltip"><!--<br><a href="http://www.win7bet.com" target="_blank"><img src="https://sammyboy.com/graphics/win7bet.png" width="270" height="80" border="0" align="left"><--></a>Significant Events and Trivia from the rest of the World. <img border="0" align="right" src="https://sammyboy.com/graphics/international.gif" /><br /></div>
+				
+
+				<div class="node-meta">
+					
+						<div class="node-statsMeta">
+							<dl class="pairs pairs--inline">
+								<dt>Threads</dt>
+								<dd>30.4K</dd>
+							</dl>
+							<dl class="pairs pairs--inline">
+								<dt>Messages</dt>
+								<dd>50.1K</dd>
+							</dl>
+						</div>
+					
+
+					
+						
+	
+	
+
+					
+				</div>
+
+				
+
+				
+			</div>
+
+			
+				<div class="node-stats">
+					<dl class="pairs pairs--rows">
+						<dt>Threads</dt>
+						<dd>30.4K</dd>
+					</dl>
+					<dl class="pairs pairs--rows">
+						<dt>Messages</dt>
+						<dd>50.1K</dd>
+					</dl>
+				</div>
+			
+
+			<div class="node-extra">
+				
+					<div class="node-extra-icon">
+						
+							<a href="/members/victordim.164285/" class="avatar avatar--xs avatar--default avatar--default--dynamic" data-user-id="164285" data-xf-init="member-tooltip" style="background-color: #cccc66; color: #606020">
+			<span class="avatar-u164285-s" role="img" aria-label="Victordim">V</span> 
+		</a>
+						
+					</div>
+					<div class="node-extra-row">
+						
+							<a href="/threads/%D1%81%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D1%8F-%D0%BC%D0%BE%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9-%D1%80%D0%B0%D0%B9%D0%BE%D0%BD.382364/post-4203486" class="node-extra-title" title="стоматология московский район">стоматология московский район</a>
+						
+					</div>
+					<div class="node-extra-row">
+						<ul class="listInline listInline--bullet">
+							<li><time  class="node-extra-date u-dt" dir="auto" datetime="2025-03-07T11:07:21+0800" data-timestamp="1741316841" data-date="Mar 7, 2025" data-time="11:07 AM" data-short="Mar 7" title="Mar 7, 2025 at 11:07 AM">Mar 7, 2025</time></li>
+							
+								<li class="node-extra-user"><a href="/members/victordim.164285/" class="username " dir="auto" data-user-id="164285" data-xf-init="member-tooltip">Victordim</a></li>
+							
+						</ul>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+	
+
+
+	
+
+	
+		
+	
+	
+	
+		
+	
+
+	<div class="node node--id20 node--depth2 node--forum node--unread">
+		<div class="node-body">
+			<span class="node-icon" aria-hidden="true">
+				<i class="fa--xf far fa-comments "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#comments"></use></svg></i>
+			</span>
+			<div class="node-main js-nodeMain">
+				
+
+				
+				<h3 class="node-title">
+					<a href="/forums/ginfreely-central-all-ginfreely-stuff-here.20/" data-xf-init="element-tooltip" data-shortcut="node-description">Ginfreely Central - ALL Ginfreely stuff here.</a>
+				</h3>
+				
+					<div class="node-description node-description--tooltip js-nodeDescTooltip">A special section created for those incapable of rational debate.</div>
+				
+
+				<div class="node-meta">
+					
+						<div class="node-statsMeta">
+							<dl class="pairs pairs--inline">
+								<dt>Threads</dt>
+								<dd>252</dd>
+							</dl>
+							<dl class="pairs pairs--inline">
+								<dt>Messages</dt>
+								<dd>11.8K</dd>
+							</dl>
+						</div>
+					
+
+					
+						
+	
+	
+
+					
+				</div>
+
+				
+
+				
+			</div>
+
+			
+				<div class="node-stats">
+					<dl class="pairs pairs--rows">
+						<dt>Threads</dt>
+						<dd>252</dd>
+					</dl>
+					<dl class="pairs pairs--rows">
+						<dt>Messages</dt>
+						<dd>11.8K</dd>
+					</dl>
+				</div>
+			
+
+			<div class="node-extra">
+				
+					<div class="node-extra-icon">
+						
+							<a href="/members/true-believer.185534/" class="avatar avatar--xs avatar--default avatar--default--dynamic" data-user-id="185534" data-xf-init="member-tooltip" style="background-color: #a32983; color: #e699d1">
+			<span class="avatar-u185534-s" role="img" aria-label="True Believer">T</span> 
+		</a>
+						
+					</div>
+					<div class="node-extra-row">
+						
+							<a href="/threads/yesterday-i-met-a-girl-who-wanted-to-read-my-palm.382189/post-4233801" class="node-extra-title" title="yesterday i met a girl who wanted to read my palm...">yesterday i met a girl who wanted to read my palm...</a>
+						
+					</div>
+					<div class="node-extra-row">
+						<ul class="listInline listInline--bullet">
+							<li><time  class="node-extra-date u-dt" dir="auto" datetime="2025-04-25T09:47:04+0800" data-timestamp="1745545624" data-date="Apr 25, 2025" data-time="9:47 AM" data-short="6d" title="Apr 25, 2025 at 9:47 AM">Friday at 9:47 AM</time></li>
+							
+								<li class="node-extra-user"><a href="/members/true-believer.185534/" class="username " dir="auto" data-user-id="185534" data-xf-init="member-tooltip">True Believer</a></li>
+							
+						</ul>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+	
+
+
+	
+
+	
+		
+	
+	
+	
+		
+	
+
+	<div class="node node--id6 node--depth2 node--forum node--read">
+		<div class="node-body">
+			<span class="node-icon" aria-hidden="true">
+				<i class="fa--xf far fa-comments "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#comments"></use></svg></i>
+			</span>
+			<div class="node-main js-nodeMain">
+				
+
+				
+				<h3 class="node-title">
+					<a href="/forums/singapore-suicides.6/" data-xf-init="element-tooltip" data-shortcut="node-description">Singapore Suicides</a>
+				</h3>
+				
+					<div class="node-description node-description--tooltip js-nodeDescTooltip"><img vspace="0" hspace="0" border="0" align="right" src="https://sammyboy.com/graphics/jumpmrt.jpg" />
+Jump MRT and other Heroic Deeds</div>
+				
+
+				<div class="node-meta">
+					
+						<div class="node-statsMeta">
+							<dl class="pairs pairs--inline">
+								<dt>Threads</dt>
+								<dd>130</dd>
+							</dl>
+							<dl class="pairs pairs--inline">
+								<dt>Messages</dt>
+								<dd>1K</dd>
+							</dl>
+						</div>
+					
+
+					
+						
+	
+	
+
+					
+				</div>
+
+				
+
+				
+			</div>
+
+			
+				<div class="node-stats">
+					<dl class="pairs pairs--rows">
+						<dt>Threads</dt>
+						<dd>130</dd>
+					</dl>
+					<dl class="pairs pairs--rows">
+						<dt>Messages</dt>
+						<dd>1K</dd>
+					</dl>
+				</div>
+			
+
+			<div class="node-extra">
+				
+					<div class="node-extra-icon">
+						
+							<a href="/members/john-little.196692/" class="avatar avatar--xs avatar--default avatar--default--dynamic" data-user-id="196692" data-xf-init="member-tooltip" style="background-color: #cc5233; color: #3d180f">
+			<span class="avatar-u196692-s" role="img" aria-label="John Little">J</span> 
+		</a>
+						
+					</div>
+					<div class="node-extra-row">
+						
+							<a href="/threads/life-death-afterlife-reincarnation-what-happens-after-comitting-suicide.271940/post-4111948" class="node-extra-title" title="[Life, Death, Afterlife &amp; Reincarnation] - What happens after comitting suicide?">[Life, Death, Afterlife &amp; Reincarnation] - What happens after comitting suicide?</a>
+						
+					</div>
+					<div class="node-extra-row">
+						<ul class="listInline listInline--bullet">
+							<li><time  class="node-extra-date u-dt" dir="auto" datetime="2024-09-24T17:20:24+0800" data-timestamp="1727169624" data-date="Sep 24, 2024" data-time="5:20 PM" data-short="Sep &#039;24" title="Sep 24, 2024 at 5:20 PM">Sep 24, 2024</time></li>
+							
+								<li class="node-extra-user"><a href="/members/john-little.196692/" class="username " dir="auto" data-user-id="196692" data-xf-init="member-tooltip">John Little</a></li>
+							
+						</ul>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+	
+
+
+	
+
+	
+		
+	
+	
+	
+		
+	
+
+	<div class="node node--id8 node--depth2 node--forum node--read">
+		<div class="node-body">
+			<span class="node-icon" aria-hidden="true">
+				<i class="fa--xf far fa-comments "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#comments"></use></svg></i>
+			</span>
+			<div class="node-main js-nodeMain">
+				
+
+				
+				<h3 class="node-title">
+					<a href="/forums/singapore-crime.8/" data-xf-init="element-tooltip" data-shortcut="node-description">Singapore Crime</a>
+				</h3>
+				
+					<div class="node-description node-description--tooltip js-nodeDescTooltip"><img vspace="0" hspace="0" border="0" align="right" src="https://sammyboy.com/graphics/selamat1.gif" />
+Singapore is a safe city. Yeah Right!</div>
+				
+
+				<div class="node-meta">
+					
+						<div class="node-statsMeta">
+							<dl class="pairs pairs--inline">
+								<dt>Threads</dt>
+								<dd>11.1K</dd>
+							</dl>
+							<dl class="pairs pairs--inline">
+								<dt>Messages</dt>
+								<dd>26.4K</dd>
+							</dl>
+						</div>
+					
+
+					
+						
+	
+	
+
+					
+				</div>
+
+				
+
+				
+			</div>
+
+			
+				<div class="node-stats">
+					<dl class="pairs pairs--rows">
+						<dt>Threads</dt>
+						<dd>11.1K</dd>
+					</dl>
+					<dl class="pairs pairs--rows">
+						<dt>Messages</dt>
+						<dd>26.4K</dd>
+					</dl>
+				</div>
+			
+
+			<div class="node-extra">
+				
+					<div class="node-extra-icon">
+						
+							<a href="/members/a-singaporean.158366/" class="avatar avatar--xs" data-user-id="158366" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/158/158366.jpg?1587648957" srcset="/data/avatars/m/158/158366.jpg?1587648957 2x" alt="A Singaporean" class="avatar-u158366-s" width="48" height="48" loading="lazy" /> 
+		</a>
+						
+					</div>
+					<div class="node-extra-row">
+						
+							<a href="/threads/man-fined-for-hitting-his-then-girlfriend.229170/post-4168935" class="node-extra-title" title="Man fined for hitting his then girlfriend">Man fined for hitting his then girlfriend</a>
+						
+					</div>
+					<div class="node-extra-row">
+						<ul class="listInline listInline--bullet">
+							<li><time  class="node-extra-date u-dt" dir="auto" datetime="2025-01-03T20:32:10+0800" data-timestamp="1735907530" data-date="Jan 3, 2025" data-time="8:32 PM" data-short="Jan 3" title="Jan 3, 2025 at 8:32 PM">Jan 3, 2025</time></li>
+							
+								<li class="node-extra-user"><a href="/members/a-singaporean.158366/" class="username " dir="auto" data-user-id="158366" data-xf-init="member-tooltip">A Singaporean</a></li>
+							
+						</ul>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+	
+
+
+	
+
+	
+		
+	
+	
+	
+		
+	
+
+	<div class="node node--id10 node--depth2 node--forum node--unread">
+		<div class="node-body">
+			<span class="node-icon" aria-hidden="true">
+				<i class="fa--xf far fa-comments "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#comments"></use></svg></i>
+			</span>
+			<div class="node-main js-nodeMain">
+				
+
+				
+				<h3 class="node-title">
+					<a href="/forums/picture-video-posts-photo-journalism.10/" data-xf-init="element-tooltip" data-shortcut="node-description">Picture/Video Posts / Photo journalism</a>
+				</h3>
+				
+					<div class="node-description node-description--tooltip js-nodeDescTooltip"><img align="right" src="graphics/photogallery.jpg" />This forum accepts image attachments. Post your photos here. (no R18 stuff please)</div>
+				
+
+				<div class="node-meta">
+					
+						<div class="node-statsMeta">
+							<dl class="pairs pairs--inline">
+								<dt>Threads</dt>
+								<dd>2.5K</dd>
+							</dl>
+							<dl class="pairs pairs--inline">
+								<dt>Messages</dt>
+								<dd>52.1K</dd>
+							</dl>
+						</div>
+					
+
+					
+						
+	
+	
+
+					
+				</div>
+
+				
+
+				
+			</div>
+
+			
+				<div class="node-stats">
+					<dl class="pairs pairs--rows">
+						<dt>Threads</dt>
+						<dd>2.5K</dd>
+					</dl>
+					<dl class="pairs pairs--rows">
+						<dt>Messages</dt>
+						<dd>52.1K</dd>
+					</dl>
+				</div>
+			
+
+			<div class="node-extra">
+				
+					<div class="node-extra-icon">
+						
+							<a href="/members/postnew.2115/" class="avatar avatar--xs" data-user-id="2115" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/2/2115.jpg?1506454985"  alt="postnew" class="avatar-u2115-s" width="48" height="48" loading="lazy" /> 
+		</a>
+						
+					</div>
+					<div class="node-extra-row">
+						
+							<a href="/threads/models-%E6%91%B8%E6%91%B8here-%E6%91%B8%E6%91%B8there.12373/post-4237992" class="node-extra-title" title="Models..摸摸here, 摸摸there..">Models..摸摸here, 摸摸there..</a>
+						
+					</div>
+					<div class="node-extra-row">
+						<ul class="listInline listInline--bullet">
+							<li><time  class="node-extra-date u-dt" dir="auto" datetime="2025-04-30T01:06:08+0800" data-timestamp="1745946368" data-date="Apr 30, 2025" data-time="1:06 AM" data-short="1d" title="Apr 30, 2025 at 1:06 AM">Yesterday at 1:06 AM</time></li>
+							
+								<li class="node-extra-user"><a href="/members/postnew.2115/" class="username " dir="auto" data-user-id="2115" data-xf-init="member-tooltip">postnew</a></li>
+							
+						</ul>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+	
+
+
+	
+
+	
+		
+	
+	
+	
+		
+	
+
+	<div class="node node--id11 node--depth2 node--forum node--unread">
+		<div class="node-body">
+			<span class="node-icon" aria-hidden="true">
+				<i class="fa--xf far fa-comments "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#comments"></use></svg></i>
+			</span>
+			<div class="node-main js-nodeMain">
+				
+
+				
+				<h3 class="node-title">
+					<a href="/forums/discussions-about-religion.11/" data-xf-init="element-tooltip" data-shortcut="node-description">Discussions about Religion.</a>
+				</h3>
+				
+					<div class="node-description node-description--tooltip js-nodeDescTooltip">Post all Religious Crap here.<img border="0" align="right" src="https://sammyboy.com/graphics/shit2.gif" alt="Religion" /></div>
+				
+
+				<div class="node-meta">
+					
+						<div class="node-statsMeta">
+							<dl class="pairs pairs--inline">
+								<dt>Threads</dt>
+								<dd>2.1K</dd>
+							</dl>
+							<dl class="pairs pairs--inline">
+								<dt>Messages</dt>
+								<dd>52.6K</dd>
+							</dl>
+						</div>
+					
+
+					
+						
+	
+	
+
+					
+				</div>
+
+				
+
+				
+			</div>
+
+			
+				<div class="node-stats">
+					<dl class="pairs pairs--rows">
+						<dt>Threads</dt>
+						<dd>2.1K</dd>
+					</dl>
+					<dl class="pairs pairs--rows">
+						<dt>Messages</dt>
+						<dd>52.6K</dd>
+					</dl>
+				</div>
+			
+
+			<div class="node-extra">
+				
+					<div class="node-extra-icon">
+						
+							<a href="/members/septuagint.58381/" class="avatar avatar--xs avatar--default avatar--default--dynamic" data-user-id="58381" data-xf-init="member-tooltip" style="background-color: #a3e085; color: #478f24">
+			<span class="avatar-u58381-s" role="img" aria-label="septuagint">S</span> 
+		</a>
+						
+					</div>
+					<div class="node-extra-row">
+						
+							<a href="/threads/praise-and-worship.235036/post-4239008" class="node-extra-title" title="Praise and Worship">Praise and Worship</a>
+						
+					</div>
+					<div class="node-extra-row">
+						<ul class="listInline listInline--bullet">
+							<li><time  class="node-extra-date u-dt" dir="auto" datetime="2025-05-01T10:40:25+0800" data-timestamp="1746067225" data-date="May 1, 2025" data-time="10:40 AM" data-short="39m" title="May 1, 2025 at 10:40 AM">39 minutes ago</time></li>
+							
+								<li class="node-extra-user"><a href="/members/septuagint.58381/" class="username " dir="auto" data-user-id="58381" data-xf-init="member-tooltip">septuagint</a></li>
+							
+						</ul>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+	
+
+
+	
+
+	
+		
+	
+	
+	
+		
+	
+
+	<div class="node node--id7 node--depth2 node--forum node--unread">
+		<div class="node-body">
+			<span class="node-icon" aria-hidden="true">
+				<i class="fa--xf far fa-comments "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#comments"></use></svg></i>
+			</span>
+			<div class="node-main js-nodeMain">
+				
+
+				
+				<h3 class="node-title">
+					<a href="/forums/test-messages-questions-feedback.7/" data-xf-init="element-tooltip" data-shortcut="node-description">Test Messages / Questions / Feedback</a>
+				</h3>
+				
+					<div class="node-description node-description--tooltip js-nodeDescTooltip">All questions will be answered to the best of my ability<img vspace="0" hspace="0" border="0" align="right" src="https://sammyboy.com/graphics/testing.gif" /></div>
+				
+
+				<div class="node-meta">
+					
+						<div class="node-statsMeta">
+							<dl class="pairs pairs--inline">
+								<dt>Threads</dt>
+								<dd>573</dd>
+							</dl>
+							<dl class="pairs pairs--inline">
+								<dt>Messages</dt>
+								<dd>3.1K</dd>
+							</dl>
+						</div>
+					
+
+					
+						
+	
+	
+
+					
+				</div>
+
+				
+
+				
+			</div>
+
+			
+				<div class="node-stats">
+					<dl class="pairs pairs--rows">
+						<dt>Threads</dt>
+						<dd>573</dd>
+					</dl>
+					<dl class="pairs pairs--rows">
+						<dt>Messages</dt>
+						<dd>3.1K</dd>
+					</dl>
+				</div>
+			
+
+			<div class="node-extra">
+				
+					<div class="node-extra-icon">
+						
+							<a href="/members/magnetitech.34567/" class="avatar avatar--xs" data-user-id="34567" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/34/34567.jpg?1506527491" srcset="/data/avatars/m/34/34567.jpg?1506527491 2x" alt="magnetitech" class="avatar-u34567-s" width="48" height="48" loading="lazy" /> 
+		</a>
+						
+					</div>
+					<div class="node-extra-row">
+						
+							<a href="/threads/test-thread.384231/post-4221717" class="node-extra-title" title="Test thread">Test thread</a>
+						
+					</div>
+					<div class="node-extra-row">
+						<ul class="listInline listInline--bullet">
+							<li><time  class="node-extra-date u-dt" dir="auto" datetime="2025-04-08T10:24:31+0800" data-timestamp="1744079071" data-date="Apr 8, 2025" data-time="10:24 AM" data-short="23d" title="Apr 8, 2025 at 10:24 AM">Apr 8, 2025</time></li>
+							
+								<li class="node-extra-user"><a href="/members/magnetitech.34567/" class="username " dir="auto" data-user-id="34567" data-xf-init="member-tooltip"><span class="username--moderator username--admin">magnetitech</span></a></li>
+							
+						</ul>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+	
+
+
+	
+
+	
+		
+	
+	
+	
+		
+	
+
+	<div class="node node--id9 node--depth2 node--forum node--unread">
+		<div class="node-body">
+			<span class="node-icon" aria-hidden="true">
+				<i class="fa--xf far fa-comments "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#comments"></use></svg></i>
+			</span>
+			<div class="node-main js-nodeMain">
+				
+
+				
+				<h3 class="node-title">
+					<a href="/forums/the-trivia-hq.9/" data-xf-init="element-tooltip" data-shortcut="node-description">The Trivia HQ</a>
+				</h3>
+				
+					<div class="node-description node-description--tooltip js-nodeDescTooltip"><img vspace="0" hspace="0" border="0" align="right" src="https://sammyboy.com/graphics/trashfull.png" />
+Inane and trivial issues sit nicely here<br /></div>
+				
+
+				<div class="node-meta">
+					
+						<div class="node-statsMeta">
+							<dl class="pairs pairs--inline">
+								<dt>Threads</dt>
+								<dd>687</dd>
+							</dl>
+							<dl class="pairs pairs--inline">
+								<dt>Messages</dt>
+								<dd>16.9K</dd>
+							</dl>
+						</div>
+					
+
+					
+						
+	
+	
+
+					
+				</div>
+
+				
+
+				
+			</div>
+
+			
+				<div class="node-stats">
+					<dl class="pairs pairs--rows">
+						<dt>Threads</dt>
+						<dd>687</dd>
+					</dl>
+					<dl class="pairs pairs--rows">
+						<dt>Messages</dt>
+						<dd>16.9K</dd>
+					</dl>
+				</div>
+			
+
+			<div class="node-extra">
+				
+					<div class="node-extra-icon">
+						
+							<a href="/members/chase.157843/" class="avatar avatar--xs" data-user-id="157843" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/157/157843.jpg?1738465897" srcset="/data/avatars/m/157/157843.jpg?1738465897 2x" alt="Chase" class="avatar-u157843-s" width="48" height="48" loading="lazy" /> 
+		</a>
+						
+					</div>
+					<div class="node-extra-row">
+						
+							<a href="/threads/i-need-my-space.309717/post-4231972" class="node-extra-title" title="I need my space">I need my space</a>
+						
+					</div>
+					<div class="node-extra-row">
+						<ul class="listInline listInline--bullet">
+							<li><time  class="node-extra-date u-dt" dir="auto" datetime="2025-04-23T08:30:01+0800" data-timestamp="1745368201" data-date="Apr 23, 2025" data-time="8:30 AM" data-short="8d" title="Apr 23, 2025 at 8:30 AM">Apr 23, 2025</time></li>
+							
+								<li class="node-extra-user"><a href="/members/chase.157843/" class="username " dir="auto" data-user-id="157843" data-xf-init="member-tooltip">Chase</a></li>
+							
+						</ul>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+
+	
+
+
+	
+
+	
+		
+	
+	
+	
+		
+	<div class="node node--id12 node--depth2 node--category node--read">
+		<div class="node-body">
+			<span class="node-icon" aria-hidden="true">
+				<i class="fa--xf far fa-comments "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#comments"></use></svg></i>
+			</span>
+			<div class="node-main js-nodeMain">
+				
+				<h3 class="node-title">
+					<a href="/categories/infraction-log-archive.12/" data-xf-init="element-tooltip" data-shortcut="node-description">Infraction Log - Archive</a>
+				</h3>
+				
+
+				<div class="node-meta">
+					
+						<div class="node-statsMeta">
+							<dl class="pairs pairs--inline">
+								<dt>Threads</dt>
+								<dd>0</dd>
+							</dl>
+							<dl class="pairs pairs--inline">
+								<dt>Messages</dt>
+								<dd>0</dd>
+							</dl>
+						</div>
+					
+
+					
+						
+	
+	
+
+					
+				</div>
+
+				
+			</div>
+
+			
+				<div class="node-stats">
+					<dl class="pairs pairs--rows">
+						<dt>Threads</dt>
+						<dd>0</dd>
+					</dl>
+					<dl class="pairs pairs--rows">
+						<dt>Messages</dt>
+						<dd>0</dd>
+					</dl>
+				</div>
+			
+
+			<div class="node-extra">
+				
+					<span class="node-extra-placeholder">None</span>
+				
+			</div>
+		</div>
+	</div>
+
+	
+
+	
+
+			</div>
+		</div>
+	</div>
+
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+					
+				</div>
+
+				
+					<div class="p-body-sidebar">
+						
+						
+							<div class="block" data-widget-id="9" data-widget-key="forum_overview_new_posts" data-widget-definition="new_posts">
+		<div class="block-container">
+			
+				<h3 class="block-minorHeader">
+					<a href="/whats-new/posts/?skip=1" rel="nofollow">Latest posts</a>
+				</h3>
+				<ul class="block-body">
+					
+						
+							<li class="block-row">
+								
+	<div class="contentRow">
+		<div class="contentRow-figure">
+			<a href="/members/8-d.12725/" class="avatar avatar--xxs" data-user-id="12725" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/12/12725.jpg?1506454994"  alt="8::::::D" class="avatar-u12725-s" width="48" height="48" loading="lazy" /> 
+		</a>
+		</div>
+		<div class="contentRow-main contentRow-main--close">
+			
+				<a href="/threads/sg-video-ongyk-say-women-say-he-look-like-chow-yun-fat.385796/post-4239040" >[Sg video] - OngYK say women say he look like Chow Yun Fat</a>
+			
+
+			<div class="contentRow-minor contentRow-minor--hideLinks">
+				<ul class="listInline listInline--bullet">
+					<li>Latest: 8::::::D</li>
+					<li><time  class="u-dt" dir="auto" datetime="2025-05-01T11:19:01+0800" data-timestamp="1746069541" data-date="May 1, 2025" data-time="11:19 AM" data-short="0m" title="May 1, 2025 at 11:19 AM">A moment ago</time></li>
+				</ul>
+			</div>
+			<div class="contentRow-minor contentRow-minor--hideLinks">
+				<a href="/forums/the-courtyard-caf%C3%A9.2/">The Courtyard Café</a>
+			</div>
+		</div>
+	</div>
+
+							</li>
+						
+							<li class="block-row">
+								
+	<div class="contentRow">
+		<div class="contentRow-figure">
+			<a href="/members/k1976.181869/" class="avatar avatar--xxs" data-user-id="181869" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/181/181869.jpg?1740312712"  alt="k1976" class="avatar-u181869-s" width="48" height="48" loading="lazy" /> 
+		</a>
+		</div>
+		<div class="contentRow-main contentRow-main--close">
+			
+				<a href="/threads/i-love-pap-but-i-will-vote-any-opposition-party-because.385751/post-4239039" >** I love PAP but I will vote any opposition party because</a>
+			
+
+			<div class="contentRow-minor contentRow-minor--hideLinks">
+				<ul class="listInline listInline--bullet">
+					<li>Latest: k1976</li>
+					<li><time  class="u-dt" dir="auto" datetime="2025-05-01T11:18:57+0800" data-timestamp="1746069537" data-date="May 1, 2025" data-time="11:18 AM" data-short="0m" title="May 1, 2025 at 11:18 AM">A moment ago</time></li>
+				</ul>
+			</div>
+			<div class="contentRow-minor contentRow-minor--hideLinks">
+				<a href="/forums/the-courtyard-caf%C3%A9.2/">The Courtyard Café</a>
+			</div>
+		</div>
+	</div>
+
+							</li>
+						
+							<li class="block-row">
+								
+	<div class="contentRow">
+		<div class="contentRow-figure">
+			<a href="/members/k1976.181869/" class="avatar avatar--xxs" data-user-id="181869" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/181/181869.jpg?1740312712"  alt="k1976" class="avatar-u181869-s" width="48" height="48" loading="lazy" /> 
+		</a>
+		</div>
+		<div class="contentRow-main contentRow-main--close">
+			
+				<a href="/threads/thai-man-has-7-wives-wtf.385788/post-4239038" >Thai man has 7 wives. WTF???</a>
+			
+
+			<div class="contentRow-minor contentRow-minor--hideLinks">
+				<ul class="listInline listInline--bullet">
+					<li>Latest: k1976</li>
+					<li><time  class="u-dt" dir="auto" datetime="2025-05-01T11:17:48+0800" data-timestamp="1746069468" data-date="May 1, 2025" data-time="11:17 AM" data-short="2m" title="May 1, 2025 at 11:17 AM">2 minutes ago</time></li>
+				</ul>
+			</div>
+			<div class="contentRow-minor contentRow-minor--hideLinks">
+				<a href="/forums/the-courtyard-caf%C3%A9.2/">The Courtyard Café</a>
+			</div>
+		</div>
+	</div>
+
+							</li>
+						
+							<li class="block-row">
+								
+	<div class="contentRow">
+		<div class="contentRow-figure">
+			<a href="/members/birdie69.161339/" class="avatar avatar--xxs avatar--default avatar--default--dynamic" data-user-id="161339" data-xf-init="member-tooltip" style="background-color: #cccc99; color: #77773c">
+			<span class="avatar-u161339-s" role="img" aria-label="birdie69">B</span> 
+		</a>
+		</div>
+		<div class="contentRow-main contentRow-main--close">
+			
+				<a href="/threads/final-wp-rally-is-not-at-serangoon-stadium-wp-couldnt-secure-the-venue.385761/post-4239037" >Final WP Rally is not at Serangoon Stadium. WP couldnt secure the venue....</a>
+			
+
+			<div class="contentRow-minor contentRow-minor--hideLinks">
+				<ul class="listInline listInline--bullet">
+					<li>Latest: birdie69</li>
+					<li><time  class="u-dt" dir="auto" datetime="2025-05-01T11:15:53+0800" data-timestamp="1746069353" data-date="May 1, 2025" data-time="11:15 AM" data-short="3m" title="May 1, 2025 at 11:15 AM">3 minutes ago</time></li>
+				</ul>
+			</div>
+			<div class="contentRow-minor contentRow-minor--hideLinks">
+				<a href="/forums/the-courtyard-caf%C3%A9.2/">The Courtyard Café</a>
+			</div>
+		</div>
+	</div>
+
+							</li>
+						
+							<li class="block-row">
+								
+	<div class="contentRow">
+		<div class="contentRow-figure">
+			<a href="/members/sustanon.170026/" class="avatar avatar--xxs" data-user-id="170026" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/170/170026.jpg?1675434041"  alt="Sustanon" class="avatar-u170026-s" width="48" height="48" loading="lazy" /> 
+		</a>
+		</div>
+		<div class="contentRow-main contentRow-main--close">
+			
+				<a href="/threads/indian-man-misbehaved-with-stewardess-on-sq-flight-to-sinkieland.385770/post-4239035" >Indian man &quot;misbehaved&quot; with stewardess on SQ flight to sinkieland</a>
+			
+
+			<div class="contentRow-minor contentRow-minor--hideLinks">
+				<ul class="listInline listInline--bullet">
+					<li>Latest: Sustanon</li>
+					<li><time  class="u-dt" dir="auto" datetime="2025-05-01T11:13:28+0800" data-timestamp="1746069208" data-date="May 1, 2025" data-time="11:13 AM" data-short="6m" title="May 1, 2025 at 11:13 AM">6 minutes ago</time></li>
+				</ul>
+			</div>
+			<div class="contentRow-minor contentRow-minor--hideLinks">
+				<a href="/forums/the-courtyard-caf%C3%A9.2/">The Courtyard Café</a>
+			</div>
+		</div>
+	</div>
+
+							</li>
+						
+					
+				</ul>
+			
+		</div>
+	</div>
+
+
+	
+		<div class="block"  data-widget-id="13" data-widget-key="forum_overview_trending_content" data-widget-definition="trending_content">
+			<div class="block-container">
+				<h3 class="block-minorHeader">Trending content</h3>
+
+				<ul class="block-body">
+					
+						<li class="block-row">
+							
+	
+		<div class="contentRow">
+			
+				
+					<div class="contentRow-figure">
+						
+							
+		
+		<a href="/members/threadfin.176669/" class="avatar avatar--xxs" data-user-id="176669" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/176/176669.jpg?1744883926"  alt="threadfin" class="avatar-u176669-s" width="48" height="48" loading="lazy" /> 
+		</a>
+	
+						
+					</div>
+				
+
+				
+					<div class="contentRow-main contentRow-main--close">
+						
+							
+		
+		<a href="/threads/workers-party-alexis-dang-pei-yuan-%E6%BB%95%E6%B2%9B%E6%BA%90-punggol-grc-candidate.385017/">Thread 'Workers&#039; Party Alexis Dang Pei Yuan 滕沛源 (Punggol GRC Candidate)'</a>
+	
+
+							
+								<div class="contentRow-minor contentRow-minor--hideLinks">
+									<ul class="listInline listInline--bullet">
+										
+											
+		
+
+		<li>threadfin</li>
+		<li><time  class="u-dt" dir="auto" datetime="2025-04-19T16:15:20+0800" data-timestamp="1745050520" data-date="Apr 19, 2025" data-time="4:15 PM" data-short="11d" title="Apr 19, 2025 at 4:15 PM">Apr 19, 2025</time></li>
+	
+										
+									</ul>
+								</div>
+							
+
+							
+		
+
+		<div class="contentRow-minor contentRow-minor--hideLinks">
+			Replies: 568
+		</div>
+	
+						
+					</div>
+				
+
+				
+			
+		</div>
+	
+
+						</li>
+					
+						<li class="block-row">
+							
+	
+		<div class="contentRow">
+			
+				
+					<div class="contentRow-figure">
+						
+							
+		
+		<a href="/members/littlereddot.1776/" class="avatar avatar--xxs" data-user-id="1776" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/1/1776.jpg?1592530549"  alt="LITTLEREDDOT" class="avatar-u1776-s" width="48" height="48" loading="lazy" /> 
+		</a>
+	
+						
+					</div>
+				
+
+				
+					<div class="contentRow-main contentRow-main--close">
+						
+							
+		
+		<a href="/threads/general-election-2025.342193/">Thread 'General Election 2025'</a>
+	
+
+							
+								<div class="contentRow-minor contentRow-minor--hideLinks">
+									<ul class="listInline listInline--bullet">
+										
+											
+		
+
+		<li>LITTLEREDDOT</li>
+		<li><time  class="u-dt" dir="auto" datetime="2023-06-01T20:52:26+0800" data-timestamp="1685623946" data-date="Jun 1, 2023" data-time="8:52 PM" data-short="Jun &#039;23" title="Jun 1, 2023 at 8:52 PM">Jun 1, 2023</time></li>
+	
+										
+									</ul>
+								</div>
+							
+
+							
+		
+
+		<div class="contentRow-minor contentRow-minor--hideLinks">
+			Replies: 591
+		</div>
+	
+						
+					</div>
+				
+
+				
+			
+		</div>
+	
+
+						</li>
+					
+						<li class="block-row">
+							
+	
+		<div class="contentRow">
+			
+				
+					<div class="contentRow-figure">
+						
+							
+		
+		<a href="/members/rocket.48502/" class="avatar avatar--xxs" data-user-id="48502" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/48/48502.jpg?1744182973"  alt="rocket" class="avatar-u48502-s" width="48" height="48" loading="lazy" /> 
+		</a>
+	
+						
+					</div>
+				
+
+				
+					<div class="contentRow-main contentRow-main--close">
+						
+							
+		
+		<a href="/threads/punggol-grc-battle-to-save-the-sinking-ship.385251/">Thread 'Punggol GRC battle to save the sinking ship'</a>
+	
+
+							
+								<div class="contentRow-minor contentRow-minor--hideLinks">
+									<ul class="listInline listInline--bullet">
+										
+											
+		
+
+		<li>rocket</li>
+		<li><time  class="u-dt" dir="auto" datetime="2025-04-23T12:37:29+0800" data-timestamp="1745383049" data-date="Apr 23, 2025" data-time="12:37 PM" data-short="7d" title="Apr 23, 2025 at 12:37 PM">Apr 23, 2025</time></li>
+	
+										
+									</ul>
+								</div>
+							
+
+							
+		
+
+		<div class="contentRow-minor contentRow-minor--hideLinks">
+			Replies: 208
+		</div>
+	
+						
+					</div>
+				
+
+				
+			
+		</div>
+	
+
+						</li>
+					
+						<li class="block-row">
+							
+	
+		<div class="contentRow">
+			
+				
+					<div class="contentRow-figure">
+						
+							
+		
+		<a href="/members/ultimaonline.1299/" class="avatar avatar--xxs" data-user-id="1299" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/1/1299.jpg?1531382437"  alt="UltimaOnline" class="avatar-u1299-s" width="48" height="48" loading="lazy" /> 
+		</a>
+	
+						
+					</div>
+				
+
+				
+					<div class="contentRow-main contentRow-main--close">
+						
+							
+		
+		<a href="/threads/sg-video-chee-soon-juan-apologizes-for-sdp-gigene-wong-calling-fellow-sdp-candidate-ariffin-sha-a-keling-kia.385580/">Thread '[Sg video] - Chee Soon Juan apologizes for SDP Gigene Wong calling fellow SDP candidate Ariffin Sha a KELING KIA'</a>
+	
+
+							
+								<div class="contentRow-minor contentRow-minor--hideLinks">
+									<ul class="listInline listInline--bullet">
+										
+											
+		
+
+		<li>UltimaOnline</li>
+		<li><time  class="u-dt" dir="auto" datetime="2025-04-27T20:48:52+0800" data-timestamp="1745758132" data-date="Apr 27, 2025" data-time="8:48 PM" data-short="3d" title="Apr 27, 2025 at 8:48 PM">Sunday at 8:48 PM</time></li>
+	
+										
+									</ul>
+								</div>
+							
+
+							
+		
+
+		<div class="contentRow-minor contentRow-minor--hideLinks">
+			Replies: 97
+		</div>
+	
+						
+					</div>
+				
+
+				
+			
+		</div>
+	
+
+						</li>
+					
+						<li class="block-row">
+							
+	
+		<div class="contentRow">
+			
+				
+					<div class="contentRow-figure">
+						
+							
+		
+		<a href="/members/wuqi256.8325/" class="avatar avatar--xxs" data-user-id="8325" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/8/8325.jpg?1601926064"  alt="wuqi256" class="avatar-u8325-s" width="48" height="48" loading="lazy" /> 
+		</a>
+	
+						
+					</div>
+				
+
+				
+					<div class="contentRow-main contentRow-main--close">
+						
+							
+		
+		<a href="/threads/living-in-jb-2-johore.107411/">Thread 'Living in JB 2 (Johore)'</a>
+	
+
+							
+								<div class="contentRow-minor contentRow-minor--hideLinks">
+									<ul class="listInline listInline--bullet">
+										
+											
+		
+
+		<li>wuqi256</li>
+		<li><time  class="u-dt" dir="auto" datetime="2012-01-03T00:02:59+0800" data-timestamp="1325520179" data-date="Jan 3, 2012" data-time="12:02 AM" data-short="Jan &#039;12" title="Jan 3, 2012 at 12:02 AM">Jan 3, 2012</time></li>
+	
+										
+									</ul>
+								</div>
+							
+
+							
+		
+
+		<div class="contentRow-minor contentRow-minor--hideLinks">
+			Replies: 10K
+		</div>
+	
+						
+					</div>
+				
+
+				
+			
+		</div>
+	
+
+						</li>
+					
+				</ul>
+			</div>
+		</div>
+	
+
+<div class="block" data-widget-id="7" data-widget-key="forum_overview_forum_statistics" data-widget-definition="forum_statistics">
+	<div class="block-container">
+		<h3 class="block-minorHeader">Forum statistics</h3>
+		<div class="block-body block-row">
+			<dl class="pairs pairs--justified count--threads">
+				<dt>Threads</dt>
+				<dd>341,205</dd>
+			</dl>
+
+			<dl class="pairs pairs--justified count--messages">
+				<dt>Messages</dt>
+				<dd>4,118,919</dd>
+			</dl>
+
+			<dl class="pairs pairs--justified count--users">
+				<dt>Members</dt>
+				<dd>52,763</dd>
+			</dl>
+
+			<dl class="pairs pairs--justified">
+				<dt>Latest member</dt>
+				<dd><a href="/members/777scoreaf.202045/" class="username " dir="auto" data-user-id="202045" data-xf-init="member-tooltip">777scoreaf</a></dd>
+			</dl>
+		</div>
+	</div>
+</div>
+
+	
+	
+		
+		
+
+		
+			<script class="js-extraPhrases" type="application/json">
+			{
+				"lightbox_close": "Close",
+				"lightbox_next": "Next",
+				"lightbox_previous": "Previous",
+				"lightbox_error": "The requested content cannot be loaded. Please try again later.",
+				"lightbox_start_slideshow": "Start slideshow",
+				"lightbox_stop_slideshow": "Stop slideshow",
+				"lightbox_full_screen": "Full screen",
+				"lightbox_thumbnails": "Thumbnails",
+				"lightbox_download": "Download",
+				"lightbox_share": "Share",
+				"lightbox_zoom": "Zoom",
+				"lightbox_new_window": "New window",
+				"lightbox_toggle_sidebar": "Toggle sidebar"
+			}
+			</script>
+		
+		
+	
+
+
+	<div class="block" data-widget-id="10" data-widget-key="forum_overview_new_profile_posts" data-widget-definition="new_profile_posts"
+		data-xf-init="lightbox">
+		<div class="block-container">
+			
+				<h3 class="block-minorHeader">
+					<a href="/whats-new/profile-posts/?skip=1" rel="nofollow">Latest profile posts</a>
+				</h3>
+			
+			<div class="block-body js-replyNewMessageContainer">
+				
+				
+					
+						<div class="block-row">
+							
+
+	<div class="contentRow">
+		<div class="contentRow-figure">
+			<a href="/members/sinlam.158907/" class="avatar avatar--xxs" data-user-id="158907" data-xf-init="member-tooltip">
+			<img src="https://gravatar.com/avatar/1004ac231d540c945ab7606ed52f0570f1debcb92daa06386bcdf9b46c606ab7?s=48"  alt="Sinlam" class="avatar-u158907-s" width="48" height="48" loading="lazy" /> 
+		</a>
+		</div>
+		<div class="contentRow-main contentRow-main--close">
+			<div class="contentRow-lesser">
+				
+	
+		<a href="/members/sinlam.158907/" class="username " dir="auto" data-user-id="158907" data-xf-init="member-tooltip">Sinlam</a>
+	
+
+			</div>
+
+			
+				<div class="contentRow-faderContainer">
+					<div class="contentRow-faderContent">
+						<div class="bbWrapper">Happy New York</div>
+					</div>
+					<div class="contentRow-fader"></div>
+				</div>
+			
+
+			<div class="contentRow-minor">
+				<a href="/profile-posts/8250/" rel="nofollow" class="u-concealed"><time  class="u-dt" dir="auto" datetime="2019-02-05T18:27:55+0800" data-timestamp="1549362475" data-date="Feb 5, 2019" data-time="6:27 PM" data-short="Feb &#039;19" title="Feb 5, 2019 at 6:27 PM">Feb 5, 2019</time></a>
+				<a href="/profile-posts/8250/" rel="nofollow" class="contentRow-extra" data-xf-click="overlay" data-xf-init="tooltip" title="Interact">&#8226;&#8226;&#8226;</a>
+			</div>
+		</div>
+	</div>
+
+						</div>
+					
+				
+					
+						<div class="block-row">
+							
+
+	<div class="contentRow">
+		<div class="contentRow-figure">
+			<a href="/members/vin2018.158593/" class="avatar avatar--xxs" data-user-id="158593" data-xf-init="member-tooltip">
+			<img src="https://gravatar.com/avatar/fb2e646989a0a78ac9d8520cc522852151e790b418e0daf63f537dfeeebd68bb?s=48"  alt="vin2018" class="avatar-u158593-s" width="48" height="48" loading="lazy" /> 
+		</a>
+		</div>
+		<div class="contentRow-main contentRow-main--close">
+			<div class="contentRow-lesser">
+				
+	
+		<a href="/members/vin2018.158593/" class="username " dir="auto" data-user-id="158593" data-xf-init="member-tooltip">vin2018</a>
+	
+
+			</div>
+
+			
+				<div class="contentRow-faderContainer">
+					<div class="contentRow-faderContent">
+						<div class="bbWrapper">Hi friends!</div>
+					</div>
+					<div class="contentRow-fader"></div>
+				</div>
+			
+
+			<div class="contentRow-minor">
+				<a href="/profile-posts/8248/" rel="nofollow" class="u-concealed"><time  class="u-dt" dir="auto" datetime="2018-12-31T18:19:45+0800" data-timestamp="1546251585" data-date="Dec 31, 2018" data-time="6:19 PM" data-short="Dec &#039;18" title="Dec 31, 2018 at 6:19 PM">Dec 31, 2018</time></a>
+				<a href="/profile-posts/8248/" rel="nofollow" class="contentRow-extra" data-xf-click="overlay" data-xf-init="tooltip" title="Interact">&#8226;&#8226;&#8226;</a>
+			</div>
+		</div>
+	</div>
+
+						</div>
+					
+				
+					
+						<div class="block-row">
+							
+
+	<div class="contentRow">
+		<div class="contentRow-figure">
+			<a href="/members/kasz.158021/" class="avatar avatar--xxs avatar--default avatar--default--dynamic" data-user-id="158021" data-xf-init="member-tooltip" style="background-color: #999933; color: #131306">
+			<span class="avatar-u158021-s" role="img" aria-label="Kasz">K</span> 
+		</a>
+		</div>
+		<div class="contentRow-main contentRow-main--close">
+			<div class="contentRow-lesser">
+				
+	
+		<a href="/members/kasz.158021/" class="username " dir="auto" data-user-id="158021" data-xf-init="member-tooltip">Kasz</a>
+	
+
+			</div>
+
+			
+				<div class="contentRow-faderContainer">
+					<div class="contentRow-faderContent">
+						<div class="bbWrapper">Newbie here - cheers!</div>
+					</div>
+					<div class="contentRow-fader"></div>
+				</div>
+			
+
+			<div class="contentRow-minor">
+				<a href="/profile-posts/8242/" rel="nofollow" class="u-concealed"><time  class="u-dt" dir="auto" datetime="2018-12-18T21:10:57+0800" data-timestamp="1545138657" data-date="Dec 18, 2018" data-time="9:10 PM" data-short="Dec &#039;18" title="Dec 18, 2018 at 9:10 PM">Dec 18, 2018</time></a>
+				<a href="/profile-posts/8242/" rel="nofollow" class="contentRow-extra" data-xf-click="overlay" data-xf-init="tooltip" title="Interact">&#8226;&#8226;&#8226;</a>
+			</div>
+		</div>
+	</div>
+
+						</div>
+					
+				
+					
+						<div class="block-row">
+							
+
+	<div class="contentRow">
+		<div class="contentRow-figure">
+			<a href="/members/veterantikodave.155056/" class="avatar avatar--xxs avatar--default avatar--default--dynamic" data-user-id="155056" data-xf-init="member-tooltip" style="background-color: #7033cc; color: #d4c2f0">
+			<span class="avatar-u155056-s" role="img" aria-label="VeteranTikoDave">V</span> 
+		</a>
+		</div>
+		<div class="contentRow-main contentRow-main--close">
+			<div class="contentRow-lesser">
+				
+	
+		<a href="/members/veterantikodave.155056/" class="username " dir="auto" data-user-id="155056" data-xf-init="member-tooltip">VeteranTikoDave</a>
+	
+
+			</div>
+
+			
+				<div class="contentRow-faderContainer">
+					<div class="contentRow-faderContent">
+						<div class="bbWrapper">I love PRC MILFs to the max!</div>
+					</div>
+					<div class="contentRow-fader"></div>
+				</div>
+			
+
+			<div class="contentRow-minor">
+				<a href="/profile-posts/8240/" rel="nofollow" class="u-concealed"><time  class="u-dt" dir="auto" datetime="2018-12-02T11:42:41+0800" data-timestamp="1543722161" data-date="Dec 2, 2018" data-time="11:42 AM" data-short="Dec &#039;18" title="Dec 2, 2018 at 11:42 AM">Dec 2, 2018</time></a>
+				<a href="/profile-posts/8240/" rel="nofollow" class="contentRow-extra" data-xf-click="overlay" data-xf-init="tooltip" title="Interact">&#8226;&#8226;&#8226;</a>
+			</div>
+		</div>
+	</div>
+
+						</div>
+					
+				
+					
+						<div class="block-row">
+							
+
+	<div class="contentRow">
+		<div class="contentRow-figure">
+			<a href="/members/bonita.158116/" class="avatar avatar--xxs" data-user-id="158116" data-xf-init="member-tooltip">
+			<img src="/data/avatars/s/158/158116.jpg?1541613976"  alt="Bonita" class="avatar-u158116-s" width="48" height="48" loading="lazy" /> 
+		</a>
+		</div>
+		<div class="contentRow-main contentRow-main--close">
+			<div class="contentRow-lesser">
+				
+	
+		<a href="/members/bonita.158116/" class="username " dir="auto" data-user-id="158116" data-xf-init="member-tooltip">Bonita</a>
+	
+
+			</div>
+
+			
+				<div class="contentRow-faderContainer">
+					<div class="contentRow-faderContent">
+						<div class="bbWrapper">guys</div>
+					</div>
+					<div class="contentRow-fader"></div>
+				</div>
+			
+
+			<div class="contentRow-minor">
+				<a href="/profile-posts/8232/" rel="nofollow" class="u-concealed"><time  class="u-dt" dir="auto" datetime="2018-11-08T02:04:39+0800" data-timestamp="1541613879" data-date="Nov 8, 2018" data-time="2:04 AM" data-short="Nov &#039;18" title="Nov 8, 2018 at 2:04 AM">Nov 8, 2018</time></a>
+				<a href="/profile-posts/8232/" rel="nofollow" class="contentRow-extra" data-xf-click="overlay" data-xf-init="tooltip" title="Interact">&#8226;&#8226;&#8226;</a>
+			</div>
+		</div>
+	</div>
+
+						</div>
+					
+				
+			</div>
+			
+		</div>
+	</div>
+
+
+	<div class="block" data-widget-id="8" data-widget-key="forum_overview_share_page" data-widget-definition="share_page">
+		<div class="block-container">
+			<h3 class="block-minorHeader">Share this page</h3>
+			<div class="block-body block-row">
+				
+					
+
+	
+
+	
+		
+
+		<div class="shareButtons shareButtons--iconic" data-xf-init="share-buttons" data-page-url="" data-page-title="" data-page-desc="" data-page-image="">
+			<span class="u-anchorTarget" id="_xfUid-1-1746069589"></span>
+
+			
+
+			<div class="shareButtons-buttons">
+				
+					
+						<a class="shareButtons-button shareButtons-button--brand shareButtons-button--facebook" href="#_xfUid-1-1746069589" data-href="https://www.facebook.com/sharer.php?u={url}">
+							<i class="fa--xf fab fa-facebook-f "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/brands.svg?v=1744068219#facebook-f"></use></svg></i>
+							<span>Facebook</span>
+						</a>
+					
+
+					
+						<a class="shareButtons-button shareButtons-button--brand shareButtons-button--twitter" href="#_xfUid-1-1746069589" data-href="https://twitter.com/intent/tweet?url={url}&amp;text={title}">
+							<i class="fa--xf fab fa-x "><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-hidden="true" ><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg></i>
+							<span>X</span>
+						</a>
+					
+
+					
+						<a class="shareButtons-button shareButtons-button--brand shareButtons-button--bluesky" href="#_xfUid-1-1746069589" data-href="https://bsky.app/intent/compose?text={url}">
+							<i class="fa--xf fab fa-bluesky "><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" role="img" aria-hidden="true" ><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg></i>
+							<span>Bluesky</span>
+						</a>
+					
+
+					
+						<a class="shareButtons-button shareButtons-button--brand shareButtons-button--linkedin" href="#_xfUid-1-1746069589" data-href="https://www.linkedin.com/sharing/share-offsite/?url={url}">
+							<i class="fa--xf fab fa-linkedin "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/brands.svg?v=1744068219#linkedin"></use></svg></i>
+							<span>LinkedIn</span>
+						</a>
+					
+
+					
+						<a class="shareButtons-button shareButtons-button--brand shareButtons-button--reddit" href="#_xfUid-1-1746069589" data-href="https://reddit.com/submit?url={url}&amp;title={title}">
+							<i class="fa--xf fab fa-reddit-alien "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/brands.svg?v=1744068219#reddit-alien"></use></svg></i>
+							<span>Reddit</span>
+						</a>
+					
+
+					
+						<a class="shareButtons-button shareButtons-button--brand shareButtons-button--pinterest" href="#_xfUid-1-1746069589" data-href="https://pinterest.com/pin/create/bookmarklet/?url={url}&amp;description={title}&amp;media={image}">
+							<i class="fa--xf fab fa-pinterest-p "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/brands.svg?v=1744068219#pinterest-p"></use></svg></i>
+							<span>Pinterest</span>
+						</a>
+					
+
+					
+						<a class="shareButtons-button shareButtons-button--brand shareButtons-button--tumblr" href="#_xfUid-1-1746069589" data-href="https://www.tumblr.com/widgets/share/tool?canonicalUrl={url}&amp;title={title}">
+							<i class="fa--xf fab fa-tumblr "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/brands.svg?v=1744068219#tumblr"></use></svg></i>
+							<span>Tumblr</span>
+						</a>
+					
+
+					
+						<a class="shareButtons-button shareButtons-button--brand shareButtons-button--whatsApp" href="#_xfUid-1-1746069589" data-href="https://api.whatsapp.com/send?text={title}&nbsp;{url}">
+							<i class="fa--xf fab fa-whatsapp "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/brands.svg?v=1744068219#whatsapp"></use></svg></i>
+							<span>WhatsApp</span>
+						</a>
+					
+
+					
+						<a class="shareButtons-button shareButtons-button--email" href="#_xfUid-1-1746069589" data-href="mailto:?subject={title}&amp;body={url}">
+							<i class="fa--xf far fa-envelope "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#envelope"></use></svg></i>
+							<span>Email</span>
+						</a>
+					
+
+					
+						<a class="shareButtons-button shareButtons-button--share is-hidden" href="#_xfUid-1-1746069589"
+							data-xf-init="web-share"
+							data-title="" data-text="" data-url=""
+							data-hide=".shareButtons-button:not(.shareButtons-button--share)">
+
+							<i class="fa--xf far fa-share-alt "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#share-alt"></use></svg></i>
+							<span>Share</span>
+						</a>
+					
+
+					
+						<a class="shareButtons-button shareButtons-button--link is-hidden" href="#_xfUid-1-1746069589" data-clipboard="{url}">
+							<i class="fa--xf far fa-link "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#link"></use></svg></i>
+							<span>Link</span>
+						</a>
+					
+				
+			</div>
+		</div>
+	
+
+				
+			</div>
+		</div>
+	</div>
+						
+						
+					</div>
+				
+			</div>
+
+			
+			
+	
+
+			
+		</div>
+	</div>
+
+	<footer class="p-footer" id="footer">
+		<div class="p-footer-inner">
+
+			<div class="p-footer-row">
+				
+					<div class="p-footer-row-main">
+						<ul class="p-footer-linkList">
+							
+								
+								
+									<li>
+										
+											
+												<a href="/misc/style" data-xf-click="overlay"
+													data-xf-init="tooltip" title="Style chooser" rel="nofollow">
+													<i class="fa--xf far fa-paint-brush "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#paint-brush"></use></svg></i> sammyboylight
+												</a>
+											
+											
+										
+									</li>
+								
+								
+							
+						</ul>
+					</div>
+				
+				<div class="p-footer-row-opposite">
+					<ul class="p-footer-linkList">
+						
+
+						
+							<li><a href="/help/terms/">Terms and rules</a></li>
+						
+
+						
+							<li><a href="/help/privacy-policy/">Privacy policy</a></li>
+						
+
+						
+							<li><a href="/help/">Help</a></li>
+						
+
+						
+
+						<li><a href="/forums/-/index.rss" target="_blank" class="p-footer-rssLink" title="RSS"><span aria-hidden="true"><i class="fa--xf far fa-rss "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#rss"></use></svg></i><span class="u-srOnly">RSS</span></span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			
+				<div class="p-footer-copyright">
+					
+						<a href="https://xenforo.com" class="u-concealed" dir="ltr" target="_blank" rel="sponsored noopener">Community platform by XenForo<sup>&reg;</sup> <span class="copyright">&copy; 2010-2025 XenForo Ltd.</span></a> | <a href="https://xenmade.com/" title="XenForo Add-ons" target="_blank" class="u-concealed">Add-Ons</a> by xenMade.com
+						
+					
+				</div>
+			
+
+			
+				<div class="p-footer-debug">
+					
+						
+	
+		<ul class="listInline listInline--bullet listInline--selfInline">
+			<li><dl class="pairs pairs--inline debugResolution" title="Responsive width">
+				<dt class="debugResolution-label">Width</dt>
+				<dd class="debugResolution-output"></dd>
+			</dl></li>
+			<li><dl class="pairs pairs--inline">
+				<dt>Queries</dt>
+				<dd>16</dd>
+			</dl></li>
+			<li><dl class="pairs pairs--inline">
+				
+					<dt>Time</dt>
+					<dd><a href="/?_debug=1" rel="nofollow">0.1840s</a></dd>
+				
+			</dl></li>
+			<li><dl class="pairs pairs--inline">
+				<dt>Memory</dt>
+				<dd>20.48MB</dd>
+			</dl></li>
+			
+				<li class="cog-info">
+					
+	<a data-xf-init="tooltip" data-click-hide="false"
+		data-trigger="hover focus click"
+		title="XF\Pub\Controller\ForumController :: actionList &middot; forum_list"
+		role="button" tabindex="0" aria-label="Class information"><i class="fa--xf far fa-cog "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#cog"></use></svg></i></a>
+
+				</li>
+			
+		</ul>
+	
+
+					
+				</div>
+			
+		</div>
+	</footer>
+</div> <!-- closing p-pageWrapper -->
+
+<div class="u-bottomFixer js-bottomFixTarget">
+	
+	
+</div>
+
+<div class="u-navButtons js-navButtons">
+	<a href="javascript:" class="button button--scroll"><span class="button-text"><i class="fa--xf far fa-arrow-left "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#arrow-left"></use></svg></i><span class="u-srOnly">Back</span></span></a>
+</div>
+
+
+	<div class="u-scrollButtons js-scrollButtons" data-trigger-type="up">
+		<a href="#top" class="button button--scroll" data-xf-click="scroll-to"><span class="button-text"><i class="fa--xf far fa-arrow-up "><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" ><use href="/data/local/icons/regular.svg?v=1744068219#arrow-up"></use></svg></i><span class="u-srOnly">Top</span></span></a>
+		
+	</div>
+
+
+
+	<form style="display:none" hidden="hidden">
+		<input type="text" name="_xfClientLoadTime" value="" id="_xfClientLoadTime" title="_xfClientLoadTime" tabindex="-1" />
+	</form>
+
+	
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "WebSite",
+			"url": "https://www.sammyboy.com/",
+			"potentialAction": {
+				"@type": "SearchAction",
+				"target": {
+					"@type": "EntryPoint",
+					"urlTemplate": "https://www.sammyboy.com/search/search?keywords={search_keywords}"
+				},
+				"query-input": "required name=search_keywords"
+			}
+		}
+		</script>
+	
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

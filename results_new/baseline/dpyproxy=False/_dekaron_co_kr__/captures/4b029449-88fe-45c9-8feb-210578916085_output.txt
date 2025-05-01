@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko-KR" data-beasties-container>
+<head>
+  <meta charset="utf-8">
+  <title>데카론 - 20th Anniversary</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#262528">
+
+  <!--아이폰 동영상 관련-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <!--해당 파일 브라우저 캐싱 제외-->
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <link rel="icon" type="image/x-icon" href="/assets/image/favicon.ico">
+
+  <!-- include libraries(jQuery, bootstrap) -->
+  <script src="/assets/shared/jquery/jquery-3.5.1.min.js"></script>
+
+  <!-- include libraries(Uri Scheme) -->
+  <script src="/assets/shared/launch-uri/launchUri.min.js"></script>
+
+  <link href="/assets/shared/font/NotoSansKR/NotoSansKR.css" rel="stylesheet">
+
+  <!-- include summernote css/js -->
+  <script src="/assets/shared/editor/summernote-lite.min.js"></script>
+  <script src="/assets/shared/editor/lang/summernote-ko-KR.min.js"></script>
+  <link href="/assets/shared/editor/summernote-lite.min.css" rel="stylesheet">
+  <!--한게임-->
+  <!--<script type="text/javascript" src="https://hangame-images.toastoven.net/hangame/gnb/reform/js/hangame_gnb.js"></script>-->
+  <script type="text/javascript" src="/assets/shared/gnb/script.js"></script>
+  <script>
+    if (typeof window.loadHangameChannelingGNB === 'function') {
+      window.loadHangameChannelingGNB(); // 기본 설정으로 노출
+    }
+  </script>
+
+  <script>
+    (function () {
+      // ES6 기능 지원 여부 체크 (let, arrow function)
+      try {
+        new Function('let x = 1; const y = 2; (a) => a; class Test {}');
+      } catch (e) {
+        document.write(
+          '<style>body { text-align: center; font-family: Arial, sans-serif; }</style>' +
+          '<h2>⚠️ 브라우저 지원 불가 ⚠️</h2>' +
+          '<p>이 웹사이트는 최신 브라우저에서만 정상적으로 동작합니다.</p>' +
+          '<p>Chrome, Edge, Firefox, Safari 최신 버전을 사용해 주세요.</p>'
+        );
+        return;
+      }
+
+      // Internet Explorer 감지 (IE 11 포함)
+      if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+        document.write(
+          '<style>body { text-align: center; font-family: Arial, sans-serif; }</style>' +
+          '<h2>⚠️ Internet Explorer 지원 종료 ⚠️</h2>' +
+          '<p>이 웹사이트는 Internet Explorer에서 지원되지 않습니다.</p>' +
+          '<p>Chrome, Edge, Firefox 등의 최신 브라우저를 사용해 주세요.</p>'
+        );
+        return;
+      }
+    })();
+  </script>
+<style>:root{--white:#ffffff;--main-dark:#262528;--main-impact:#d84129;--font-impact:#ff4f34;--font-impact-low:#f77f48;--font-main:#333333;--font-darkgrey:#5c5c5c;--font-grey:#888888;--font-purplegrey:#908e9b;--font-subnav:#95949b;--font-lightgrey:#c9c9c9;--font-whitelow:#e9e6f7;--font-purple:#5c5799;--font-lightpurple:#847fca;--btn-purple:#474177;--btn-purple-border:#353251;--btn-pgrey:#69627c;--btn-pgrey-border:#5b546d;--btn-lightpgrey:#a29db0;--btn-lightpgrey-border:#908b9e;--btn-impact:#d84129;--btn-impact-border:#b33d2a;--btn-dark:#262528;--btn-dark-border:#000000;--btn-itembuy-active:#5f57af;--btn-itembuy-default:#9d9ac0;--btn-shopcharge:#4c477c;--bg-chara:#ccc9d7;--bg-light:#f8f8fc;--bg-light-border:#ecebf1;--bg-lightgrey:#f6f6fa;--bg-lightgrey-border:#e4e3e9;--bg-lighthover:#eeeef3;--bg-lighthover-border:#dad7e7;--bg-input:#efefef;--bg-input-border:#e2e2e2;--bg-toplist:#eeedf4;--bg-toplist-border:#e0dfee;--bg-darkpurple:#2b2932;--bg-purple:#393649;--bg-pblue:#554cce;--bg-dark:#262528;--bg-dark2:#303033;--bg-dark3:#3a3a3d;--dark-border:#121213;--tab-bg:#ededf3;--tab-border:#d9d9e5;--tab-active:#3a3a3d;--tab-active-border:#121213;--table-headbg:#f6f6fa;--table-border:#e4e3e9;--board-border:#ebeaee;--more-border:#e8e7ec;--nav-border:#48454c;--switch-bg:#d7d6dd;--switch-button:#817f88;--switch-on-bg:#c4c2da;--switch-on-button:#534ab1;--i-like:#bd6652;--i-hate:#846cb9;--i-like-bg:#eee0de;--i-hate-bg:#e5e0ec;--code-bg:#f0f0f0;--download-bg:#0e0c13;--kakao-bg:#ffdf00;--kakao-border:#e4c601;--label_01:#3399b7;--label_02:#33b7a3;--label_03:#c94658;--rank_01:#d7ab23;--rank_02:#b37762;--rank_03:#6b4a3e;--red:#ca3b1b;--blue:#2149a0;--itemsc-border:#89898b}*,html,body{margin:0;outline:0;border:0;padding:0;box-sizing:border-box}*{font-family:Noto Sans KR,Noto Sans,-apple-system,BlinkMacSystemFont,Roboto,Arial,sans-serif;font-size:15px;color:var(--font-main);word-break:keep-all;letter-spacing:-.02rem}html{width:100%;height:100%}body{width:100%;height:100%;display:flex;flex-direction:column;min-width:270px;background-color:var(--white);position:relative}body::-webkit-scrollbar{width:5px}body::-webkit-scrollbar-track{background-color:#e4e3e9}body::-webkit-scrollbar-thumb{border-radius:3px;background-color:#aba9b4}body::-webkit-scrollbar-button{width:0;height:0}*::-webkit-scrollbar{width:5px}*::-webkit-scrollbar-track{background-color:#e4e3e9}*::-webkit-scrollbar-thumb{border-radius:3px;background-color:#aba9b4}*::-webkit-scrollbar-button{width:0;height:0}</style><link rel="stylesheet" href="styles-Q46PWCSS.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-Q46PWCSS.css"></noscript></head>
+<body>
+  <app-root></app-root>
+<link rel="modulepreload" href="chunk-OX65XQEB.js"><link rel="modulepreload" href="chunk-STHNJ52E.js"><script src="polyfills-FFHMD2TL.js" type="module"></script><script src="scripts-POU6YERD.js" defer></script><script src="main-BOGFGDWS.js" type="module"></script></body>
+</html>
