@@ -498,17 +498,18 @@ def make_results_folders(setting, website, param_log_string = ""):
     # Create result saving folder
     website_base = website.replace("https://", "").replace("http://", "").replace("www", "").replace(".", "_").replace("/", "__")
    
-    folder_name = os.path.join(os.getcwd(), "results_new", f"{label}", param_log_string, website_base)
+    folder_name = os.path.join(os.getcwd(), "test", f"{label}", param_log_string, website_base)
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
     return folder_name
 
 
 def run_all_packet_analyses_and_save_to_csv(capture_file, result_folder, param_log_string, website, id, verbose=False): 
-        print(f"Starting packet analysis for file {capture_file}...")
+        
         
         # Check if file exists before analyzing
         if os.path.exists(capture_file):
+            print(f"Starting packet analysis for file {capture_file}...")
             
             ## Read Packets
             all_packets = pyshark.FileCapture(capture_file)
@@ -569,6 +570,19 @@ def run_all_packet_analyses_and_save_to_csv(capture_file, result_folder, param_l
                 if verbose:
                     print(f"Packet analysis for subset {subset_name} completed.")
                 all_packets.close()
+                
+                print(f"Cleaning up output and catpure files since the metrics are saved.")
+                # Construct output file path based on capture file's directory and id
+                output_file = os.path.join(os.path.dirname(capture_file), f"{id}_output.txt")
+
+                # Delete the output file if it exists
+                if os.path.exists(output_file):
+                    os.remove(output_file)
+
+                # Delete the capture file if it exists
+                if os.path.exists(capture_file):
+
+                    os.remove(capture_file)
         else:
             if verbose:
                 print(f"Error: Capture file {capture_file} was not created.")
@@ -615,14 +629,41 @@ def capture_website_traffic_and_write_to_files(website, interface="en0", setting
         
         if "proxy" in setting:
             if website.startswith("https://") or website.startswith("http://"):
-                curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' {website} --connect-timeout 10 --max-time 30"
+                curl_command = f"curl \
+                -L -p \
+                -x localhost:4433 \
+                -o '{output_file}' \
+                --no-sessionid \
+                -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' {website} \
+                --connect-timeout 10 --max-time 30 \
+               "
             else:
-                curl_command = f"curl -L -p -x localhost:4433 -o '{output_file}' -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' https://{website} --connect-timeout 10 --max-time 30"
+                curl_command = f"curl \
+                -L -p \
+                -x localhost:4433 \
+                -o '{output_file}' \
+                --no-sessionid \
+                -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0'  https://{website} \
+                --connect-timeout 10 --max-time 30 \
+                "
         else:
             if website.startswith("https://") or website.startswith("http://"):
-                curl_command = f"curl -L -o '{output_file}' -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' {website} --connect-timeout 10 --max-time 30"
-            else:
-                curl_command = f"curl -L -o '{output_file}' -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -H 'Expires: 0' https://{website} --connect-timeout 10 --max-time 30"
+                curl_command = f"curl \
+                -L \
+                 --no-sessionid \
+                -o '{output_file}' \
+                -H 'Cache-Control: no-cache, no-store, must-revalidate' -H 'Pragma: no-cache' -H 'Expires: 0' {website} \
+                --connect-timeout 10 --max-time 30 \
+                "
+            else: 
+                 curl_command = f"curl \
+                -L \
+                -o '{output_file}' \
+                --no-sessionid \
+                -H 'Cache-Control: no-cache, no-store, must-revalidate' -H 'Pragma: no-cache' -H 'Expires: 0' https://{website} \
+                --connect-timeout 10 --max-time 30 \
+                "
+             
     
         if verbose:
             print(f"Executing: {curl_command}")
@@ -725,8 +766,8 @@ if __name__ == "__main__":
         print(f"Warning: setting {setting} indicates that you want to run dpyproxy, but no fragmentation options are selected. Setting TCP Fragmentation to True.")
         tcp_frag = True
 
-    #interface = "en0"  # Wifi 
-    interface = "ens4"  # Wifi 
+    interface = "en0"  # Wifi 
+    #interface = "ens4"  # Wifi 
 
     if setting == "dpyproxy": 
         # Set up dpyproxy with actual arguments 
@@ -754,6 +795,7 @@ if __name__ == "__main__":
         capture_file = capture_website_traffic_and_write_to_files(website=website, interface=interface, id=id, setting=setting, result_folder=result_folder, verbose=args.verbose)
         if capture_file is not None:
             run_all_packet_analyses_and_save_to_csv(capture_file, result_folder=result_folder, param_log_string=param_log_string, website=website, id=id, verbose=args.verbose)
+
         else:
             print(f"Capture file for {website} was not created. Skipping analysis.", flush = True)
     
