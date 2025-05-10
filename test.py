@@ -770,8 +770,8 @@ if __name__ == "__main__":
         print(f"Warning: setting {setting} indicates that you want to run dpyproxy, but no fragmentation options are selected. Setting TCP Fragmentation to True.")
         tcp_frag = True
 
-    interface = "en0"  # Wifi 
-    #interface = "ens4"  # Wifi 
+    #interface = "en0"  # Wifi 
+    interface = "ens4"  # Wifi 
 
     if setting == "dpyproxy": 
         # Set up dpyproxy with actual arguments 

@@ -1,5 +1,5 @@
 #!/bin/bash
-N=50  # Define the number of tests to run for each website
+N=20  # Define the number of tests to run for each website
 file_path=controlled_website.txt #citizen_lab_censored_50.txt
 # Define an array of frag sizes to iterate over
 frag_sizes=(2 5 10 15 20 40 60 80 100)
@@ -9,7 +9,7 @@ for frag_size in "${frag_sizes[@]}"; do
     for ((i=1; i<=N; i++)); do
     
         while IFS= read -r website; do
-            echo "Running test $i / $N for website: $website with frag_size: $frag_size"
+            echo "Running DPYProxy test $i / $N for website: $website with frag_size: $frag_size"
             # TCP Fragmentation Only!
             python test.py \
                 --website $website  \
