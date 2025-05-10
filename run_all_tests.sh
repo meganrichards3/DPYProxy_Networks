@@ -1,6 +1,7 @@
 #!/bin/bash
-N=10  # Define the number of tests to run for each website
-
+N=50  # Define the number of tests to run for each website
+frag_size=5
+file_path=controlled_website.txt #citizen_lab_censored_50.txt
 # Run the tests for dpyproxy 
 for ((i=1; i<=N; i++)); do
     while IFS= read -r website; do
@@ -9,9 +10,9 @@ for ((i=1; i<=N; i++)); do
             --website $website  \
             --setting dpyproxy \
             --tcp_frag  \
-            --frag_size 5 
+            --frag_size $frag_size
         sleep 10
-    done < citizen_lab_censored_2.txt
+    done < $file_path
 done
 
 sleep 100
@@ -24,7 +25,7 @@ for ((i=1; i<=N; i++)); do
             --website $website  \
             --setting proxy_baseline 
         sleep 10
-    done < citizen_lab_censored_2.txt
+    done < $file_path
 done
 
 sleep 100
@@ -36,5 +37,5 @@ for ((i=1; i<=N; i++)); do
             --website $website \
             --setting baseline 
         sleep 10
-    done < citizen_lab_censored_2.txt
+    done < $file_path
 done
