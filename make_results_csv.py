@@ -41,14 +41,15 @@ def combine_csvs(directory = "test/dpyproxy/frag_size=20__tcp_frag=True__record_
 
 
 if __name__ == "__main__":
-    folder = "results" 
-    name = "test"
+    folder = "test" 
+    name = "hong_kong_n20"
+    os.makedirs(name)
     for setting in os.listdir(folder):
         setting_path = os.path.join(folder, setting)
         if os.path.isdir(setting_path):
             for param in os.listdir(setting_path):
                 param_path = os.path.join(setting_path, param)
                 if os.path.isdir(param_path):
-                    output_name = f"{name}_combined_{setting}_{param}"
+                    output_name = f"{name}/{setting}_{param}"
                     print(f"Processing {param_path} and saving as {output_name}")
-                    all, website = combine_csvs(directory = "results/dpyproxy/frag_size=5__tcp_frag=True__record_frag=False", name = output_name)
+                    all, website = combine_csvs(directory = param_path, name = output_name)
