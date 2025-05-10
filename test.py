@@ -481,10 +481,12 @@ def set_up(record_frag=False, tcp_frag=False, frag_size=20, setting = "baseline"
     
     else: 
         base_command = f"nohup python3 main.py --frag_size {frag_size}"
-        if record_frag:
-            base_command += " --record_frag"
-        if tcp_frag:
-            base_command += " --tcp_frag"
+        if record_frag and not tcp_frag:
+            base_command += " --record_frag --no-tcp_frag"
+        elif not record_frag and tcp_frag:
+            base_command += " --no-record_frag --tcp_frag"
+        elif tcp_frag and record_frag:
+            base_command += " --tcp_frag --record_frag"
 
     base_command += " --port 4433 &"
     print(f"Running {base_command}")
@@ -538,7 +540,7 @@ def run_all_packet_analyses_and_save_to_csv(capture_file, result_folder, param_l
                 metrics["date"] = time.strftime("%Y-%m-%d %H:%M:%S")
            
                 ## Run analysis and update metrics dictionary
-                all_packet_metrics = run_per_layer_analysis(subset_packets, id=id, capture_file_path=capture_file, print_out_packets=True, verbose=verbose)
+                all_packet_metrics = run_per_layer_analysis(subset_packets, id=id, capture_file_path=capture_file, print_out_packets=False, verbose=verbose)
                 metrics.update(all_packet_metrics)
 
                 for x in metrics:
@@ -577,10 +579,12 @@ def run_all_packet_analyses_and_save_to_csv(capture_file, result_folder, param_l
 
                 # Delete the output file if it exists
                 if os.path.exists(output_file):
+                    print(f"Deleting output file: {output_file}")
                     os.remove(output_file)
 
                 # Delete the capture file if it exists
                 if os.path.exists(capture_file):
+                    print(f"Deleting capture file: {capture_file}")
 
                     os.remove(capture_file)
         else:

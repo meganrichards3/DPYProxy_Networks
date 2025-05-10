@@ -15,16 +15,14 @@ for frag_size in "${frag_sizes[@]}"; do
                 --website $website  \
                 --setting dpyproxy \
                 --tcp_frag  \
-                --no-record_frag \ 
-                --frag_size $frag_size
+                --frag_size $frag_size 
             sleep 10
             # TLS Fragmentation Only!
             python test.py \
                 --website $website  \
                 --setting dpyproxy \
                 --record_frag  \
-                --no-tcp_frag \
-                --frag_size $frag_size
+                --frag_size $frag_size 
             sleep 10
             # TCP and TLS Fragmentation
             python test.py \
