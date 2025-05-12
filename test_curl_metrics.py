@@ -51,7 +51,17 @@ def capture_website_traffic_and_write_to_files(website, interface="en0", setting
                     "--connect-timeout", "10",
                     "--max-time", "30",
                     "-w",
-                    "DNS: %{time_namelookup}\nConnect: %{time_connect}\nTLS: %{time_appconnect}\nTTFB: %{time_starttransfer}\nTotal: %{time_total}\nRedirect: %{time_redirect}\n",
+                    "DNS: %{time_namelookup}\n"
+                    "Connect: %{time_connect}\n"
+                    "TLS: %{time_appconnect}\n"
+                    "TTFB: %{time_starttransfer}\n"
+                    "Time Pretransfer: %{time_pretransfer}\n"
+                    "Total: %{time_total}\n"
+                    "Redirect: %{time_redirect}\n"
+                    "Speed Download: %{speed_download}\n"
+                    "Speed Upload: %{speed_upload}\n"
+                    "HTTP Code: %{http_code}\n"
+                    "Num Connects: %{num_connects}\n",
                 ]
             else:
                 curl_command = [
@@ -68,7 +78,17 @@ def capture_website_traffic_and_write_to_files(website, interface="en0", setting
                     "--connect-timeout", "10",
                     "--max-time", "30",
                     "-w",
-                    "DNS: %{time_namelookup}\nConnect: %{time_connect}\nTLS: %{time_appconnect}\nTTFB: %{time_starttransfer}\nTotal: %{time_total}\nRedirect: %{time_redirect}\n",
+                    "DNS: %{time_namelookup}\n"
+                    "Connect: %{time_connect}\n"
+                    "TLS: %{time_appconnect}\n"
+                    "TTFB: %{time_starttransfer}\n"
+                    "Time Pretransfer: %{time_pretransfer}\n"
+                    "Total: %{time_total}\n"
+                    "Redirect: %{time_redirect}\n"
+                    "Speed Download: %{speed_download}\n"
+                    "Speed Upload: %{speed_upload}\n"
+                    "HTTP Code: %{http_code}\n"
+                    "Num Connects: %{num_connects}\n",
                 ]
                 
         else:
@@ -85,7 +105,17 @@ def capture_website_traffic_and_write_to_files(website, interface="en0", setting
                     "--connect-timeout", "10",
                     "--max-time", "30",
                      "-w",
-                    "DNS: %{time_namelookup}\nConnect: %{time_connect}\nTLS: %{time_appconnect}\nTTFB: %{time_starttransfer}\nTotal: %{time_total}\nRedirect: %{time_redirect}\n",
+                     "DNS: %{time_namelookup}\n"
+                    "Connect: %{time_connect}\n"
+                    "TLS: %{time_appconnect}\n"
+                    "TTFB: %{time_starttransfer}\n"
+                    "Time Pretransfer: %{time_pretransfer}\n"
+                    "Total: %{time_total}\n"
+                    "Redirect: %{time_redirect}\n"
+                    "Speed Download: %{speed_download}\n"
+                    "Speed Upload: %{speed_upload}\n"
+                    "HTTP Code: %{http_code}\n"
+                    "Num Connects: %{num_connects}\n",
                 ]
             else: 
                 curl_command = [
@@ -100,7 +130,17 @@ def capture_website_traffic_and_write_to_files(website, interface="en0", setting
                     "--connect-timeout", "10",
                     "--max-time", "30", 
                      "-w",
-                    "DNS: %{time_namelookup}\nConnect: %{time_connect}\nTLS: %{time_appconnect}\nTTFB: %{time_starttransfer}\nTotal: %{time_total}\nRedirect: %{time_redirect}\n",
+                     "DNS: %{time_namelookup}\n"
+                    "Connect: %{time_connect}\n"
+                    "TLS: %{time_appconnect}\n"
+                    "TTFB: %{time_starttransfer}\n"
+                    "Time Pretransfer: %{time_pretransfer}\n"
+                    "Total: %{time_total}\n"
+                    "Redirect: %{time_redirect}\n"
+                    "Speed Download: %{speed_download}\n"
+                    "Speed Upload: %{speed_upload}\n"
+                    "HTTP Code: %{http_code}\n"
+                    "Num Connects: %{num_connects}\n",
                 ]  
     
         if verbose:
