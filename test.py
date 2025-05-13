@@ -500,7 +500,7 @@ def make_results_folders(setting, website, param_log_string = ""):
     # Create result saving folder
     website_base = website.replace("https://", "").replace("http://", "").replace("www", "").replace(".", "_").replace("/", "__")
    
-    folder_name = os.path.join(os.getcwd(), "test", f"{label}", param_log_string, website_base)
+    folder_name = os.path.join(os.getcwd(), "10_sample", f"{label}", param_log_string, website_base)
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
     return folder_name

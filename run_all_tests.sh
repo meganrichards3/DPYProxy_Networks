@@ -1,8 +1,8 @@
 #!/bin/bash
 N=20  # Define the number of tests to run for each website
-file_path=controlled_website.txt #citizen_lab_censored_50.txt
+file_path=citizen_lab_censored_10.txt #controlled_website.txt #citizen_lab_censored_50.txt
 # Define an array of frag sizes to iterate over
-frag_sizes=(2 5 10 15 20 40 60 80 100)
+frag_sizes=(2 5 10 15 20)
 
 # Run the tests for dpyproxy with different frag sizes
 for frag_size in "${frag_sizes[@]}"; do
