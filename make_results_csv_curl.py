@@ -34,7 +34,7 @@ def combine_csvs(directory = "test/dpyproxy/frag_size=20__tcp_frag=True__record_
 if __name__ == "__main__":
     folder = "test" 
     name = "csvs_for_mallory/hong_kong_n20"
-    os.makedirs(name)
+    os.makedirs(name, exist_ok=True)
     for setting in os.listdir(folder):
         setting_path = os.path.join(folder, setting)
         if os.path.isdir(setting_path):
