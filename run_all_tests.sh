@@ -1,6 +1,8 @@
 #!/bin/bash
-N=20  # Define the number of tests to run for each website
-file_path=citizen_lab_censored_10.txt #controlled_website.txt #citizen_lab_censored_50.txt
+#N=20  # Define the number of tests to run for each website
+#file_path=citizen_lab_censored_10.txt #controlled_website.txt #citizen_lab_censored_50.txt
+N=100  # Define the number of tests to run for each website
+file_path=controlled_website.txt #citizen_lab_censored_50.txt
 # Define an array of frag sizes to iterate over
 frag_sizes=(2 5 10 15 20)
 
